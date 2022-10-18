@@ -4,7 +4,7 @@ Cosmos NFTs: hackathon BBVA 2022
 
 ### Vercel deploy
 
-Vercel url: xxx
+Vercel url: https://cosmos-ivory.vercel.app/
 
 ## Quick start 🏄
 
