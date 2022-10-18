@@ -1,0 +1,104 @@
+header {
+  height: 15vh;
+  display: flex;
+  align-items: center;
+
+  .menu {
+    width: 98%;
+    height: 6.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-left {
+      margin-left: 2.8rem;
+      width: max-content;
+      display: flex;
+      align-items: center;
+
+      a {
+        margin-right: 1.1rem;
+        width: max-content;
+        figure {
+          margin: 0;
+          padding: 0;
+          width: 6.2rem;
+          height: 6.3rem;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+
+      &-search {
+        width: 24.4rem;
+        height: 4.9rem;
+        display: flex;
+        align-items: center;
+        padding: 0.9rem 1.6rem;
+        border: 0.2rem solid #ffffff;
+        border-radius: 50rem;
+
+        figure {
+          margin: 0;
+          margin-right: 0.6rem;
+          padding: 0;
+          width: 2.917rem;
+          height: 2.917rem;
+          cursor: pointer;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        &__bar {
+          width: 16.8rem;
+          height: 3rem;
+          background: black;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 2rem;
+          line-height: 3rem;
+          color: #ffffff;
+          border: 0 solid black;
+          outline: none;
+          &::placeholder {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    &-center {
+      width: 27.4rem;
+      display: flex;
+      align-items: center;
+      column-gap: 2.5rem;
+
+      &__item {
+        max-width: max-content;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 2rem;
+        line-height: 3rem;
+        color: #ffffff;
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+
+        &:hover {
+          width: max-content;
+          border-bottom: 0.2rem solid #ffffff;
+        }
+
+        &--active {
+          border-bottom: 0.2rem solid #ffffff;
+        }
+      }
+    }
+  }
+}
