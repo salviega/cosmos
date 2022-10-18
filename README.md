@@ -33,3 +33,7 @@ npm start
 
 [LuisFelipe09](https://github.com/LuisFelipe09)
 
+[Josh2604](https://github.com/Josh2604/Josh2604)
+
+[genarocrto] (https://github.com/genarocrto)
+
