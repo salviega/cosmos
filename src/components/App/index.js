@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
 import React from 'react';
+import './App.scss';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { CosmosHome } from '../CosmosHome';
 import { CosmosMenu } from '../CosmosMenu';
 import { CosmosWallet } from '../CosmosWallet';
-import './App.scss';
-import { CosmosMaker } from './CosmosMaker';
+import { CosmosMaker } from '../CosmosMaker'
 
 function App() {
   const auth = useAuth();
