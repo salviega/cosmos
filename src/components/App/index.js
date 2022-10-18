@@ -7,6 +7,7 @@ import { CosmosHome } from '../CosmosHome';
 import { CosmosMenu } from '../CosmosMenu';
 import { CosmosWallet } from '../CosmosWallet';
 import { CosmosMaker } from '../CosmosMaker'
+import { CosmosFooter } from '../CosmosFooter';
 
 function App() {
   const auth = useAuth();
@@ -45,7 +46,7 @@ function App() {
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
       </main>
-      {/* <CosmosFooter /> */}
+      <CosmosFooter />
     </React.Fragment>
   );
 }
