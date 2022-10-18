@@ -46,6 +46,16 @@ export function CosmosMenu(props) {
                   {"Add Event"}
                 </NavLink>
               </p>
+              <p className="menu-center__item">
+                <NavLink
+                  className={({ isActive }) => {
+                    return isActive ? "menu-center__item--active" : "";
+                  }}
+                  to={"/marketplace"}
+                >
+                  {"Marketplace"}
+                </NavLink>
+              </p>
             </React.Fragment>
           )}
         </div>

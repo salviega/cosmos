@@ -72,9 +72,10 @@ header {
     }
 
     &-center {
-      width: 27.4rem;
+      width: 37.4rem;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       column-gap: 2.5rem;
 
       &__item {

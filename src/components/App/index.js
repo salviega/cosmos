@@ -8,6 +8,8 @@ import { CosmosMenu } from '../CosmosMenu';
 import { CosmosWallet } from '../CosmosWallet';
 import { CosmosMaker } from '../CosmosMaker'
 import { CosmosFooter } from '../CosmosFooter';
+import { CosmosMarketplace } from '../CosmosMarketplace';
+import { CosmosEventDetails } from '../CosmosEventDetails';
 
 function App() {
   const auth = useAuth();
@@ -41,8 +43,9 @@ function App() {
       <main>
           <Routes>
             <Route path="/" element={<CosmosHome />} />
-            {/* <Route path="/:slug" element={<CosmosEvent/>} /> */}
+            <Route path="/:slug" element={<CosmosEventDetails/>} />
             <Route path="/create" element={<CosmosMaker />} />
+            <Route path="/marketplace" element={<CosmosMarketplace />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
       </main>
