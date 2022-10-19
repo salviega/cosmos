@@ -1,5 +1,4 @@
 import React from 'react';
-// import events from '../../asserts/json/harcoredData.json'
 import './CosmosHome.scss'
 import { CosmosEvent } from '../CosmosEvent';
 import { CosmosEvents } from '../CosmosEvents';

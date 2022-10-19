@@ -4,7 +4,7 @@ import './CosmosMaker.scss'
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
-export function CosmosMaker({createItem, setSincronized}) {
+export function CosmosMaker({createItem, setSincronizedItems }) {
   const auth = useAuth()
   const navigate = useNavigate()
   const [imageBase64, setImageBase64] = React.useState('')
@@ -34,7 +34,7 @@ export function CosmosMaker({createItem, setSincronized}) {
       price: price.current.value
     }
     await createItem(info)
-    setSincronized(false)
+    setSincronizedItems(false)
     alert('Event created')
     navigate('/')
   }

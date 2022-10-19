@@ -18,13 +18,13 @@ function App() {
   const [items, setItems] = React.useState()
   const [error, setError] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
-  const [sincronized, setSincronized] = React.useState(true)
+  const [sincronizedItems, setSincronizedItems] = React.useState(true)
 
   const data = async () => {
     try {
       setItems(await getAllItems())
       setLoading(false)
-      setSincronized(true)
+      setSincronizedItems(true)
     } catch (error) {
       setLoading(false)
       setError(error)
@@ -52,7 +52,7 @@ function App() {
         auth.logout();
       });
     }
-  }, [sincronized]);
+  }, [sincronizedItems]);
 
   return (
     <React.Fragment>
@@ -63,7 +63,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CosmosHome items={items} loading = {loading} error={error}/>} />
             <Route path="/:slug" element={<CosmosEventDetails getItem={getItem}/>} />
-            <Route path="/create" element={<CosmosMaker createItem={createItem} setSincronized={setSincronized}/>} />
+            <Route path="/create" element={<CosmosMaker createItem={createItem} setSincronizedItems={setSincronizedItems}/>} />
             <Route path="/marketplace" element={<CosmosMarketplace />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>

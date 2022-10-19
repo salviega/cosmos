@@ -1,0 +1,30 @@
+.marketplace {
+  padding-left: 3.1rem;
+  &__title {
+    margin-top: 16.8rem;
+    margin-bottom: 9.2rem;
+    width: 62.1rem;
+    height: 23.6rem;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8.7rem;
+    line-height: 7.8rem;
+    letter-spacing: 0.025rem;
+    text-transform: capitalize;
+    color: #FFFFFF;
+  }
+
+  &__description {
+    margin-bottom: 10.725rem;
+    width: 49rem;
+    height: 9rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 3rem;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    color: #FFFFFF;
+  }
+}
