@@ -12,7 +12,7 @@ export function CosmosEvent({event}) {
       alert("Connect your wallet")
       return;
     }
-    return  navigate(`/${event.id}`);
+    return  navigate(`/${event.id}`, {state: { event }});
   }
 
   return (
