@@ -13,16 +13,18 @@ import { CosmosMarketplace } from '../CosmosMarketplace';
 import { CosmosEventDetails } from '../CosmosEventDetails';
 
 function App() {
+  const { getAllItems, getItem, createItem} = firebaseApi()
   const auth = useAuth();
-  const { getAllItems, createItem, updateItem, deleteItem } = firebaseApi()
   const [items, setItems] = React.useState()
-  const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
+  const [sincronized, setSincronized] = React.useState(true)
 
   const data = async () => {
     try {
       setItems(await getAllItems())
       setLoading(false)
+      setSincronized(true)
     } catch (error) {
       setLoading(false)
       setError(error)
@@ -50,7 +52,7 @@ function App() {
         auth.logout();
       });
     }
-  }, []);
+  }, [sincronized]);
 
   return (
     <React.Fragment>
@@ -60,8 +62,8 @@ function App() {
       <main>
           <Routes>
             <Route path="/" element={<CosmosHome items={items} loading = {loading} error={error}/>} />
-            <Route path="/:slug" element={<CosmosEventDetails/>} />
-            <Route path="/create" element={<CosmosMaker createItem={createItem}/>} />
+            <Route path="/:slug" element={<CosmosEventDetails getItem={getItem}/>} />
+            <Route path="/create" element={<CosmosMaker createItem={createItem} setSincronized={setSincronized}/>} />
             <Route path="/marketplace" element={<CosmosMarketplace />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>

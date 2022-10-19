@@ -1,32 +1,41 @@
 import React from 'react';
-import teams from "../../asserts/json/harcoredData.json";
+// import teams from "../../asserts/json/harcoredData.json";
 import './CosmosEventDetails.scss'
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
-export function CosmosEventDetails() {
+export function CosmosEventDetails({ getItem }) {
+  const [item, setItem] = React.useState()
+  const [error, setError] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
   const auth = useAuth();
   const location = useLocation();
   const { slug } = useParams();
-  const navigate = useNavigate();
-  let team;
-  
-  if (location.state?.event) {
-    team = location.state?.event
-    console.log("location: ", team)
-  // } else if (true) {
-  } else {
-    team = teams.find((team) => team.id === slug);
-    console.log("slug: ", team)
+
+  const data = async (id) => {
+    try {
+      setItem(await getItem(id))
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      setError(error)
+      console.error(error)
+    }
   }
 
-  if (auth.user.walletAddress === "Connect wallet" || !team) {
-    return navigate("/");
+  React.useState(() => {
+    if (location.state?.event) {
+      setItem(location.state?.event)
+    } else {
+      data(slug)
+    }
+  })
+
+  if (auth.user.walletAddress === "Connect wallet") {
+    return <Navigate to='/'/>
   }
 
   return (
-    <React.Fragment>
-        <h1>{team.name}</h1>
-    </React.Fragment>
+    <h1>{item?.city}</h1>
   )
 }

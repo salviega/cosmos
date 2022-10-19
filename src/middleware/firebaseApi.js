@@ -1,5 +1,5 @@
 import { database } from '../firebase.config'
-import { collection, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getDoc, getDocs, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
 export function firebaseApi() {
   const eventsCollectionRef = collection(database, "events")
@@ -9,17 +9,24 @@ export function firebaseApi() {
     return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
   }
 
+  const getItem = async (id) => {
+    const item = await getDoc(doc(database, 'events', id));
+    if (item.exists()) {
+        return item.data();
+    } else {
+        console.log("Note doesn't exist");
+    }
+};
+
   const createItem = async (event) => {
     await addDoc(eventsCollectionRef, event)
     console.log("item created")
-    return event
   }
 
   const updateItem = async (event) => {
     const userDoc = doc(database, "events", event.id)
     await updateDoc(userDoc, event)
     console.log("item updated")
-    return event
   }
 
   const deleteItem = async (id) => {
@@ -30,6 +37,7 @@ export function firebaseApi() {
 
   return {
     getAllItems,
+    getItem,
     createItem,
     updateItem,
     deleteItem

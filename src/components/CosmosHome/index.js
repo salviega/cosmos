@@ -14,7 +14,7 @@ export function CosmosHome({items: events, loading, error}) {
         <p className='home__title'>Hey Villager! Welcome to Cosmos NFT</p>
         <p className='home__description'>The only place where you can browse your social networks, explore the marketplace, create and sell NFTs.</p>
         <CosmosEvents>
-          {events.map((event, index) => (
+          {events?.map((event, index) => (
               <CosmosEvent key={index} event={event} />
             ))}
         </CosmosEvents>

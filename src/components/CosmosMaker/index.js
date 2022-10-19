@@ -1,25 +1,17 @@
 import React from 'react';
 import defaultImage from '../../asserts/images/default-image.jpg'
 import './CosmosMaker.scss'
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
-export function CosmosMaker({createItem}) {
-  const initialState = {
-    imageBase64: "",
-    site: "",
-    city: "",
-    minimunEntryAge: "",
-    responsible: "",
-    address: "",
-    doorOpening: "",
-    capacity: ""
-  }
+export function CosmosMaker({createItem, setSincronized}) {
   const auth = useAuth()
-  const [event, setEvent] = React.useState(initialState) 
+  const navigate = useNavigate()
   const [imageBase64, setImageBase64] = React.useState('')
   const site = React.useRef()
   const city = React.useRef()
+  const price = React.useRef()
+  const artist = React.useRef()
   const address = React.useRef()
   const capacity = React.useRef()
   const doorOpening = React.useRef()
@@ -29,7 +21,9 @@ export function CosmosMaker({createItem}) {
   const createEvent = async (event) => {
     event.preventDefault();
     const info = {
+      owner: auth.user.walletAddress, 
       imageBase64: imageBase64,
+      artist: artist.current.value, 
       site: site.current.value,
       city: city.current.value,      
       minimunEntryAge: minimunEntryAge.current.value,
@@ -37,9 +31,12 @@ export function CosmosMaker({createItem}) {
       address: address.current.value,
       doorOpening: doorOpening.current.value,
       capacity: capacity.current.value,
+      price: price.current.value
     }
-    console.log(info)
     await createItem(info)
+    setSincronized(false)
+    alert('Event created')
+    navigate('/')
   }
 
   const handleImage = (event) => {
@@ -73,6 +70,10 @@ export function CosmosMaker({createItem}) {
           </figure>
       </div>  
       <span>
+        <p className="maker-form__subtitle">Artist</p>
+        <input className="maker-form__add" ref={artist}/>
+      </span>
+      <span>
         <p className="maker-form__subtitle">Site</p>
         <input className="maker-form__add" ref={site}/>
       </span>
@@ -99,6 +100,10 @@ export function CosmosMaker({createItem}) {
       <span>
         <p className="maker-form__subtitle">Capacity</p>
         <input className="maker-form__add" ref={capacity}/>
+      </span>
+      <span>
+        <p className="maker-form__subtitle">Price</p>
+        <input className="maker-form__add" ref={price}/>
       </span>
       <button className="maker-form__submit">Create</button>
     </form>
