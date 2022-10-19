@@ -1,0 +1,107 @@
+.maker {
+  padding-left: 3.1rem;
+  width: 81.45rem;
+
+  &__title {
+    margin-top: 10.1rem;
+    margin-bottom: 1.4rem;
+    width: 35.9rem;
+    height: 6.4rem;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 4rem;
+    line-height: 6rem;
+    color: #ffffff;
+  }
+
+  &-form {
+    margin-bottom: 2.4rem;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+
+    &__description {
+      margin-bottom: 2.4rem;
+      width: 81.8rem;
+      height: 4.1rem;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 2rem;
+      line-height: 3rem;
+      color: #ffffff;
+    }
+
+    &-image {
+      margin-bottom: 4.8rem;
+      width: 60.352rem;
+      height: 40.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 0.2rem solid white;
+      border-radius: 2rem;
+
+      figure {
+        width: 36.211rem;
+        height: 35.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          margin-bottom: 0.7rem;
+          width: 100%;
+          height: 100%;
+          border-radius: 1.5rem;
+        }
+
+        input {
+          cursor: pointer; 
+        }
+      }
+    }
+
+    &__subtitle {
+      margin-left: 1.7rem;
+      margin-bottom: 0.9rem;
+      width: 29.415rem;
+      height: 3.2rem;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 2rem;
+      line-height: 3rem;
+      color: #ffffff;
+    }
+    &__add {
+      margin-bottom: 2.4rem;
+      padding-left: 1.7rem;
+      width: 81.45rem;
+      height: 6.2rem;
+      background-color: black;
+      border: 0.1rem solid #ffffff;
+      border-radius: 1.5rem;
+
+      font-style: normal;
+      font-weight: 700;
+      font-size: 2rem;
+      line-height: 3rem;
+      color: #ffffff;
+    }
+    &__submit {
+      padding: 1.5rem 2.5rem;
+      max-width: max-content;
+      height: 6.2rem;
+      cursor: pointer;
+      background: #9747ff;
+      border: 0.1rem solid #ffffff;
+      border-radius: 1.5rem;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 2rem;
+      line-height: 3rem;
+      color: #ffffff;
+    }
+  }
+}

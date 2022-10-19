@@ -8,8 +8,8 @@ import events from '../../asserts/json/harcoredData.json'
 export function CosmosHome() {
   return (
     <div className='home'>
-      <p className='home__title'>Explore, Create & Collect</p>
-      <p className='home__description'>the leading mulltichain NFT Marketplace, Home to the next generation of digital creators. Discover the best NFT collections.</p>
+      <p className='home__title'>Hey Villager! Welcome to Cosmos NFT</p>
+      <p className='home__description'>The only place where you can browse your social networks, explore the marketplace, create and sell NFTs.</p>
       <CosmosEvents>
         {events.map((event, index) => (
             <CosmosEvent key={index} event={event} />
