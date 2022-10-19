@@ -4,7 +4,7 @@ import './CosmosMaker.scss'
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
-export function CosmosMaker() {
+export function CosmosMaker({createItem}) {
   const initialState = {
     imageBase64: "",
     site: "",
@@ -26,7 +26,7 @@ export function CosmosMaker() {
   const responsible = React.useRef()
   const minimunEntryAge = React.useRef()
 
-  const createEvent = (event) => {
+  const createEvent = async (event) => {
     event.preventDefault();
     const info = {
       imageBase64: imageBase64,
@@ -39,6 +39,7 @@ export function CosmosMaker() {
       capacity: capacity.current.value,
     }
     console.log(info)
+    await createItem(info)
   }
 
   const handleImage = (event) => {

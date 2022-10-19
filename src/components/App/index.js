@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import React from 'react';
 import './App.scss';
+import { firebaseApi } from '../../middleware/firebaseApi';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { CosmosHome } from '../CosmosHome';
@@ -13,8 +14,24 @@ import { CosmosEventDetails } from '../CosmosEventDetails';
 
 function App() {
   const auth = useAuth();
+  const { getAllItems, createItem, updateItem, deleteItem } = firebaseApi()
+  const [items, setItems] = React.useState()
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(false)
+
+  const data = async () => {
+    try {
+      setItems(await getAllItems())
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      setError(error)
+      console.error(error)
+    }
+  }
 
   React.useEffect(() => {
+    data()
     const currentNetwork = async () => {
       const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
       const web3Signer = web3Provider.getSigner();
@@ -33,7 +50,7 @@ function App() {
         auth.logout();
       });
     }
-  });
+  }, []);
 
   return (
     <React.Fragment>
@@ -42,9 +59,9 @@ function App() {
       </CosmosMenu>
       <main>
           <Routes>
-            <Route path="/" element={<CosmosHome />} />
+            <Route path="/" element={<CosmosHome items={items} loading = {loading} error={error}/>} />
             <Route path="/:slug" element={<CosmosEventDetails/>} />
-            <Route path="/create" element={<CosmosMaker />} />
+            <Route path="/create" element={<CosmosMaker createItem={createItem}/>} />
             <Route path="/marketplace" element={<CosmosMarketplace />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>

@@ -18,7 +18,7 @@ export function CosmosEvent({event}) {
   return (
     <div className="event">
       <figure >
-        <img src={event.imgbase64} alt="logo" />
+        <img src={event.imageBase64} alt="logo" />
       </figure>
       <div className="event-description">
         <p className="event-description__title">{event.name}</p>
