@@ -13,11 +13,11 @@ export function CosmosEventDetails() {
   
   if (location.state?.event) {
     team = location.state?.event
-    console.log("location :", team)
+    console.log("location: ", team)
   // } else if (true) {
   } else {
     team = teams.find((team) => team.id === slug);
-    console.log("slug:", team)
+    console.log("slug: ", team)
   }
 
   if (auth.user.walletAddress === "Connect wallet" || !team) {
@@ -26,7 +26,7 @@ export function CosmosEventDetails() {
 
   return (
     <React.Fragment>
-        <h1>Details</h1>
+        <h1>{team.name}</h1>
     </React.Fragment>
   )
 }
