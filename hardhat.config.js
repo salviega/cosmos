@@ -22,8 +22,8 @@ module.exports = {
     hardhat: {
       allowUnlimitedContractSize: true,
       forking: {
-        url: process.env.GOERLI_RPC_URL,
-        blockNumber: 7605882
+        url: 'https://api.avax-test.network/ext/bc/C/rpc',
+        // blockNumber: 7605882
       }
     },
     localhost: {},
