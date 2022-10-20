@@ -28,6 +28,7 @@ contract RecipientContract is IERC777Recipient {
 
     function tokensReceived (address _operator, address _from, address _to, uint256 _amount, bytes calldata _userData, bytes calldata _operatorData) override external {
         // revert();
+        amount += _amount;
     }
 
     function deposit(uint _amount) internal {
@@ -35,10 +36,9 @@ contract RecipientContract is IERC777Recipient {
         amount += _amount;
     }
 
-    function withdrawTokens() external onlyOwner returns(uint256){
+    function withdrawTokens() external onlyOwner {
         require(amount > 0, "There don't be tokens");
         erc777.operatorSend(address(this), address(msg.sender), amount, "", "");
         amount = 0;
-        return(amount);
     }
 }
