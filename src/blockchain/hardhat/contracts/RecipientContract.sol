@@ -7,6 +7,7 @@ contract RecipientContract is IERC777Recipient {
 
     ERC777 public immutable erc777;
     address public immutable account;
+    uint256 public amount;
 
     modifier onlyOwner() {
         require(msg.sender == account, "MarketPlaceContract: caller is not the owner");
@@ -29,16 +30,15 @@ contract RecipientContract is IERC777Recipient {
         // revert();
     }
 
-    function deposit(uint amount) internal {
-        erc777.operatorSend(address(msg.sender), address(this), amount, "", "");
+    function deposit(uint _amount) internal {
+        erc777.operatorSend(address(msg.sender), address(this), _amount, "", "");
+        amount += _amount;
     }
 
-    function withdrawTokens() external onlyOwner {
-        require(address(this).balance > 0, "There don't tokens");
-        erc777.operatorSend(address(this), address(msg.sender), address(this).balance, "", "");
-    }
-  
-    function totalAsserts() view external returns(uint256) {
-        return address(this).balance;
+    function withdrawTokens() external onlyOwner returns(uint256){
+        require(amount > 0, "There don't be tokens");
+        erc777.operatorSend(address(this), address(msg.sender), amount, "", "");
+        amount = 0;
+        return(amount);
     }
 }
