@@ -29,7 +29,7 @@ contract RecipientContract is IERC777Recipient {
         // revert();
     }
 
-    function deposit(uint amount) public  {
+    function deposit(uint amount) internal {
         erc777.operatorSend(address(msg.sender), address(this), amount, "", "");
     }
 

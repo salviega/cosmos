@@ -14,6 +14,11 @@ pragma solidity >=0.7.0 <=0.8.15;
   *  
   */
 
+  interface ICosmosContract {
+     function substractAsserts(address _address, uint256 _amount) external returns(bool);
+     function getSupplyBalance(address _address) external view returns(uint256);
+  }
+
   contract MarketPlaceContract is ERC721URIStorage, ReentrancyGuard, RecipientContract {
     using Counters for Counters.Counter;
 
@@ -101,10 +106,14 @@ pragma solidity >=0.7.0 <=0.8.15;
       Item storage item = items[_itemId];
 
       require(tokenApproved[_tokenAddress] == true, "We don't accept this token");
+      require(ICosmosContract(_tokenAddress).getSupplyBalance(msg.sender) > price, "Insufficient tokens");
       require(_itemId > 0 && _itemId <= ItemCounter.current(), "Item don't exist");
-      require(msg.value >= price, "Insufficient funds");
-      require(!item.sold, "Item already sold");  
+      require(!item.sold, "Item already sold");
       
+      if(!ICosmosContract(_tokenAddress).substractAsserts(msg.sender, price)) {
+        revert();
+      }
+
       deposit(price);
       item.nft.transferFrom(address(this), msg.sender, item.tokenId);
       
