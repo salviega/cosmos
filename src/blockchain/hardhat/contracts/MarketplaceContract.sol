@@ -6,6 +6,7 @@
     import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
     import "@openzeppelin/contracts/utils/Counters.sol";
     import "./RecipientContract.sol";
+    import "hardhat/console.sol";
     
     /**
     *  @title MarketPlaceContract
@@ -40,7 +41,7 @@
         uint tokenId;
         string tokenURI;
         uint price;
-        address tokenArtist;
+        address artist;
         uint256 tokenTaxFee;
         address addressTaxFeeToken;
         bool sold;
@@ -104,7 +105,6 @@
         uint256 itemId = ItemCounter.current();
 
         _nft.transferFrom(msg.sender, address(this), _tokenId);
-        
         Token memory token = tokens[_tokenId]; 
         Item memory newItem = Item(itemId, _nft, _tokenId, token.URI, _price, token.artist, token.taxFee, token.addressTaxFeeToken, false, payable(msg.sender));
         items[itemId] = newItem; 
@@ -128,14 +128,14 @@
           revert("Your funds are insufficient");
         }
 
-        deposit(price);
+        //deposit(price);
         item.nft.transferFrom(address(this), msg.sender, item.tokenId);
         
         Item storage purchasedItem = items[_itemId];
         purchasedItem.sold = true;
         Token memory purchasedToken = tokens[purchasedItem.tokenId];
         
-        emit Bought(item.itemId, address(item.nft), item.tokenId, purchasedToken.URI, item.price, item.tokenArtist, item.tokenTaxFee, item.addressTaxFeeToken, payable(msg.sender));
+        emit Bought(item.itemId, address(item.nft), item.tokenId, purchasedToken.URI, item.price, item.artist, item.tokenTaxFee, item.addressTaxFeeToken, payable(msg.sender));
       }
 
       /** @dev Generate NFT mint.
@@ -173,6 +173,10 @@
       }
 
       function transferFrom(address _from, address _to, uint256 _tokenId) public override {
+        if (_to == address(this)) {
+          _transfer(_from, _to, _tokenId);
+          return;
+        }
         require(_isApprovedOrOwner(_msgSender(), _tokenId), "ERC721: transfer caller is not owner nor approved");
         address artist = tokens[_tokenId].artist;
         if (excludedListByArtist[artist][_from] == false) {

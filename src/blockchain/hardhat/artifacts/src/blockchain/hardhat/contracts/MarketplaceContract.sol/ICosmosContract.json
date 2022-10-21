@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
   "contractName": "ICosmosContract",
-  "sourceName": "src/blockchain/hardhat/contracts/MarketplaceContract.sol",
+  "sourceName": "src/blockchain/hardhat/contracts/MarketPlaceContract.sol",
   "abi": [
     {
       "inputs": [
