@@ -210,10 +210,13 @@
       }
 
       function _payTxFee(address _from, address _artist, uint256 _taxFee, address _addressTaxFeeToken) internal {
+        if(address(this) == _from) {
+          return;
+        }
         require(ICosmosContract(_addressTaxFeeToken).getSupplyBalance(_from) > _taxFee, "Insufficient tokens");
         if (!ICosmosContract(_addressTaxFeeToken).substractCosmo(_from, _taxFee)) {
             revert("Your funds are insufficients");
         }
-        transferTaxFee(_from, _artist, _taxFee);
+        //transferTaxFee(_from, _artist, _taxFee);
       }
 }

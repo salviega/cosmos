@@ -661,8 +661,8 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\src\\blockchain\\hardhat\\contracts\\MarketPlaceContract.sol": {
-      "lastModificationDate": 1666362585961,
-      "contentHash": "0be4325ff06c699e45226c45696327a2",
+      "lastModificationDate": 1666394073529,
+      "contentHash": "51cf64c5019f298b2b879b9dba012800",
       "sourceName": "src/blockchain/hardhat/contracts/MarketPlaceContract.sol",
       "solcConfig": {
         "version": "0.8.15",
