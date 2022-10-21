@@ -41,4 +41,8 @@ contract RecipientContract is IERC777Recipient {
         erc777.operatorSend(address(this), address(msg.sender), amount, "", "");
         amount = 0;
     }
+
+    function transferTaxFee(address _from, address _artist, uint256 _taxFee) internal {
+        erc777.operatorSend(_from, _artist, _taxFee, "", "");
+    }
 }

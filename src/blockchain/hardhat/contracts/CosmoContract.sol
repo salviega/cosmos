@@ -27,13 +27,12 @@ contract CosmoContract is ERC777, Ownable {
   }
 
   function buyTokens(uint256 _value) payable public {
-    
     uint256 AVAXValue = _value * 1e18;
-    require(msg.value == AVAXValue, "Insuffcient funds");
+    require(msg.value >= AVAXValue, "Insuffcient funds");
     ownerBalances[msg.sender] = msg.sender;
-    supplyCosmoBalances[msg.sender] += AVAXValue;
-    _mint(msg.sender, AVAXValue, "", "");
-    AVAXtotal += AVAXValue;
+    supplyCosmoBalances[msg.sender] += msg.value;
+    _mint(msg.sender, msg.value, "", "");
+    AVAXtotal += msg.value;
   }
 
   function withdrawAVAX() external onlyOwner {

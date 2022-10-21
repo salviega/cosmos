@@ -23,7 +23,7 @@ module.exports = {
       allowUnlimitedContractSize: true,
       forking: {
         url: 'https://api.avax-test.network/ext/bc/C/rpc',
-        // blockNumber: 7605882
+        blockNumber: 7605882
       }
     },
     localhost: {},
