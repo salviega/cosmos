@@ -27,7 +27,7 @@ contract CosmoContract is ERC777, Ownable {
   }
 
   function buyTokens(uint256 _value) payable public {
-    require(msg.value == _value, "Insuffcient funds");
+    require(msg.value >= _value, "Insuffcient funds");
     ownerBalances[msg.sender] = msg.sender;
     supplyCosmoBalances[msg.sender] += _value;
     _mint(msg.sender, _value, "", "");
