@@ -25,10 +25,8 @@ async function main () {
   const BenefitsContract = await ethers.getContractFactory('BenefitsContract')
   const benefitsContract = await BenefitsContract.deploy()
   await benefitsContract.deployed()
-  console.log('BenefitsContract was deployed to: ' + marketPlaceContract.address)
-  console.log('BenefitsContract was deployein to block number: ' + await marketPlaceContract.provider.getBlockNumber())
-
-  await cosmoContract.authorizeOperator(BenefitsContract.address)
+  console.log('BenefitsContract was deployed to: ' + benefitsContract.address)
+  console.log('BenefitsContract was deployein to block number: ' + await benefitsContract.provider.getBlockNumber())
 
   const addresses = [
     { feedcontract: feedContract.address,
@@ -48,7 +46,7 @@ async function main () {
     },
   ]
   const addressesJSON = JSON.stringify(addresses)
-  fs.writeFileSync('src/blockchain/hardhat/environment/contract-address.json', addressesJSON)
+  fs.writeFileSync('src/blockchain/environment/contract-address.json', addressesJSON)
 }
 
 main()
@@ -59,3 +57,4 @@ main()
     console.error(error)
     process.exit(1)
   })
+
