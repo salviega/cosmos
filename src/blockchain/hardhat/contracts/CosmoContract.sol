@@ -14,10 +14,10 @@ contract CosmoContract is ERC777, Ownable {
 
   }
 
-  function safeMint(address _contract, uint256 _supply) public onlyOwner {
-    _mint(_contract, _supply, "", "");
+  function safeMint(address _contract, uint256 _supply) public {
     ownerBalances[_contract] = _contract;
     supplyCosmoBalances[_contract] += _supply;
+    _mint(_contract, _supply, "", "");
   }
 
   function substractCosmo(address _address, uint256 _amount) external returns(bool) {

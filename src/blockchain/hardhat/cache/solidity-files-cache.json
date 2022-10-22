@@ -851,8 +851,8 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\src\\blockchain\\hardhat\\contracts\\CosmoContract.sol": {
-      "lastModificationDate": 1666423178844,
-      "contentHash": "cda54ed04757b54df1431df65aec19a0",
+      "lastModificationDate": 1666438038494,
+      "contentHash": "62604c7054a459a098ebe1fdfa002ece",
       "sourceName": "src/blockchain/hardhat/contracts/CosmoContract.sol",
       "solcConfig": {
         "version": "0.8.15",
