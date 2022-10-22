@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\santiago.viana\\cosmos-nft\\src\\blockchain\\hardhat\\contracts\\CosmoContract.sol": {
-      "lastModificationDate": 1666359257102,
-      "contentHash": "b84c63d76d452adc5a2b5a80d47c95c5",
+      "lastModificationDate": 1666396300756,
+      "contentHash": "ccb4e7f6424929853633db512634bc1b",
       "sourceName": "src/blockchain/hardhat/contracts/CosmoContract.sol",
       "solcConfig": {
         "version": "0.8.15",
@@ -154,10 +154,10 @@
         "Context"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777Recipient.sol": {
-      "lastModificationDate": 1666086786724,
-      "contentHash": "268af1696d7a83a7e78a1a8f5ba1c685",
-      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777Recipient.sol",
+    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
+      "lastModificationDate": 1666086786135,
+      "contentHash": "c476b3895a94798b88a4bb97399e6dfe",
+      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -183,10 +183,10 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.0"
+        "^0.8.1"
       ],
       "artifacts": [
-        "IERC777Recipient"
+        "Address"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777Sender.sol": {
@@ -224,45 +224,10 @@
         "IERC777Sender"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
-      "lastModificationDate": 1666086786135,
-      "contentHash": "c476b3895a94798b88a4bb97399e6dfe",
-      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.1"
-      ],
-      "artifacts": [
-        "Address"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777.sol": {
-      "lastModificationDate": 1666086786721,
-      "contentHash": "840fa65314c73b948a5923169daa8cdc",
-      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777.sol",
+    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777Recipient.sol": {
+      "lastModificationDate": 1666086786724,
+      "contentHash": "268af1696d7a83a7e78a1a8f5ba1c685",
+      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777Recipient.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -291,7 +256,7 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC777"
+        "IERC777Recipient"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
@@ -362,6 +327,41 @@
       ],
       "artifacts": [
         "IERC1820Registry"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777.sol": {
+      "lastModificationDate": 1666086786721,
+      "contentHash": "840fa65314c73b948a5923169daa8cdc",
+      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC777"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol": {
@@ -444,10 +444,10 @@
         "IERC721"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
-      "lastModificationDate": 1666086786791,
-      "contentHash": "cf46906c4035f51639a22265066a9e78",
-      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
+    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol": {
+      "lastModificationDate": 1666086786391,
+      "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
+      "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -471,12 +471,14 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "./IERC165.sol"
+      ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "Strings"
+        "ERC165"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721Receiver.sol": {
@@ -514,10 +516,10 @@
         "IERC721Receiver"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol": {
-      "lastModificationDate": 1666086786391,
-      "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
-      "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
+    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
+      "lastModificationDate": 1666086786791,
+      "contentHash": "cf46906c4035f51639a22265066a9e78",
+      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -541,14 +543,12 @@
           }
         }
       },
-      "imports": [
-        "./IERC165.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "ERC165"
+        "Strings"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol": {
@@ -623,46 +623,9 @@
         "IERC165"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721URIStorage.sol": {
-      "lastModificationDate": 1666086786528,
-      "contentHash": "8af32effd0536e2971ff8496812a5016",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../ERC721.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC721URIStorage"
-      ]
-    },
     "C:\\Users\\santiago.viana\\cosmos-nft\\src\\blockchain\\hardhat\\contracts\\MarketPlaceContract.sol": {
-      "lastModificationDate": 1666394073529,
-      "contentHash": "51cf64c5019f298b2b879b9dba012800",
+      "lastModificationDate": 1666397907413,
+      "contentHash": "8761b7a3f0f474632732cba254cd42bb",
       "sourceName": "src/blockchain/hardhat/contracts/MarketPlaceContract.sol",
       "solcConfig": {
         "version": "0.8.15",
@@ -692,8 +655,7 @@
         "@openzeppelin/contracts/token/ERC721/IERC721.sol",
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
         "@openzeppelin/contracts/utils/Counters.sol",
-        "./RecipientContract.sol",
-        "hardhat/console.sol"
+        "./RecipientContract.sol"
       ],
       "versionPragmas": [
         ">=0.7.0 <=0.8.15"
@@ -704,8 +666,8 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\src\\blockchain\\hardhat\\contracts\\RecipientContract.sol": {
-      "lastModificationDate": 1666359254403,
-      "contentHash": "8aa22d0f0930eec6c462e924c1b03f06",
+      "lastModificationDate": 1666398952332,
+      "contentHash": "a631f76523328dd289229fc54b616fec",
       "sourceName": "src/blockchain/hardhat/contracts/RecipientContract.sol",
       "solcConfig": {
         "version": "0.8.15",
@@ -738,41 +700,6 @@
       ],
       "artifacts": [
         "RecipientContract"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\security\\ReentrancyGuard.sol": {
-      "lastModificationDate": 1666086786771,
-      "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
-      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ReentrancyGuard"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
@@ -810,50 +737,10 @@
         "Counters"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos-nft\\src\\blockchain\\hardhat\\contracts\\RoyaltiesContract.sol": {
-      "lastModificationDate": 1666354628318,
-      "contentHash": "7fc4b4de7f64d8523ced2ff135f7c234",
-      "sourceName": "src/blockchain/hardhat/contracts/RoyaltiesContract.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC721/ERC721.sol",
-        "@openzeppelin/contracts/token/ERC777/ERC777.sol",
-        "hardhat/console.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <=0.8.15"
-      ],
-      "artifacts": [
-        "ICosmosContract",
-        "RoyaltiesContract"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\hardhat\\console.sol": {
-      "lastModificationDate": 1666086766087,
-      "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
-      "sourceName": "hardhat/console.sol",
+    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\security\\ReentrancyGuard.sol": {
+      "lastModificationDate": 1666086786771,
+      "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
+      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -879,10 +766,47 @@
       },
       "imports": [],
       "versionPragmas": [
-        ">= 0.4.22 <0.9.0"
+        "^0.8.0"
       ],
       "artifacts": [
-        "console"
+        "ReentrancyGuard"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos-nft\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721URIStorage.sol": {
+      "lastModificationDate": 1666086786528,
+      "contentHash": "8af32effd0536e2971ff8496812a5016",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../ERC721.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC721URIStorage"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos-nft\\src\\blockchain\\hardhat\\contracts\\FeedContract.sol": {
