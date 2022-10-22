@@ -14,10 +14,10 @@ contract CosmoContract is ERC777, Ownable {
 
   }
 
-  function safeMint(address _contract, uint256 _supply) public onlyOwner {
-    _mint(_contract, _supply * 1e18, "", "");
+  function safeMint(address _contract, uint256 _supply) public {
     ownerBalances[_contract] = _contract;
-    supplyCosmoBalances[_contract] += _supply * 1e18;
+    supplyCosmoBalances[_contract] += _supply;
+    _mint(_contract, _supply, "", "");
   }
 
   function substractCosmo(address _address, uint256 _amount) external returns(bool) {
@@ -27,12 +27,11 @@ contract CosmoContract is ERC777, Ownable {
   }
 
   function buyTokens(uint256 _value) payable public {
-    uint256 AVAXValue = _value * 1e18;
-    require(msg.value >= AVAXValue, "Insuffcient funds");
+    require(msg.value >= _value, "Insuffcient funds");
     ownerBalances[msg.sender] = msg.sender;
-    supplyCosmoBalances[msg.sender] += msg.value;
-    _mint(msg.sender, msg.value, "", "");
-    AVAXtotal += msg.value;
+    supplyCosmoBalances[msg.sender] += _value;
+    _mint(msg.sender, _value, "", "");
+    AVAXtotal += _value;
   }
 
   function withdrawAVAX() external onlyOwner {
