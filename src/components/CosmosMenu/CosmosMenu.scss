@@ -78,14 +78,14 @@ header {
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      column-gap: 5em;
+      column-gap: 4em;
       margin-left: 12em;
 
       &__item {
         max-width: max-content;
         font-style: normal;
         font-weight: 600;
-        font-size: var(--h4);
+        font-size: var(--p);
         line-height: 3rem;
         color: var(--white);
 

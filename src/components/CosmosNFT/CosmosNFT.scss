@@ -1,3 +1,10 @@
+.gallery {
+  padding: 10vh 10vw;
+  display: grid;
+  grid-template-columns: repeat (3, 1fr);
+  column-gap: 2vw;
+}
+
 .collection-card {
   margin: 0px;
   margin-bottom: 61px;
@@ -10,9 +17,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF;
-  box-shadow: 0px 4px 5px #9203F1;
-  border-radius: 40px;
+  background: var(--white);
+  border-radius: 0.5em;
 
   figure {
     margin: 0px;
@@ -29,10 +35,6 @@
       width: 100%px;
       height: 100%px;
       transition: transform 0.3s ease;
-
-      &:hover {
-        transform: scale(1.1);
-      }
     }
   }
 
@@ -45,14 +47,14 @@
 
     &__title {
       margin: 0px;
-      padding: 0px;  
+      padding: 0px;
       width: 92px;
       height: 36px;
       font-style: normal;
-      font-weight: 800;
-      font-size: 24px;
-      line-height: 36px;
-      color: #000000;
+      font-weight: 600;
+      font-size: var(--h3);
+      line-height: 1.5em;
+      color: var(--navy);
     }
 
     &-container {
@@ -65,31 +67,31 @@
         width: max-content;
         display: flex;
         align-items: center;
-      
+
         &__icon {
           margin: 0px;
           margin-right: 7.16px;
-          padding: 0px;  
+          padding: 0px;
           width: 14.84px;
           height: 25px;
         }
-  
+
         &__price {
           margin: 0px;
-          padding: 0px;  
+          padding: 0px;
           width: 82px;
           height: 36px;
           font-style: normal;
           font-weight: 400;
           font-size: 24px;
           line-height: 36px;
-          color: #000000;
+          color: var(--nav);
         }
       }
 
       &__currency {
         margin: 0px;
-        padding: 0px;  
+        padding: 0px;
         height: 36px;
         font-style: normal;
         font-weight: 300;
@@ -110,21 +112,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      
+
       button {
         cursor: pointer;
-        background: #9203F1;
-        border-radius: 150px;
+        background: none;
+        width: 20vw;
+        height: 6vh;
+        margin-bottom: 5vh;
+        margin-top: 5vh;
+        border: 1px solid var(--blue);
+        border-radius: 0.25em;
         font-style: normal;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 36px;
-        color: #FFFFFF;
+        font-weight: 600;
+        font-size: var(--h4);
+        line-height: 1.5em;
+        color: var(--blue);
         transition: all 0.27s ease;
 
         &:hover {
-          color: #FFFFFF;
-          background-color: #FF3C82;
+          color: var(--white);
+          background-color: var(--blue);
         }
       }
     }

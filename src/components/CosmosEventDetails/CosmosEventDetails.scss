@@ -29,7 +29,7 @@
     grid-column: 2;
   }
 
-  &__buttons {
+  &-buttons {
     display: flex;
     flex-direction: row;
     grid-column: 2;
@@ -39,7 +39,7 @@
 
     &__volver {
       background: none;
-      font-family: "Libre Franklin", sans-serif;
+      font-family: 'Libre Franklin', sans-serif;
       font-size: var(--h4);
       font-weight: 600;
       color: var(--blue);
@@ -49,7 +49,7 @@
 
     &__redimir {
       background: var(--blue);
-      font-family: "Libre Franklin", sans-serif;
+      font-family: 'Libre Franklin', sans-serif;
       font-size: var(--h4);
       font-weight: 600;
       color: var(--white);

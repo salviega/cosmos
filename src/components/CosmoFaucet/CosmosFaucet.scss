@@ -4,8 +4,18 @@
   flex-direction: column;
   align-items: center;
 
+  input {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: var(--p);
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    border-radius: none;
+    padding: 2vh 2vw;
+
+  }
+
   &__title {
-    margin-top: 20vh;
+    margin-top: 25vh;
     margin-bottom: 5vh;
     width: 100vw;
     height: var(--h2);
@@ -20,16 +30,14 @@
   &__description {
     margin-bottom: 3.2em;
     width: 50vw;
-    height: 16vh;
+    height: var(--h3);
     font-style: normal;
     font-weight: 300;
     font-size: var(--h3);
     line-height: 1.5em;
-    display: flex;
-    align-items: center;
-    color: var(--white);
     text-align: center;
   }
+
   &-menu {
     display: flex;
     align-items: center;
@@ -41,7 +49,7 @@
       display: flex;
       align-items: center;
       padding: 0.9rem 1.6rem;
-      border: 0.2rem solid #ffffff;
+      border: 1px solid var(--blue);
 
       figure {
         margin: 0;
@@ -59,13 +67,12 @@
       &__bar {
         width: 16.8rem;
         height: 3rem;
-        background: black;
+        background: var(--navy);
         font-style: normal;
         font-weight: 600;
-        font-size: 2rem;
+        font-size: var(--h3);
         line-height: 3rem;
-        color: #ffffff;
-        border: 0 solid black;
+        color: var(--white);
         outline: none;
         &::placeholder {
           margin: auto auto;
