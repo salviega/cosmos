@@ -8,13 +8,13 @@ import { CosmosModal } from "../CosmosModal";
 import { CosmosNFTDetails } from "../CosmosNFTDetails";
 import { CosmosLoading } from "../CosmosLoading";
 import { ethers } from "ethers";
-import feedContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/FeedContract.sol/FeedContract.json";
 import marketPlaceContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/MarketplaceContract.sol/MarketPlaceContract.json";
-import addresses from "../../blockchain/environment/contract-address.json";
+import feedContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/FeedContract.sol/FeedContract.json";
 import { CosmosSupplyNFTs } from "../CosmosSupplyNFTs";
 import { CosmosNFTsResume } from "../CosmosNFTsResume";
 import { CosmosPurchasedNFTDetails } from '../CosmosPurchasedNFTDetails';
 import { getDataMarketPlaceSubGraph } from "../../middleware/getDataMarketPlaceSubGraph.js";
+import addresses from "../../blockchain/environment/contract-address.json";
 const feedContractAddress = addresses[0].feedcontract;
 const marketPlaceContractAddress = addresses[2].marketplacecontract;
 

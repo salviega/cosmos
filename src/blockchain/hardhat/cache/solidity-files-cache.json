@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefitContract.sol": {
-      "lastModificationDate": 1666471826968,
-      "contentHash": "1205dfc47efac7bcbed877b612f19ee6",
+      "lastModificationDate": 1666513264400,
+      "contentHash": "5902def37ecdbd7c02d1a8c291762ba9",
       "sourceName": "src/blockchain/hardhat/contracts/BenefitContract.sol",
       "solcConfig": {
         "version": "0.8.15",
@@ -699,8 +699,8 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefitsContract.sol": {
-      "lastModificationDate": 1666472348617,
-      "contentHash": "aacd94e0efe4e694125779deb61fc3b5",
+      "lastModificationDate": 1666508214419,
+      "contentHash": "6e2bdd01ce655aeb245e4bcb3ddf017e",
       "sourceName": "src/blockchain/hardhat/contracts/BenefitsContract.sol",
       "solcConfig": {
         "version": "0.8.15",
