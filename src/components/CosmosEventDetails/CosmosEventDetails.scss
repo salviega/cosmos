@@ -1,18 +1,18 @@
 .details {
-display: grid;
- grid-template-columns: 30vw 1fr;
- column-gap: 5vw;
- position: absolute;
- top: 15vh;
- margin-top: 10vh;
- margin-left: 10vw;
- margin-right: 10vw;
+  display: grid;
+  grid-template-columns: 30vw 1fr;
+  column-gap: 5vw;
+  position: absolute;
+  top: 15vh;
+  margin-top: 10vh;
+  margin-left: 10vw;
+  margin-right: 10vw;
 
- img {
-  width: 350px;
-  height: 350px; 
-  grid-column: 1; 
-  grid-row: span 2;
+  img {
+    width: 350px;
+    height: 350px;
+    grid-column: 1;
+    grid-row: span 2;
   }
 
   h2 {
@@ -27,37 +27,35 @@ display: grid;
     display: flex;
     flex-direction: column;
     grid-column: 2;
-    }
-
-    &__buttons {
-      display: flex;
-      flex-direction: row;
-      grid-column: 2;
-      grid-row: 2;
-      height: 6vh;
-      width: 20vw;
-
-        &__volver{
-          background: none;
-          font-family: 'Libre Franklin', sans-serif;
-          font-size: var(--h4);
-          font-weight: 600;
-          color: var(--blue);
-          border: 1px solid var(--blue);
-          border-radius: 0.25em;
-        }
-
-        &__redimir {
-          background: var(--blue);
-          font-family: 'Libre Franklin', sans-serif;
-          font-size: var(--h4);
-          font-weight: 600;
-          color: var(--white);
-          border: 1px solid var(--blue);
-          border-radius: 0.25em;
-          margin-left: 1.5vw;
-        }
-    }
-
   }
 
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    grid-column: 2;
+    grid-row: 2;
+    height: 6vh;
+    width: 20vw;
+
+    &__volver {
+      background: none;
+      font-family: "Libre Franklin", sans-serif;
+      font-size: var(--h4);
+      font-weight: 600;
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      border-radius: 0.25em;
+    }
+
+    &__redimir {
+      background: var(--blue);
+      font-family: "Libre Franklin", sans-serif;
+      font-size: var(--h4);
+      font-weight: 600;
+      color: var(--white);
+      border: 1px solid var(--blue);
+      border-radius: 0.25em;
+      margin-left: 1.5vw;
+    }
+  }
+}

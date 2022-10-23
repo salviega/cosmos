@@ -102,10 +102,13 @@ export function CosmosEventDetails({ getItem }) {
   }
 
   return (
+
     <div className="details">
+      <h1>{item.name}</h1>
+
       <img src={item.imageBase64} alt='logo'></img>
-      <h1>descripcion: {item.description}</h1>
-      <h1>precio: {parseInt(item.price)/Math.pow(10,18)}</h1>
+      <h1>{item.description}</h1>
+      <h1>{parseInt(item.price)/Math.pow(10,18)}</h1>
       <button onClick={() => navigate("/")}>atras</button>
       <button onClick={mintBenefit} >Redimir</button>
     </div>
