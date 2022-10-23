@@ -58,7 +58,7 @@ export function CosmosMenu(props) {
                   }}
                   to={"/gateway"}
                 >
-                  {"Payment Gateway"}
+                  {"Pago"}
                 </NavLink>
               </p>
               <p className="menu-center__item">

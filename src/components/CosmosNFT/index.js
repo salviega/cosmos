@@ -17,7 +17,7 @@ export function CosmosNFT({ key, item, currency, setItem, setLoading, setSincron
       const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
       const web3Signer = web3Provider.getSigner();
 
-      
+
       const cosmoContractContract = new ethers.Contract(
         cosmoContractAddress,
         cosmoContractAbi.abi,
@@ -36,50 +36,52 @@ export function CosmosNFT({ key, item, currency, setItem, setLoading, setSincron
         cosmoContractAddress,
         item.itemId, { value: weiPrice.toString(), gasLimit: 250000 }
       )
-      
+
       setLoading(true)
-        
+
       web3Provider.waitForTransaction(response.hash)
-      .then(_response => {
-        setSincronizedItems(false)
+        .then(_response => {
+          setSincronizedItems(false)
         })
 
-    } catch(error) {
+    } catch (error) {
       setLoading(false)
       console.log(error)
     }
   };
-  
+
   const onShowDetail = (item) => {
     setItem(item);
     setOpenModal(true);
   };
 
   return (
-    <div className="collection-card">
-      <figure onClick={() => onShowDetail(item)}>
-        <img src={item.url} alt="logo" />
-      </figure>
-      <div className="collection-card-description">
-        <p className="collection-card-description__title">{item.title}</p>
-        <div className="collection-card-description-container">
-          <div className="collection-card-description-container-value">
-            <FontAwesomeIcon
-              icon={faEthereum}
-              className="collection-card-description-container-value__icon"
-            />
-            <p className="collection-card-description-container-value__price">
-              ${(parseInt(item.price) / currency).toFixed(3)}
+    <div className="gallery">
+      <div className="collection-card">
+        <figure onClick={() => onShowDetail(item)}>
+          <img src={item.url} alt="logo" />
+        </figure>
+        <div className="collection-card-description">
+          <p className="collection-card-description__title">{item.title}</p>
+          <div className="collection-card-description-container">
+            <div className="collection-card-description-container-value">
+              <FontAwesomeIcon
+                icon={faEthereum}
+                className="collection-card-description-container-value__icon"
+              />
+              <p className="collection-card-description-container-value__price">
+                ${(parseInt(item.price) / currency).toFixed(3)}
+              </p>
+            </div>
+            <p className="collection-card-description-container__currency">
+              ${item.price} USD
             </p>
           </div>
-          <p className="collection-card-description-container__currency">
-            ${item.price} usd
-          </p>
+        </div>
+        <div className="collection-card-description__buy">
+          <button onClick={onBuy}>Comprar</button>
         </div>
       </div>
-        <div className="collection-card-description__buy">
-          <button onClick={onBuy}>Buy now</button>
-        </div>
     </div>
   )
 }

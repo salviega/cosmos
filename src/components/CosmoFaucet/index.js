@@ -7,16 +7,16 @@ export function CosmosFaucet() {
     <div className="faucet">
       <p className="faucet__title">Faucet</p>
       <p className="faucet__description">
-        {"Retira todos los cosmos que quiras :)"}
+        {"Retira todos los Cosmos que quieras."}
       </p>
       <div className="faucet-menu-search">
-        <input className="menu-left-search__bar" placeholder="Hexadecimal Address (0x...)" />
+        <input className="menu-left-search__bar" placeholder="Dirección hexadecimal (0x...)" />
       </div>
       <div className="faucet-menu-search">
         <figure>
           <img src={logo} alt="logo" />
         </figure>
-        <input className="menu-left-search__bar" placeholder="wei" />
+        <input className="menu-left-search__bar" placeholder="WEI" />
       </div>
     </div>
   );
