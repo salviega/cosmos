@@ -1,7 +1,7 @@
-import "./CosmosLoading.scss"
+import './CosmosLoading.scss'
 import React from 'react'
 
-export function CosmosLoading() {
+export function CosmosLoading () {
   return (
     <div className='spinner' />
   )

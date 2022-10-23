@@ -1,9 +1,9 @@
 import './CosmosWallet.scss'
-import React from 'react';
-import { ethers } from 'ethers';
-import { useAuth } from '../../hooks/useAuth';
+import React from 'react'
+import { ethers } from 'ethers'
+import { useAuth } from '../../hooks/useAuth'
 
-export function CosmosWallet() {
+export function CosmosWallet () {
   const [loading, setLoading] = React.useState(false)
   const auth = useAuth()
 
@@ -29,7 +29,6 @@ export function CosmosWallet() {
       }
       auth.login({ walletAddress: accounts[0] })
       setLoading(false)
-
     } else {
       auth.logout()
       setLoading(false)
