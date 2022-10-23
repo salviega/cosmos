@@ -40,8 +40,6 @@ describe('MarketContract testing', async () =>  {
     await cosmoContract.connect(owner1).authorizeOperator(marketPlaceContract.address)
 
     marketPlaceContract = marketPlaceContract.connect(owner1)
-    let x = await marketPlaceContract.items(1)
-    console.log(x)
     await marketPlaceContract.buyItem(cosmoContract.address, 1, {value: ethers.utils.parseUnits('1', 'ether')})
     ownerNFT = await marketPlaceContract.ownerOf(0)
     

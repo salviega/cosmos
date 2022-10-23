@@ -10,11 +10,12 @@ npx hardhat verify --network fuji <AddressContract> "Constructor argument 1"
 -- go to the graph studio and create a subgraph project
 
 npm install -g @graphprotocol/graph-cli
+graph init --product hosted-service <salviega/project-name>
 
-graph init --studio <SubGraphProjectName>
-graph auth --studio <DeployKey>
 cd src/blockchain/subgraph/
+
 graph codegen && graph build
-graph deploy --studio <SubGraphProjectName>
+graph auth --product hosted-service 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
+graph deploy --product hosted-service <salviega/project-name>
 
 

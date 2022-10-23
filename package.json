@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.7.0",
     "@chainlink/contracts": "^0.5.1",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-brands-svg-icons": "^6.2.0",
@@ -16,10 +17,12 @@
     "@testing-library/user-event": "^13.5.0",
     "@web3auth/base": "2.0.0",
     "@web3auth/modal": "^3.0.0",
+    "apollo-server": "^3.10.3",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
     "firebase": "^9.12.1",
+    "graphql": "^16.6.0",
     "https-browserify": "^1.0.0",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",
@@ -32,10 +35,9 @@
     "stream-http": "^3.2.0",
     "typescript": "^4.8.4",
     "url": "^0.11.0",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4",
     "web3": "^1.8.0"
-    "uuid": "^9.0.0",
-    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-app-rewired start",

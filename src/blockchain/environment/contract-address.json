@@ -1,0 +1,18 @@
+[
+  {
+    "feedcontract": "0x10C495542E96B0e7a9ab18626947D5Fb96Dba07F",
+    "blocknumber": 14895557
+  },
+  {
+    "cosmocontract": "0x5bB1d9A82E66c42970FD8de8B879A635a07d122f",
+    "blocknumber": 14895560   
+  },
+  {
+    "marketplacecontract": "0x6dd9d7a7cb9c690d4E6D2A8C6Ee4d5B12332718A",
+    "blocknumber": 14895563
+  },
+  {
+    "benefitscontract": "0xAe8bB50c4CF5Db82b0654A436408e4e123077231",
+    "blocknumber": 14895570
+  }
+]

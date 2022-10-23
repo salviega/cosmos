@@ -6,7 +6,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { CosmosHome } from '../CosmosHome';
 import { CosmosMenu } from '../CosmosMenu';
-import { CosmosWallet } from '../CosmosWallet/index.tsx';
+import { CosmosWallet } from '../CosmosWallet';
 import { CosmosMaker } from '../CosmosMaker'
 import { CosmosFooter } from '../CosmosFooter';
 import { CosmosMarketplace } from '../CosmosMarketplace';
