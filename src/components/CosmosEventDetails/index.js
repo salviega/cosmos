@@ -1,11 +1,14 @@
 import React from 'react';
 import './CosmosEventDetails.scss'
-import { Navigate, useLocation, useParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { ethers } from 'ethers';
 import benefitContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitContract.sol/BenefitContract.json"
 import benefitsContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitsContract.sol/BenefitsContract.json"
+import cosmoContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/CosmoContract.sol/CosmoContract.json"
 import addresses from "../../blockchain/environment/contract-address.json";
+const cosmoContractAddress = addresses[1].cosmocontract;
+const marketPlaceContractAddress = addresses[2].marketplacecontract;
 const benefitsContractAddress = addresses[3].benefitscontract;
 
 export function CosmosEventDetails({ getItem }) {
@@ -16,6 +19,7 @@ export function CosmosEventDetails({ getItem }) {
   const auth = useAuth();
   const location = useLocation();
   const { slug } = useParams();
+  const navigate = useNavigate();
 
   const data = async (id) => {
     try {
@@ -49,17 +53,40 @@ export function CosmosEventDetails({ getItem }) {
   }
 
 
-  const mintBenefit = () => {
-    console.log(contract)
+  const mintBenefit = async () => {
+
+    const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
+    const web3Signer = web3Provider.getSigner();
+
+    const cosmoContract = new ethers.Contract(
+      cosmoContractAddress,
+      cosmoContractAbi.abi,
+      web3Signer
+    );
+
+    const response = await cosmoContract.safeMint(auth.user.walletAddress, "3000000000000000000")
+    web3Provider
+      .waitForTransaction(response.hash)
+      .then(async (_response) => {
+        const response2 = cosmoContract.authorizeOperator(contract.address)
+        web3Provider
+          .waitForTransaction(response2.hash)
+          .then(async (_response2) => {
+            await contract.safeMint(cosmoContractAddress, {gasLimit: 2500000,})
+          })
+          .catch(async (error) => {
+            console.error(error)
+            await contract.safeMint(cosmoContractAddress, {gasLimit: 2500000,})
+          })
+      })
   }
 
   React.useEffect(() => {
     if (location.state?.event) {
       setItem(location.state?.event)
+      getBenefit(location.state?.event.benefitId)
 
       
-
-      getBenefit(location.state?.event.benefitId)
     } else {
       data(slug)
       getBenefit(slug)
@@ -80,7 +107,7 @@ export function CosmosEventDetails({ getItem }) {
       <img src={item.imageBase64} alt='logo'></img>
       <h1>descripcion: {item.description}</h1>
       <h1>precio: {parseInt(item.price)/Math.pow(10,18)}</h1>
-      <button>atras</button>
+      <button onClick={() => navigate("/")}>atras</button>
       <button onClick={mintBenefit} >Redimir</button>
     </div>
   )
