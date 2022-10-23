@@ -51,6 +51,16 @@ export function CosmosMenu(props) {
                   {"Marketplace"}
                 </NavLink>
               </p>
+              <p className="menu-center__item">
+                <NavLink
+                  className={({ isActive }) => {
+                    return isActive ? "menu-center__item--active" : "";
+                  }}
+                  to={"/faucet"}
+                >
+                  {"Faucet"}
+                </NavLink>
+              </p>
             </React.Fragment>
           )}
         </div>

@@ -11,6 +11,7 @@ import { CosmosMaker } from '../CosmosMaker'
 import { CosmosFooter } from '../CosmosFooter';
 import { CosmosMarketplace } from '../CosmosMarketplace';
 import { CosmosEventDetails } from '../CosmosEventDetails';
+import { CosmosFaucet } from '../CosmoFaucet';
 
 function App() {
   const { getAllItems, getItem, createItem} = firebaseApi()
@@ -65,6 +66,7 @@ function App() {
             <Route path="/:slug" element={<CosmosEventDetails getItem={getItem}/>} />
             <Route path="/create" element={<CosmosMaker createItem={createItem} setSincronizedItems={setSincronizedItems}/>} />
             <Route path="/marketplace" element={<CosmosMarketplace />} />
+            <Route path="/faucet" element={<CosmosFaucet />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
       </main>

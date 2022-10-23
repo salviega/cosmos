@@ -1,0 +1,76 @@
+.faucet {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    margin-top: 20vh;
+    margin-bottom: 5vh;
+    width: 100vw;
+    height: var(--h2);
+    font-style: normal;
+    font-weight: 600;
+    font-size: var(--h2);
+    letter-spacing: 0.025rem;
+    color: var(--blue);
+    text-align: center;
+  }
+
+  &__description {
+    margin-bottom: 3.2em;
+    width: 50vw;
+    height: 16vh;
+    font-style: normal;
+    font-weight: 300;
+    font-size: var(--h3);
+    line-height: 1.5em;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    text-align: center;
+  }
+  &-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-search {
+      width: 24.4rem;
+      height: 4.9rem;
+      display: flex;
+      align-items: center;
+      padding: 0.9rem 1.6rem;
+      border: 0.2rem solid #ffffff;
+
+      figure {
+        margin: 0;
+        margin-right: 0.6rem;
+        padding: 0;
+        width: 3.917rem;
+        height: 2.917rem;
+        cursor: pointer;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &__bar {
+        width: 16.8rem;
+        height: 3rem;
+        background: black;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 2rem;
+        line-height: 3rem;
+        color: #ffffff;
+        border: 0 solid black;
+        outline: none;
+        &::placeholder {
+          margin: auto auto;
+        }
+      }
+    }
+  }
+}
