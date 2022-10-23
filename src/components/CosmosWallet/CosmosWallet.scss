@@ -1,11 +1,12 @@
 .button-wallet {
   margin: 0;
-  padding: 2vh 10vw;
-  width: 1.5em;
+  padding: 0vh 7.5vw;
+  width: 1em;
   height: 8vh;
   cursor: pointer;
   background: var(--blue);
-  border-radius: 0.5em;
+  border-radius: 0.25em;
+  border: none;
   font-style: normal;
   font-weight: 600;
   font-size: var(--h4);

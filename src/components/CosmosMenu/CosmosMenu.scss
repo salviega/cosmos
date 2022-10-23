@@ -2,6 +2,9 @@ header {
   height: 15vh;
   display: flex;
   align-items: center;
+  position: fixed;
+  background: var(--navy);
+  z-index: 1;
 
   .menu {
     width: 98%;
@@ -74,8 +77,9 @@ header {
       width: 37.4rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      column-gap: 2.5rem;
+      justify-content: flex-end;
+      column-gap: 5em;
+      margin-left: 15em;
 
       &__item {
         max-width: max-content;

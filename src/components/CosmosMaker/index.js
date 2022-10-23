@@ -76,9 +76,9 @@ export function CosmosMaker({createItem, setSincronizedItems }) {
   }
   return (
     <div className="maker">
-    <h1 className="maker__title">Create new event</h1>
+    <h1 className="maker__title">Sé parte de nuestro Cosmos</h1>
     <form className="maker-form" onSubmit={createBenefit}>
-      <p className="maker-form__description">Click on the pictue to upgrade the image</p>
+      <p className="maker-form__description">Comparte tus datos para convertirte en un comercio aliado de Cosmos BBVA. Nuestro equipo se encargará de crear un NFT personalizado para tu beneficio.</p>
       <div className='maker-form-image'>
           <figure>
             <img src={imageBase64 === '' ? defaultImage : imageBase64 } alt="default" />
@@ -88,34 +88,34 @@ export function CosmosMaker({createItem, setSincronizedItems }) {
           </figure>
       </div>  
       <span>
-        <p className="maker-form__subtitle">maxNft</p>
+        <p className="maker-form__subtitle">Número máximo de NFTs</p>
         <input className="maker-form__add" ref={maxNft}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">managerAddress</p>
+        <p className="maker-form__subtitle">Wallet del manager del proyecto</p>
         <input className="maker-form__add" ref={managerAddress}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">uri</p>
+        <p className="maker-form__subtitle">URL</p>
         <input className="maker-form__add" ref={uri}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">price</p>
+        <p className="maker-form__subtitle">Precio</p>
         <input className="maker-form__add" ref={price}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">name</p>
+        <p className="maker-form__subtitle">Nombre</p>
         <input className="maker-form__add" ref={name}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">symbol</p>
+        <p className="maker-form__subtitle">Símbolo</p>
         <input className="maker-form__add" ref={symbol}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">description</p>
+        <p className="maker-form__subtitle">Descripción del beneficio</p>
         <input className="maker-form__add" ref={description}/>
       </span>
-      <button className="maker-form__submit">Create</button>
+      <button className="maker-form__submit">Enviar</button>
     </form>
 </ div>
   )

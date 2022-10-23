@@ -1,7 +1,7 @@
 .event {
   margin-bottom: 5.2rem;
-  width: 32.409rem;
-  height: 47.2rem;
+  width: 28vw;
+  height: 75vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,15 +10,14 @@
 
   figure {
     margin-top: 2rem;
-    margin-bottom: 1.7rem;
     padding: 0;
     width: 28.5rem;
     height: 28.1rem;
 
     img {
-      width: 100%;
-      height: 100%;
-      border-radius: 0.5em;
+      width: 24vw;
+      height: 24vw;
+      border-radius: 0.25em;
     }
   }
 
@@ -27,25 +26,24 @@
     flex-direction: column;
     align-items: center;
     justify-content: left;
-    margin: 8vh 15vw 0vh 15vw;
+    margin: 0vh 15vw 0vh 15vw;
 
     &__title {
       width: 28.409rem;
-      height: 3.3rem;
+      margin-bottom: 3vh;
+      height: var(--h3);
       font-style: normal;
       font-weight: 600;
-      font-size: 22px;
-      line-height: 33px;
+      font-size: var(--h3);
+      line-height: 1.5em;
       color: var(--navy);
-      padding-left: 20vw;
-      padding-right: 20vw;
+      text-align: center;
     }
 
     &__show {
-      position: relative;
-      bottom: 10;
       height: 8vh;
       width: 14em;
+      margin-bottom: 7vh;
       background: var(--blue);
       font-style: normal;
       font-weight: 600;
@@ -54,7 +52,8 @@
       text-decoration: none;
       color: var(--white);
       background: var(--blue);
-      border-radius: 0.5em;
+      border-radius: 0.25em;
+      border: none;
       cursor: pointer;
       
     }
