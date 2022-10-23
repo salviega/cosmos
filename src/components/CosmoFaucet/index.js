@@ -1,9 +1,9 @@
 import "./CosmosFaucet.scss";
-import React from "react";
+import React, { useRef } from "react";
+import { ethers } from 'ethers';
 import logo from "../../asserts/images/logo-cosmos.png";
 import addresses from "../../blockchain/environment/contract-address.json";
 import cosmoContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/CosmoContract.sol/CosmoContract.json"
-import { ethers } from 'ethers';
 const cosmoContractAddress = addresses[1].cosmocontract;
 
 export function CosmosFaucet() {
@@ -34,7 +34,7 @@ export function CosmosFaucet() {
       <p className="faucet__description">
         {"Retira todos los Cosmos que quieras."}
       </p>
-      <form onSubmit={mintCosmo}>
+      <form className="faucet-form" onSubmit={mintCosmo}>
         <div className="faucet-menu-search">
           <input className="menu-left-search__bar" placeholder="Dirección hexadecimal (0x...)" ref={address}/>
         </div>
@@ -44,7 +44,7 @@ export function CosmosFaucet() {
           </figure>
           <input className="menu-left-search__bar" placeholder="WEI" ref={amount}/>
         </div>
-        <button>Mintear</button>
+        <button className="maker-form__submit">Mintear</button>
       </form>
     </div>
   );

@@ -1,8 +1,14 @@
 .home {
   text-align: center;
-  max-height: 100vh;
-  background-image: url(../../asserts/images/background-image-home.png);
-  z-index: 0;
+  &__start_page{
+    background: no-repeat;
+    background-image: url(../../asserts/images/background-image-home.png);
+    background-size: cover;
+    max-height: 85vh;
+    position: relative;
+    top: 15vh;
+    z-index: 0;
+  }
 
   &__logo {
     margin-top: 30vh;
