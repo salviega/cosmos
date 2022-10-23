@@ -1,5 +1,4 @@
 import React from 'react';
-// import teams from "../../asserts/json/harcoredData.json";
 import './CosmosEventDetails.scss'
 import { Navigate, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -9,9 +8,9 @@ import benefitsContractAbi from "../../blockchain/hardhat/artifacts/src/blockcha
 import addresses from "../../blockchain/environment/contract-address.json";
 const benefitsContractAddress = addresses[3].benefitscontract;
 
-export async function CosmosEventDetails({ getItem }) {
-  const [item, setItem] = React.useState()
-  const [contract, setContract] = React.useState()
+export function CosmosEventDetails({ getItem }) {
+  const [item, setItem] = React.useState({})
+  const [contract, setContract] = React.useState({})
   const [error, setError] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
   const auth = useAuth();
@@ -21,7 +20,6 @@ export async function CosmosEventDetails({ getItem }) {
   const data = async (id) => {
     try {
       setItem(await getItem(id))
-      setContract(await findBenefitById(id))
       setLoading(false)
     } catch (error) {
       setLoading(false)
@@ -30,36 +28,43 @@ export async function CosmosEventDetails({ getItem }) {
     }
   }
 
-  const findBenefitById = async (id) => {
+  const getBenefit = async (id) => {
+
     const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
     const web3Signer = web3Provider.getSigner();
-  
+
     const benefitsContract = new ethers.Contract(
       benefitsContractAddress,
       benefitsContractAbi.abi,
       web3Provider
     );
-  
-    const benefitContractAddress = await benefitsContract.getBenefit(item.benefitId)
-  
-    const provider = ethers.providers.getDefaultProvider('fuji')
-    return new ethers.Contract(benefitContractAddress, benefitContractAbi.abi, provider)
 
+    const benefitContractAddress = await benefitsContract.getBenefit(id)
+    const benefitContract = new ethers.Contract(
+      benefitContractAddress,
+      benefitContractAbi.abi,
+      web3Signer
+    )
+    setContract(benefitContract)
   }
 
-  const mint = async () => {
-    
+
+  const mintBenefit = () => {
+    console.log(contract)
   }
 
-
-  React.useState(() => {
+  React.useEffect(() => {
     if (location.state?.event) {
       setItem(location.state?.event)
-      findBenefitById(item.state?.id)
+
+      
+
+      getBenefit(location.state?.event.benefitId)
     } else {
       data(slug)
+      getBenefit(slug)
     }
-  })
+  },[])
 
   if (auth.user.walletAddress === "Connect wallet") {
     return <Navigate to='/'/>
@@ -72,11 +77,11 @@ export async function CosmosEventDetails({ getItem }) {
   return (
     <div>
       <h1>Titulo: {item.name}</h1>
-      <img src={item.imageBase64} alt='image'/>
+      <img src={item.imageBase64} alt='logo'></img>
       <h1>descripcion: {item.description}</h1>
       <h1>precio: {parseInt(item.price)/Math.pow(10,18)}</h1>
       <button>atras</button>
-      <button onClick={mint}>Redimir</button>
+      <button onClick={mintBenefit} >Redimir</button>
     </div>
   )
 }
