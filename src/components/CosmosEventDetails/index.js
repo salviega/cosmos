@@ -102,8 +102,7 @@ export function CosmosEventDetails({ getItem }) {
   }
 
   return (
-    <div>
-      <h1>Titulo: {item.name}</h1>
+    <div className="details">
       <img src={item.imageBase64} alt='logo'></img>
       <h1>descripcion: {item.description}</h1>
       <h1>precio: {parseInt(item.price)/Math.pow(10,18)}</h1>

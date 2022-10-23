@@ -10,6 +10,13 @@
     color: var(--blue);
   }
 
+  &-benefits {
+    padding: 10vh 10vw;
+    display: grid;
+    grid-template-columns: repeat (3, 1fr);
+    column-gap: 2vw;
+  }
+
   &-container {
     margin-bottom: 8.4rem;
     display: flex;

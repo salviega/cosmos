@@ -1,12 +1,16 @@
 .home {
   text-align: center;
-  max-height: 100vh;
+  max-height: 85vh;
   background-image: url(../../asserts/images/background-image-home.png);
+  position: relative;
+  top: 15vh;
+  z-index: 0;
 
   &__logo {
-    margin-top: 20vh;
+    margin-top: 15vh;
     margin-bottom: 0vh;
-    width: 12.5rem;
+    width: 25vh;
+    height: auto;
   }
 
   &__title {
