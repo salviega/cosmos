@@ -16,7 +16,7 @@
     "blocknumber": 14911635
   },
   {
-    "benefitscontract": "0x72e1aC672Dc22BcD64F7Ae856ce9722e67a280b6",
+    "paymentgatewaycontract": "0x72e1aC672Dc22BcD64F7Ae856ce9722e67a280b6",
     "blocknumber": 14920476
   }
 ]
