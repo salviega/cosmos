@@ -6,6 +6,7 @@ import { faEthereum } from '@fortawesome/free-brands-svg-icons'
 import marketPlaceContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/MarketplaceContract.sol/MarketPlaceContract.json'
 import cosmoContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/CosmoContract.sol/CosmoContract.json'
 import addresses from '../../blockchain/environment/contract-address.json'
+import logo from "./../../asserts/images/logo-cosmos.png";
 const cosmoContractAddress = addresses[1].cosmocontract
 const marketPlaceContractAddress = addresses[2].marketplacecontract
 
@@ -62,10 +63,11 @@ export function CosmosNFT ({ key, item, currency, setItem, setLoading, setSincro
           <p className='collection-card-description__title'>{item.title}</p>
           <div className='collection-card-description-container'>
             <div className='collection-card-description-container-value'>
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 icon={faEthereum}
                 className='collection-card-description-container-value__icon'
-              />
+              /> */}
+              <img alt="logo" src={logo}></img>
               <p className='collection-card-description-container-value__price'>
                 ${(parseInt(item.price) / currency).toFixed(3)}
               </p>

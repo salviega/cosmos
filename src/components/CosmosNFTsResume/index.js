@@ -2,6 +2,7 @@ import { faEthereum } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import './CosmosNFTsResume.scss'
+import logo from "./../../asserts/images/logo-cosmos.png";
 
 export function CosmosNFTsResume ({
   currency,
@@ -46,10 +47,11 @@ export function CosmosNFTsResume ({
           <p className='resumen-list-footer__item'>Total</p>
           <p className='resumen-list-footer__item'>{totalItems}</p>
           <div className='resumen-list-footer-value'>
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               icon={faEthereum}
               className='resumen-list-footer-value__item'
-            />
+            /> */}
+            <img alt="logo" src={logo} width={20} height={20}></img>
             <p className='resumen-list-footer-value__item'>
               {ethIncome}
             </p>

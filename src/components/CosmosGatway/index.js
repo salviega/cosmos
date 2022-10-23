@@ -53,7 +53,7 @@ export function CosmosGateway () {
       <p className='faucet__description'>
         Convierte tus Cosmos en dólares, te llegaran a tu cuenta de Paypal
       </p>
-      <form onSubmit={changeCurrency}>
+      <form className="faucet-form" onSubmit={changeCurrency}>
         <div className='faucet-menu-search'>
           <input
             className='menu-left-search__bar'
@@ -68,7 +68,7 @@ export function CosmosGateway () {
             ref={amount}
           />
         </div>
-        <button>Canjear</button>
+        <button className='maker-form__submit'>Canjear</button>
       </form>
     </div>
   )
