@@ -6,7 +6,7 @@ import "./CosmosNFTsResume.scss";
 export function CosmosNFTsResume({
   currency,
   purchasedItems,
-  setItem,
+  setItem,  
   setOpenModalSummary,
 }) {
   const owner = "0x70A792ad975Aa0977c6E9d55a14f5F2228bBC685";
