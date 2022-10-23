@@ -10,9 +10,11 @@ export function CosmosHome({items: events, loading, error}) {
     <div className='home'>
     { error && <h1>Error... Check the console</h1> && loading ? <h1>Loading...</h1> :
       <React.Fragment>
+        <div className="home__start_page">
         <img src={logo} alt="logo" className='home__logo'></img>
         <h1 className='home__title'>Cosmos BBVA</h1>
         <h2 className='home__description'>Explora, conecta, diviértete.</h2>
+        </div>
         <CosmosEvents>
           {events?.map((event, index) => (
               <CosmosEvent key={index} event={event} />
