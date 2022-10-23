@@ -1,18 +1,18 @@
 [
   {
-    "feedcontract": "0x10C495542E96B0e7a9ab18626947D5Fb96Dba07F",
-    "blocknumber": 14895557
+    "feedcontract": "0x9de1342C43579AdF97114d744d47e55bf73B9CF5",
+    "blocknumber": 14906244
   },
   {
-    "cosmocontract": "0x5bB1d9A82E66c42970FD8de8B879A635a07d122f",
-    "blocknumber": 14895560   
+    "cosmocontract": "0x51d956586AaCDdA6292f89eEDE0aEbB1a8bAf6e3",
+    "blocknumber": 14906244
   },
   {
-    "marketplacecontract": "0x6dd9d7a7cb9c690d4E6D2A8C6Ee4d5B12332718A",
-    "blocknumber": 14895563
+    "marketplacecontract": "0x57B8a9857FE3eEd4382EC203a042af77F5aabC5F",
+    "blocknumber": 14906244
   },
   {
-    "benefitscontract": "0xAe8bB50c4CF5Db82b0654A436408e4e123077231",
-    "blocknumber": 14895570
+    "benefitscontract": "0x0f87A882648048DDd8f809712d9598243cdE2fC4",
+    "blocknumber": 14906244
   }
 ]

@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
 export function getDataMarketPlaceSubGraph () {
-  const url = 'https://api.thegraph.com/subgraphs/name/salviega/cosmos'
+  const url = 'https://api.thegraph.com/subgraphs/name/salviega/cosmos_v2clear'
 
   const client = new ApolloClient({
     uri: url,
