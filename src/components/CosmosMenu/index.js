@@ -56,6 +56,16 @@ export function CosmosMenu(props) {
                   className={({ isActive }) => {
                     return isActive ? "menu-center__item--active" : "";
                   }}
+                  to={"/gateway"}
+                >
+                  {"Payment Gateway"}
+                </NavLink>
+              </p>
+              <p className="menu-center__item">
+                <NavLink
+                  className={({ isActive }) => {
+                    return isActive ? "menu-center__item--active" : "";
+                  }}
                   to={"/faucet"}
                 >
                   {"Faucet"}

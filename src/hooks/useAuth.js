@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 
-const adminWallets = ["0x70a792ad975aa0977c6e9d55a14f5f2228bbc685"];
+const adminWallets = ["0x70a792ad975aa0977c6e9d55a14f5f2228bbc685", "0xa3542355604cFD6531AAf020DDAB3bDFFf4d1809"];
 
 const AuthContext = React.createContext();
 
