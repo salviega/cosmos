@@ -2,11 +2,16 @@
 
 Cosmos NFTs: hackathon BBVA 2022
 
+### Adapter AWS 
+https://github.com/LuisFelipe09/payOut
+
+### Nodo AWS
+https://github.com/LuisFelipe09/chainlink-munbai
+
 ### Subgraph API
 https://thegraph.com/hosted-service/subgraph/salviega/cosmos_v2
 
 ### Vercel deploy
-
 Vercel url: https://cosmos-ivory.vercel.app/
 
 ## Quick start 🏄
@@ -36,7 +41,7 @@ npm start
 
 [LuisFelipe09](https://github.com/LuisFelipe09)
 
-[Josh2604](https://github.com/Josh2604/Josh2604)
+[Josh2604] (https://github.com/Josh2604/Josh2604)
 
 [genarocrto] (https://github.com/genarocrto)
 
