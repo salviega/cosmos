@@ -72,11 +72,11 @@ export function CosmosEventDetails({ getItem }) {
         web3Provider
           .waitForTransaction(response2.hash)
           .then(async (_response2) => {
-            await contract.safeMint(cosmoContractAddress, {gasLimit: 2500000,})
+            await contract.safeMint(cosmoContractAddress, { gasLimit: 2500000, })
           })
           .catch(async (error) => {
             console.error(error)
-            await contract.safeMint(cosmoContractAddress, {gasLimit: 2500000,})
+            await contract.safeMint(cosmoContractAddress, { gasLimit: 2500000, })
           })
       })
   }
@@ -86,31 +86,34 @@ export function CosmosEventDetails({ getItem }) {
       setItem(location.state?.event)
       getBenefit(location.state?.event.benefitId)
 
-      
+
     } else {
       data(slug)
       getBenefit(slug)
     }
-  },[])
+  }, [])
 
   if (auth.user.walletAddress === "Connect wallet") {
-    return <Navigate to='/'/>
+    return <Navigate to='/' />
   }
 
-  if(!item) {
+  if (!item) {
     return <></>
   }
 
   return (
 
     <div className="details">
-      <h1>{item.name}</h1>
-
       <img src={item.imageBase64} alt='logo'></img>
-      <h1>{item.description}</h1>
-      <h1>{parseInt(item.price)/Math.pow(10,18)}</h1>
-      <button onClick={() => navigate("/")}>atras</button>
-      <button onClick={mintBenefit} >Redimir</button>
+      <div className='details__info'>
+        <h1>{item.name}</h1>
+        <h2>{parseInt(item.price) / Math.pow(10, 18)}</h2>
+        <p>{item.description}</p>
+      </div>
+      <div className='details-buttons'>
+          <button className="details-buttons__volver" onClick={() => navigate("/")}>Volver</button>
+          <button className="details-buttons__redimir" onClick={mintBenefit} >Redimir</button>
+        </div>
     </div>
   )
 }
