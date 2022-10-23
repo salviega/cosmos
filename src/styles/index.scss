@@ -1,3 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;600&display=swap');
+
+:root {
+  --navy: #072146;
+  --blue: #5BBEFF;
+  --white: #EAF9FA;
+
+  font-size: 16px;
+  --title: 3.375rem;
+  --h1: 2.625rem;
+  --h2: 2.125rem;
+  --h3: 1.625rem;
+  --h4: 1.25rem;
+  --p: 1rem;
+
+  --libre: 'Libre Franklin';
+}
+
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 *,
@@ -10,11 +29,36 @@
 }
 
 html {
-  font-family: 'Poppins';
-  font-size: 62.5%;
+  font-family: var(--libre);
+  background: var(--navy);
 }
 
-body {
-  background: black;
-  color: #ffffff;
+h1 {
+  color: var(--blue);
+  font-weight: 600;
+  font-size: var(--h1);
+}
+
+h2 {
+  color: var(--blue);
+  font-weight: 600;
+  font-size: var(--h2);
+}
+
+h3 {
+  color: var(--white);
+  font-weight: 600;
+  font-size: var(--h3);
+}
+
+h4 {
+  color: var(--white);
+  font-weight: 300;
+  font-size: var(--h4);
+}
+
+p {
+  color: var(--white);
+  font-weight: 300;
+  font-size: var(--p);
 }

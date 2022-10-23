@@ -1,15 +1,18 @@
 .button-wallet {
   margin: 0;
-  padding: 1.5rem 2.5rem;
-  max-width: max-content;
+  padding: 2vh 10vw;
+  width: 1.5em;
+  height: 8vh;
   cursor: pointer;
-  background: #9747ff;
-  border-radius: 1.5rem;
+  background: var(--blue);
+  border-radius: 0.5em;
   font-style: normal;
   font-weight: 600;
-  font-size: 2rem;
+  font-size: var(--h4);
   line-height: 3rem;
-  color: #ffffff;
+  color: var(--white);
+  text-align: center;
+  text-justify: center;
 }
 
 // Algunos estilos provocan que imagen de cerrado y de regreso dentro del

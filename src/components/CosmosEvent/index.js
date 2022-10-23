@@ -23,7 +23,7 @@ export function CosmosEvent({event}) {
       <div className="event-description">
         <p className="event-description__title">{event.artist}</p>
       </div>
-      <button className="event-description__show" onClick={goDetails}>Show</button>
+      <button className="event-description__show" onClick={goDetails}>Conocer más</button>
   </div>
   )
 }

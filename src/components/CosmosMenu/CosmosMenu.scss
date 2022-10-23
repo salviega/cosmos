@@ -22,8 +22,8 @@ header {
         figure {
           margin: 0;
           padding: 0;
-          width: 6.2rem;
-          height: 6.3rem;
+          width: auto;
+          height: 6vh;
           img {
             width: 100%;
             height: 100%;
@@ -48,8 +48,7 @@ header {
           height: 2.917rem;
           cursor: pointer;
           img {
-            width: 100%;
-            height: 100%;
+            width: 10vw;
           }
         }
 
@@ -61,11 +60,11 @@ header {
           font-weight: 600;
           font-size: 2rem;
           line-height: 3rem;
-          color: #ffffff;
+          color: var(--white);
           border: 0 solid black;
           outline: none;
           &::placeholder {
-            color: #ffffff;
+            color: var(--white);
           }
         }
       }
@@ -82,9 +81,9 @@ header {
         max-width: max-content;
         font-style: normal;
         font-weight: 600;
-        font-size: 2rem;
+        font-size: var(--h4);
         line-height: 3rem;
-        color: #ffffff;
+        color: var(--white);
 
         a {
           text-decoration: none;
@@ -93,11 +92,11 @@ header {
 
         &:hover {
           width: max-content;
-          border-bottom: 0.2rem solid #ffffff;
+          color: var(--blue);
         }
 
         &--active {
-          border-bottom: 0.2rem solid #ffffff;
+          color: var(--blue);
         }
       }
     }

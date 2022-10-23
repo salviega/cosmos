@@ -21,24 +21,23 @@
           width: 32rem;
           figure {
             margin: 0;
-            margin-bottom: 4.1rem;
+            margin-bottom: 3vh;
             padding: 0;
-            width: 32rem;
-            height: 4.4rem;
+            width: 4vw;
+            height: auto;
             img {
               width: 100%;
-              height: 100%;
+              height: auto;
             }
           }
 
           &__description {
             margin-bottom: 2.8rem;
             font-style: normal;
-            font-weight: 40rem;
-            font-size: 2rem;
-            line-height: 4.1rem;
-            text-transform: capitalize;
-            color: #ffffff;
+            font-weight: 300;
+            font-size: var(--p);
+            line-height: 2em;
+            color: var(--white);
           }
 
           &-icon {
@@ -51,8 +50,8 @@
               width: 4rem;
               height: 3rem;
               img {
-                width: 100%;
-                height: 100%;
+                width: 5vw;
+                height: auto;
               }
             }
           }
@@ -60,54 +59,51 @@
         &-marketplace {
           max-width: max-content;
           &__title {
-            margin-bottom: 4rem;
+            margin-bottom: 2em;
             font-style: normal;
-            font-weight: 600;
-            font-size: 3.2rem;
-            line-height: 4.8remx;
-            text-transform: capitalize;
-            color: #ffffff;
+            font-weight: 300;
+            font-size: var(--p);
+            line-height: 1em;
+            color: var(--white);
           }
 
           &__subtitle {
             max-width: max-content;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5em;
             cursor: pointer;
             font-style: normal;
-            font-weight: 400;
-            font-size: 2rem;
-            line-height: 3rem;
-            text-transform: capitalize;
-            color: #e0e0e0;
+            font-weight: 600;
+            font-size: var(--h4);
+            line-height: var(--h4);
+            color: var(--white);
             &:hover {
-              border-bottom: 0.1rem solid #e0e0e0;
+              color: var(--blue);
             }
           }
         }
         &-create {
           max-width: max-content;
+          margin-bottom: 3em;
           &__title {
-            margin-bottom: 4rem;
+            margin-bottom: 2em;
             font-style: normal;
-            font-weight: 600;
-            font-size: 3.2rem;
-            line-height: 4.8remx;
-            text-transform: capitalize;
-            color: #ffffff;
+            font-weight: 300;
+            font-size: var(--p);
+            line-height: 1em;
+            color: var(--white);
           }
 
           &__subtitle {
             max-width: max-content;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5em;
             cursor: pointer;
             font-style: normal;
-            font-weight: 400;
-            font-size: 2rem;
-            line-height: 3rem;
-            text-transform: capitalize;
-            color: #e0e0e0;
+            font-weight: 600;
+            font-size: var(--h4);
+            line-height: var(--h4);
+            color: var(--white);
             &:hover {
-              border-bottom: 0.1rem solid #e0e0e0;
+             color: var(--blue);
             }
           }
         }

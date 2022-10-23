@@ -58,54 +58,43 @@ export function CosmosMaker({createItem, setSincronizedItems }) {
   }
   return (
     <div className="maker">
-    <h1 className="maker__title">Create new event</h1>
+    <h1 className="maker__title">Sé parte de nuestro Cosmos</h1>
     <form className="maker-form" onSubmit={createEvent}>
-      <p className="maker-form__description">Click on the pictue to upgrade the image</p>
-      <div className='maker-form-image'>
-          <figure>
-            <img src={imageBase64 === '' ? defaultImage : imageBase64 } alt="default" />
-            <figcaption>
-              <input className='maker-form-image__upgrade' type='file' accept='image/x-png,image/gif,image/jpeg' onChange={handleImage}/>
-            </figcaption>
-          </figure>
-      </div>  
+      <p className="maker-form__description">Comparte tus fatos si te interesa ser un comercio aliado de BBVA y nuestro equipo se encargará de crear un NFT personalizado.</p>
+    
       <span>
-        <p className="maker-form__subtitle">Artist</p>
-        <input className="maker-form__add" ref={artist}/>
-      </span>
-      <span>
-        <p className="maker-form__subtitle">Site</p>
+        <p className="maker-form__subtitle">ID</p>
         <input className="maker-form__add" ref={site}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">City</p>
+        <p className="maker-form__subtitle">Número máximo de NFTs</p>
         <input className="maker-form__add" ref={city}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">Minimun entry age</p>
+        <p className="maker-form__subtitle">Wallet del manager del proyecto</p>
         <input className="maker-form__add" ref={minimunEntryAge}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">Responsible</p>
+        <p className="maker-form__subtitle">URL</p>
         <input className="maker-form__add" ref={responsible}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">Address</p>
+        <p className="maker-form__subtitle">Precio</p>
         <input className="maker-form__add" ref={address} />
       </span>
       <span>
-        <p className="maker-form__subtitle">Door opeing</p>
+        <p className="maker-form__subtitle">Wallet del contrato</p>
         <input className="maker-form__add" ref={doorOpening}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">Capacity</p>
+        <p className="maker-form__subtitle">Nombre del beneficio</p>
         <input className="maker-form__add" ref={capacity}/>
       </span>
       <span>
-        <p className="maker-form__subtitle">Price</p>
+        <p className="maker-form__subtitle">Iniciales del beneficio (ej. Dos por uno = DXU)</p>
         <input className="maker-form__add" ref={price}/>
       </span>
-      <button className="maker-form__submit">Create</button>
+      <button className="maker-form__submit">Enviar</button>
     </form>
 </ div>
   )

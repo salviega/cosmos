@@ -107,10 +107,9 @@ export function CosmosMarketplace() {
   }
   return (
     <div className="marketplace">
-      <p className="marketplace__title">Explore, Create & Collect</p>
+      <p className="marketplace__title">Una vida llena de arte</p>
       <p className="marketplace__description">
-        the leading mulltichain NFT Marketplace, Home to the next generation of
-        digital creators. Discover the best NFT collections.
+        Curamos una colección de piezas de arte digital exclusivas para nuestros clientes Cosmos BBVA.
       </p>
       {error && "Hubo un error... mira la consola"}
       {!loading && !error && auth.user.isAdmin && (

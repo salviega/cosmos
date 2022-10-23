@@ -1,5 +1,5 @@
 import "./CosmosMenu.scss";
-import logo from "../../asserts/images/logo-cosmos.png";
+import bbva from "../../asserts/images/logo-bbva.png";
 import iconSearch from "../../asserts/images/icon-search.png";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
@@ -15,15 +15,10 @@ export function CosmosMenu(props) {
         <div className="menu-left">
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             <figure>
-              <img src={logo} alt="logo" />
+              <img src={bbva} alt="logo" />
             </figure>
           </Link>
-          <div className="menu-left-search">
-            <figure>
-              <img src={iconSearch} alt="iconSearch" />
-            </figure>
-            <input className="menu-left-search__bar" placeholder="Search" />
-          </div>
+
         </div>
         <div className="menu-center">
           {privateRoutes &&
@@ -33,7 +28,7 @@ export function CosmosMenu(props) {
                 <NavLink
                   to={"/"}
                 >
-                  {"Home"}
+                  {"Inicio"}
                 </NavLink>
               </p>
               <p className="menu-center__item">
@@ -43,7 +38,7 @@ export function CosmosMenu(props) {
                   }}
                   to={"/create"}
                 >
-                  {"Add Event"}
+                  {"Beneficios"}
                 </NavLink>
               </p>
               <p className="menu-center__item">

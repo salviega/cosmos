@@ -24,7 +24,7 @@ export function CosmosNFTsResume({
 
   return (
     <div className="resumen">
-      <h1 className="resumen__title">Lastest transaccion</h1>
+      <h1 className="resumen__title">Transacciones recientes</h1>
       <div className="resumen-list">
         <div className="resumen-list-head">
           <p className="resumen-list-head__title">IDs</p>
