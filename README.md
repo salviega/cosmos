@@ -2,6 +2,9 @@
 
 Cosmos NFTs: hackathon BBVA 2022
 
+### Subgraph API
+https://thegraph.com/hosted-service/subgraph/salviega/cosmos_v2
+
 ### Vercel deploy
 
 Vercel url: https://cosmos-ivory.vercel.app/
