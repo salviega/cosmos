@@ -13,6 +13,7 @@ import { CosmosMarketplace } from '../CosmosMarketplace';
 import { CosmosEventDetails } from '../CosmosEventDetails';
 import { CosmosFaucet } from '../CosmoFaucet';
 import { CosmosGateway } from '../CosmosGatway';
+import { CosmosApprove } from '../CosmosApprove';
 
 function App() {
   const { getAllItems, getItem, createItem} = firebaseApi()
@@ -69,6 +70,7 @@ function App() {
             <Route path="/marketplace" element={<CosmosMarketplace />} />
             <Route path="/gateway" element={<CosmosGateway />} />
             <Route path="/faucet" element={<CosmosFaucet />} />
+            <Route path="/approve" element={<CosmosApprove />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
       </main>
