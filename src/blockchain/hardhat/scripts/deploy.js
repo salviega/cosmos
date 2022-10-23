@@ -46,7 +46,7 @@ async function main () {
     },
   ]
   const addressesJSON = JSON.stringify(addresses)
-  fs.writeFileSync('src/blockchain/environment/contract-address.json', addressesJSON)
+  fs.writeFileSync('src/blockchain/hardhat/environment/contract-address.json', addressesJSON)
 }
 
 main()
