@@ -38,46 +38,63 @@
     text-align: center;
   }
 
-  &-menu {
+  &-form {
+    margin-bottom: 2.4rem;
+    width: 50vw;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 
-    &-search {
-      width: 24.4rem;
-      height: 4.9rem;
+    span {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__subtitle {
+      margin-left: 0;
+      width: 40vw;
+      height: 3.2rem;
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--h4);
+      line-height: 3rem;
+      color: var(--white);
+      justify-content: left;
+    }
+    &__add {
+      text-align: left;
+      margin-bottom: 1.2em;
+      width: 40vw;
+      height: 5vh;
+      background-color: var(--navy);
+      border: 0.1rem solid var(--white);
+
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--h4);
+      line-height: 3rem;
+      color: var(--white);
+    }
+
+    &-container {
       display: flex;
       align-items: center;
-      padding: 0.9rem 1.6rem;
-      border: 1px solid var(--blue);
-
-      figure {
-        margin: 0;
-        margin-right: 0.6rem;
-        padding: 0;
-        width: 3.917rem;
-        height: 2.917rem;
-        cursor: pointer;
-        img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-
-      &__bar {
-        width: 16.8rem;
-        height: 3rem;
-        background: var(--navy);
-        font-style: normal;
-        font-weight: 600;
-        font-size: var(--h3);
-        line-height: 3rem;
-        color: var(--white);
-        outline: none;
-        &::placeholder {
-          margin: auto auto;
-        }
-      }
+      justify-content: center;
+      column-gap: 0.3rem;
+    }
+    &__submit {
+      padding: 0vh 0.3vw;
+      max-width: max-content;
+      height: 8vh;
+      cursor: pointer;
+      background: var(--blue);
+      border-radius: 0.5em;
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--h4);
+      line-height: 3rem;
+      color: var(--white);
     }
   }
 }

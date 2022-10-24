@@ -1,6 +1,7 @@
 .home {
   text-align: center;
   &__start_page{
+    padding-bottom: 10vh;
     background: no-repeat;
     background-image: url(../../asserts/images/background-image-home.png);
     background-size: cover;

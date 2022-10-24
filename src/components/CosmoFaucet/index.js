@@ -37,7 +37,7 @@ export function CosmosFaucet() {
       </p>
       <form className="faucet-form" onSubmit={mintCosmo}>
         <span>
-          <p className="faucet-form__subtitle">Dirección hexadecimal (0x...)</p>
+          <p className="faucet-form__subtitle">Dirección de billetera</p>
           <input className="faucet-form__add" ref={address} />
         </span>
           <div className="faucet-form-container">
