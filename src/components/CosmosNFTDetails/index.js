@@ -6,7 +6,7 @@ import { faWallet, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { ethers } from 'ethers'
 import addresses from '../../blockchain/environment/contract-address.json'
 import marketPlaceContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/MarketplaceContract.sol/MarketPlaceContract.json'
-import logo from "./../../asserts/images/logo-cosmos.png";
+import logo from './../../asserts/images/logo-cosmos.png'
 const marketPlaceContractAddress = addresses[2].marketplacecontract
 
 export function CosmosNFTDetails ({
@@ -67,7 +67,7 @@ export function CosmosNFTDetails ({
               icon={faEthereum}
               className='collection-modal-container-content-metadata-sale__icon'
             /> */}
-            <img alt="logo" src={logo} width={20} height={20}></img>
+            <img alt='logo' src={logo} width={20} height={20} />
             <p className='collection-modal-container-content-metadata-sale__icon'>
               {(parseInt(item.price) / currency).toFixed(3)}
             </p>
