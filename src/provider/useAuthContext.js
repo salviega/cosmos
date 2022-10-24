@@ -1,11 +1,9 @@
 import React from 'react'
-import { useNavigate, Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const adminWallets = ['0x70a792ad975aa0977c6e9d55a14f5f2228bbc685', '0xa3542355604cFD6531AAf020DDAB3bDFFf4d1809', '0x91DC541109033C060779Aad8a578E34223e694cb']
 
-const AuthContext = React.createContext()
-
-export function AuthProvider ({ children }) {
+export function useAuthContext () {
   const navigate = useNavigate()
 
   const initialState = JSON.parse(localStorage.getItem('wallet')) || { walletAddress: 'Connect wallet' }
@@ -33,22 +31,5 @@ export function AuthProvider ({ children }) {
     navigate('/')
   }
 
-  const auth = { user, login, logout }
-
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
-}
-
-export function AuthRoute (props) {
-  const auth = useAuth()
-
-  if (auth.user.walletAddress === 'Connect wallet') {
-    return <Navigate to='/' />
-  }
-
-  return props.children
-}
-
-export function useAuth () {
-  const auth = React.useContext(AuthContext)
-  return auth
+  return { user, login, logout }
 }

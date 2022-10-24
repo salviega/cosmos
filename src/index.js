@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom/client'
 import App from './components/App'
 import './styles/index.scss'
 import { HashRouter } from 'react-router-dom'
-import { AuthProvider } from './hooks/useAuth'
+import { CosmosProvider } from './provider/context'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <HashRouter>
-      <AuthProvider>
+      <CosmosProvider>
         <App />
-      </AuthProvider>
+      </CosmosProvider>
     </HashRouter>
   </React.StrictMode>
 )

@@ -10,13 +10,14 @@ const paymentGatewayContractAddress = addresses[4].paymentgatewaycontract
 
 export function CosmosGateway () {
   const email = React.useRef()
-  const amount = React.useRef()
+  let amount = React.useRef()
 
   const changeCurrency = async (event) => {
     event.preventDefault()
+    amount = ethers.utils.parseEther(amount.current.value, 'ether')
     const info = {
       email: email.current.value,
-      amount: amount.current.value
+      amount
     }
 
     const web3Provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -34,16 +35,32 @@ export function CosmosGateway () {
       web3Signer
     )
 
-    const response = await cosmoContract.authorizeOperator(paymentGatewayContractAddress)
+    const response = await cosmoContract.authorizeOperator(
+      paymentGatewayContractAddress
+    )
 
     web3Provider
       .waitForTransaction(response.hash)
       .then(async (_response) => {
-        await paymentGatewayContractContract.requestPayOut('0x022EEA14A6010167ca026B32576D6686dD7e85d2', '2ba195e0ecc34e41bc20ab8c80d7e162', info.email, parseInt(info.amount), info.amount, { gasLimit: 2500000 })
+        await paymentGatewayContractContract.requestPayOut(
+          '0x022EEA14A6010167ca026B32576D6686dD7e85d2',
+          '2ba195e0ecc34e41bc20ab8c80d7e162',
+          info.email,
+          parseInt(info.amount),
+          info.amount,
+          { gasLimit: 2500000 }
+        )
       })
       .catch(async (error) => {
         console.error(error)
-        await paymentGatewayContractContract.requestPayOut('0x022EEA14A6010167ca026B32576D6686dD7e85d2', '2ba195e0ecc34e41bc20ab8c80d7e162', info.email, parseInt(info.amount), info.amount, { gasLimit: 2500000 })
+        await paymentGatewayContractContract.requestPayOut(
+          '0x022EEA14A6010167ca026B32576D6686dD7e85d2',
+          '2ba195e0ecc34e41bc20ab8c80d7e162',
+          info.email,
+          parseInt(info.amount),
+          info.amount,
+          { gasLimit: 2500000 }
+        )
       })
   }
 
@@ -53,19 +70,19 @@ export function CosmosGateway () {
       <p className='faucet__description'>
         Convierte tus Cosmos en dólares, te llegaran a tu cuenta de Paypal
       </p>
-      <form className="faucet-form" onSubmit={email}>
+      <form className='faucet-form' onSubmit={changeCurrency}>
         <span>
-        <p className="faucet-form__subtitle">Correo electrónico</p>
+          <p className='faucet-form__subtitle'>Correo electrónico</p>
 
-          <input className="faucet-form__add" ref={email} />
+          <input className='faucet-form__add' ref={email} />
         </span>
         <span>
-        <p className="faucet-form__subtitle">Cosmos</p>
-          <input className="faucet-form__add" ref={amount} />
+          <p className='faucet-form__subtitle'>Cosmos</p>
+          <input className='faucet-form__add' ref={amount} />
         </span>
-          <div className="faucet-form-container">
-            <button className="faucet-form__submit">Canjear</button>
-          </div>
+        <div className='faucet-form-container'>
+          <button className='faucet-form__submit'>Canjear</button>
+        </div>
       </form>
     </div>
   )

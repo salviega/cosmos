@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
-import { useAuth } from '../../hooks/useAuth'
+import { useAuth, useContracts } from '../../provider/context'
 import './CosmosMarketplace.scss'
 import { CosmosNFTs } from '../CosmosNFTs'
 import { CosmosNFT } from '../CosmosNFT'
@@ -8,19 +8,15 @@ import { CosmosModal } from '../CosmosModal'
 import { CosmosNFTDetails } from '../CosmosNFTDetails'
 import { CosmosLoading } from '../CosmosLoading'
 import { ethers } from 'ethers'
-import marketPlaceContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/MarketplaceContract.sol/MarketPlaceContract.json'
-import feedContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/FeedContract.sol/FeedContract.json'
 import { CosmosSupplyNFTs } from '../CosmosSupplyNFTs'
 import { CosmosNFTsResume } from '../CosmosNFTsResume'
 import { CosmosPurchasedNFTDetails } from '../CosmosPurchasedNFTDetails'
 import { getDataMarketPlaceSubGraph } from '../../middleware/getDataMarketPlaceSubGraph.js'
-import addresses from '../../blockchain/environment/contract-address.json'
-const feedContractAddress = addresses[0].feedcontract
-const marketPlaceContractAddress = addresses[2].marketplacecontract
 
 export function CosmosMarketplace () {
   const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph()
   const auth = useAuth()
+  const contracts = useContracts()
   const [itemsForSale, setItemsForSale] = React.useState([])
   const [purchasedItems, setPurchasedItems] = React.useState([])
   const [currency, setCurrency] = React.useState(0)
@@ -34,22 +30,8 @@ export function CosmosMarketplace () {
 
   const fetchData = async () => {
     try {
-      let provider = new ethers.providers.JsonRpcProvider(
-        'https://rpc.ankr.com/avalanche_fuji'
-      )
-
-      const feedContract = new ethers.Contract(
-        feedContractAddress,
-        feedContractAbi.abi,
-        provider
-      )
-
-      provider = new ethers.providers.Web3Provider(window.ethereum)
-      const marketPlaceContract = new ethers.Contract(
-        marketPlaceContractAddress,
-        marketPlaceContractAbi.abi,
-        provider
-      )
+      const feedContract = contracts.feedContract
+      const marketPlaceContract = contracts.marketPlaceContract
 
       const currency = await feedContract.getLatestPrice()
       const tokenIdCounter = await marketPlaceContract.tokenIdCounter()
