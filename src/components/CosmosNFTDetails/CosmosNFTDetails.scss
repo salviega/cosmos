@@ -159,9 +159,9 @@
     }
 
     &__description {
-      margin-bottom: 2rem;
-      margin-left: 6rem;
-
+      margin: 0;
+      margin-bottom: 1rem;
+      width: 40rem;
       display: flex;
       align-items: center;
       justify-content: left;
@@ -169,8 +169,6 @@
     }
 
     &-buy {
-      margin: 0;
-      padding: 0;
       width: max-content;
       height: max-content;
       display: flex;
