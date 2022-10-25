@@ -70,17 +70,21 @@ export function CosmosFaucet(props) {
         Retira todos los Cosmos que quieras.
       </p>
       {error && "Hubo un error... mira la consola"}
-      {loading && !error ? (
+      {loading && !error && (
         <div className="faucet__loading">
           <CosmosLoading />
         </div>
-      ) : (
+      )}
+      {!loading && !error && (
         <form className="faucet-form" onSubmit={mintCosmo}>
           <span>
-            <p className="faucet-form__subtitle" >
-              Dirección de billetera
-            </p>
-            <input className="faucet-form__add" ref={address} type="text" required />
+            <p className="faucet-form__subtitle">Dirección de billetera</p>
+            <input
+              className="faucet-form__add"
+              ref={address}
+              type="text"
+              required
+            />
           </span>
           <div className="faucet-form-container">
             <figure>

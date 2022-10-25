@@ -2,12 +2,14 @@ import feedContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/h
 import cosmoContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/CosmoContract.sol/CosmoContract.json'
 import marketPlaceContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/MarketplaceContract.sol/MarketPlaceContract.json'
 import benefitsContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitsContract.sol/BenefitsContract.json'
+import paymentGatewayContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/PaymentGatewayContract.sol/PaymentGatewayContract.json'
 import addresses from '../../blockchain/environment/contract-address.json'
 import { ethers } from 'ethers'
 const feedContractAddress = addresses[0].feedcontract
 const cosmoContractAddress = addresses[1].cosmocontract
 const marketPlaceContractAddress = addresses[2].marketplacecontract
 const benefitsContractAddress = addresses[3].benefitscontract
+const paymenGatewayContractAddress = addresses[4].paymentgatewaycontract
 
 export function useContractContext (signer) {
   const provider = new ethers.providers.JsonRpcProvider(
@@ -38,7 +40,13 @@ export function useContractContext (signer) {
     web3Signer
   )
 
-  return { web3Provider, web3Signer, feedContract, cosmoContract, marketPlaceContract, benefitsContract }
+  const paymentGatewayContract = generateContract(
+    paymenGatewayContractAddress,
+    paymentGatewayContractAbi.abi,
+    web3Signer
+  )
+
+  return { web3Provider, web3Signer, feedContract, cosmoContract, marketPlaceContract, benefitsContract, paymentGatewayContract }
 }
 
 function generateContract (address, abi, provider) {

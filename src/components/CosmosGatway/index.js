@@ -1,89 +1,100 @@
-import './CosmosGateway.scss'
-import React from 'react'
-import { ethers } from 'ethers'
-import paymentGatewayContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/PaymentGatewayContract.sol/PaymentGatewayContract.json'
-import addresses from '../../blockchain/environment/contract-address.json'
-import cosmoContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/CosmoContract.sol/CosmoContract.json'
-const cosmoContractAddress = addresses[1].cosmocontract
+import "./CosmosGateway.scss";
+import React from "react";
+import { ethers } from "ethers";
+import { useContracts } from "../CosmosContext";
+import { CosmosLoading } from "../../shared/CosmosLoading";
 
-const paymentGatewayContractAddress = addresses[4].paymentgatewaycontract
-
-export function CosmosGateway () {
-  const email = React.useRef()
-  let amount = React.useRef()
+export function CosmosGateway() {
+  const contracts = useContracts();
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(false);
+  const email = React.useRef();
+  let amount = React.useRef();
 
   const changeCurrency = async (event) => {
-    event.preventDefault()
-    amount = ethers.utils.parseEther(amount.current.value, 'ether')
+    event.preventDefault();
+    amount = ethers.utils.parseEther(amount.current.value, "ether");
     const info = {
       email: email.current.value,
-      amount
+      amount: parseInt(amount) * 10 ** 18,
+    };
+    setLoading(true);
+
+    try {
+      const response = await contracts.cosmoContract.authorizeOperator(
+        contracts.paymentGatewayContract.address
+      );
+      contracts.web3Provider
+        .waitForTransaction(response.hash)
+        .then(async (_response) => {
+          const response2 =
+            await contracts.paymentGatewayContract.requestPayOut(
+              "0x022EEA14A6010167ca026B32576D6686dD7e85d2",
+              "2ba195e0ecc34e41bc20ab8c80d7e162",
+              info.email,
+              amount,
+              info.amount,
+              { gasLimit: 2500000 }
+            );
+          contracts.web3Provider
+            .waitForTransaction(response2.hash)
+            .then(async (_response2) => {
+              setTimeout(() => {
+                alert("Fueron cambiados tus cosmos a dólares");
+                setLoading(false);
+              }, 3000);
+            })
+            .catch((error) => {
+              console.log(error);
+              setLoading(false);
+              setError(true);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+          setError(true);
+        });
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setError(true);
     }
-
-    const web3Provider = new ethers.providers.Web3Provider(window.ethereum)
-    const web3Signer = web3Provider.getSigner()
-
-    const paymentGatewayContractContract = new ethers.Contract(
-      paymentGatewayContractAddress,
-      paymentGatewayContractAbi.abi,
-      web3Signer
-    )
-
-    const cosmoContract = new ethers.Contract(
-      cosmoContractAddress,
-      cosmoContractAbi.abi,
-      web3Signer
-    )
-
-    const response = await cosmoContract.authorizeOperator(
-      paymentGatewayContractAddress
-    )
-
-    web3Provider
-      .waitForTransaction(response.hash)
-      .then(async (_response) => {
-        await paymentGatewayContractContract.requestPayOut(
-          '0x022EEA14A6010167ca026B32576D6686dD7e85d2',
-          '2ba195e0ecc34e41bc20ab8c80d7e162',
-          info.email,
-          parseInt(info.amount),
-          info.amount,
-          { gasLimit: 2500000 }
-        )
-      })
-      .catch(async (error) => {
-        console.error(error)
-        await paymentGatewayContractContract.requestPayOut(
-          '0x022EEA14A6010167ca026B32576D6686dD7e85d2',
-          '2ba195e0ecc34e41bc20ab8c80d7e162',
-          info.email,
-          parseInt(info.amount),
-          info.amount,
-          { gasLimit: 2500000 }
-        )
-      })
-  }
+  };
 
   return (
-    <div className='faucet'>
-      <p className='faucet__title'>Pasarela de pagos</p>
-      <p className='faucet__description'>
+    <div className="faucet">
+      <p className="faucet__title">Pasarela de pagos</p>
+      <p className="faucet__description">
         Convierte tus Cosmos en dólares, te llegaran a tu cuenta de Paypal
       </p>
-      <form className='faucet-form' onSubmit={changeCurrency}>
-        <span>
-          <p className='faucet-form__subtitle'>Correo electrónico</p>
-
-          <input className='faucet-form__add' ref={email} />
-        </span>
-        <span>
-          <p className='faucet-form__subtitle'>Cosmos</p>
-          <input className='faucet-form__add' ref={amount} />
-        </span>
-        <div className='faucet-form-container'>
-          <button className='faucet-form__submit'>Canjear</button>
+      {error && "Hubo un error... mira la consola"}
+      {loading && !error && (
+        <div className="faucet__loading">
+          <CosmosLoading />
         </div>
-      </form>
+      )}
+      {!loading && !error && (
+        <form className="faucet-form" onSubmit={changeCurrency}>
+          <span>
+            <p className="faucet-form__subtitle">Correo electrónico</p>
+
+            <input
+              className="faucet-form__add"
+              ref={email}
+              type="email"
+              required
+            />
+          </span>
+          <span>
+            <p className="faucet-form__subtitle">Cosmos</p>
+            <input className="faucet-form__add" ref={amount} required min="1" />
+          </span>
+          <div className="faucet-form-container">
+            <button className="faucet-form__submit">Canjear</button>
+          </div>
+        </form>
+      )}
     </div>
-  )
+  );
 }

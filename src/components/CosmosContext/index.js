@@ -14,6 +14,7 @@ export function CosmosProvider({ children }) {
     cosmoContract,
     marketPlaceContract,
     benefitsContract,
+    paymentGatewayContract,
   } = useContractContext();
 
   return (
@@ -28,6 +29,7 @@ export function CosmosProvider({ children }) {
         cosmoContract,
         marketPlaceContract,
         benefitsContract,
+        paymentGatewayContract,
       }}
     >
       {children}
@@ -52,15 +54,23 @@ export function useAuth() {
 }
 
 export function useContracts() {
-  const { web3Provider, web3Signer, feedContract, cosmoContract, marketPlaceContract, benefitsContract } =
-    React.useContext(CosmosContext);
-  const contracts = {
-    web3Provider, 
-    web3Signer, 
+  const {
+    web3Provider,
+    web3Signer,
     feedContract,
     cosmoContract,
     marketPlaceContract,
     benefitsContract,
+    paymentGatewayContract,
+  } = React.useContext(CosmosContext);
+  const contracts = {
+    web3Provider,
+    web3Signer,
+    feedContract,
+    cosmoContract,
+    marketPlaceContract,
+    benefitsContract,
+    paymentGatewayContract,
   };
   return contracts;
 }
