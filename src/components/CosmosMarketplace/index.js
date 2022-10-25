@@ -93,7 +93,7 @@ export function CosmosMarketplace () {
       </p>
       {error && 'Hubo un error... mira la consola'}
       {!loading && !error && auth.user.isAdmin && (
-        <div className='collection-admin'>
+        <div className='marketplace-admin'>
           <CosmosSupplyNFTs
             tokenIdCounter={tokenIdCounter}
             setLoading={setLoading}

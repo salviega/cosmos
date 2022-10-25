@@ -80,10 +80,10 @@ export function CosmosSupplyNFTs ({ tokenIdCounter, setLoading, setSincronizedIt
     <div className='supply'>
       <h1 className='supply__title'>Sell NFT</h1>
       <form className='supply-form' onSubmit={putInSale}>
-        <div className='supply-form__container'>
           <span>
-            <p>Add the price in USD: </p>
+            <p className='supply-form__subtitle'>Add the price in USD: </p>
             <input
+              className='supply-form__add'
               type='number'
               required
               min='1'
@@ -93,8 +93,9 @@ export function CosmosSupplyNFTs ({ tokenIdCounter, setLoading, setSincronizedIt
             />
           </span>
           <span>
-            <p>Add the token ID: </p>
+            <p className='supply-form__subtitle'>Add the token ID: </p>
             <input
+              className='supply-form__add'
               type='number'
               required
               min='0'
@@ -104,8 +105,9 @@ export function CosmosSupplyNFTs ({ tokenIdCounter, setLoading, setSincronizedIt
             />
           </span>
           <span>
-            <p>Add the metadata of the new NFT: </p>
+            <p className='supply-form__subtitle'>Add the metadata of the new NFT: </p>
             <input
+              className='supply-form__add'
               type='url'
               required
               placeholder='https://gateway/ipfs/example-metadata.json'
@@ -113,8 +115,9 @@ export function CosmosSupplyNFTs ({ tokenIdCounter, setLoading, setSincronizedIt
             />
           </span>
           <span>
-            <p>Wallet of the artist: </p>
+            <p className='supply-form__subtitle'>Wallet of the artist: </p>
             <input
+              className='supply-form__add'
               type='text'
               required
               placeholder='0x70.....BC685'
@@ -122,8 +125,9 @@ export function CosmosSupplyNFTs ({ tokenIdCounter, setLoading, setSincronizedIt
             />
           </span>
           <span>
-            <p>Fee of the artist: </p>
+            <p className='supply-form__subtitle'>Fee of the artist: </p>
             <input
+              className='supply-form__add'
               type='number'
               required
               min='1'
@@ -132,10 +136,10 @@ export function CosmosSupplyNFTs ({ tokenIdCounter, setLoading, setSincronizedIt
               ref={taxFee}
             />
           </span>
-          <div className='supply-form__create'>
-            <button>Create NFT</button> <p className='supply-form__idCounter'> currency token ID: {tokenIdCounter}</p>
+          <div className='supply-form-create'>
+            <button className='supply-form-create__submit'>Create NFT</button> 
+            <p className='supply-form-create__idCounter'> currency token ID: {tokenIdCounter}</p>
           </div>
-        </div>
       </form>
     </div>
   )

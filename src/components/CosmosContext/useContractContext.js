@@ -38,7 +38,7 @@ export function useContractContext (signer) {
     web3Signer
   )
 
-  return { feedContract, cosmoContract, marketPlaceContract, benefitsContract }
+  return { web3Provider, web3Signer, feedContract, cosmoContract, marketPlaceContract, benefitsContract }
 }
 
 function generateContract (address, abi, provider) {

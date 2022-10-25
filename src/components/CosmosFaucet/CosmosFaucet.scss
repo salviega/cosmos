@@ -95,4 +95,11 @@
       color: var(--white);
     }
   }
+
+  &__loading {
+    margin-top: 160px;
+    margin-bottom: 160px;
+    height: auto;
+    width: auto;
+  }
 }
