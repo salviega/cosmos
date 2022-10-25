@@ -1,7 +1,7 @@
 import React from 'react'
 import './CosmosEventDetails.scss'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useAuth } from '../../provider/context'
+import { useAuth } from '../CosmosContext'
 import { ethers } from 'ethers'
 import benefitContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitContract.sol/BenefitContract.json'
 import benefitsContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitsContract.sol/BenefitsContract.json'

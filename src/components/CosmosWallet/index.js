@@ -1,7 +1,7 @@
 import './CosmosWallet.scss'
 import React from 'react'
 import { ethers } from 'ethers'
-import { useAuth } from '../../provider/context'
+import { useAuth } from '../CosmosContext'
 
 export function CosmosWallet () {
   const [loading, setLoading] = React.useState(false)

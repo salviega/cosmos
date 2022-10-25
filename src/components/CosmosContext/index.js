@@ -30,7 +30,7 @@ export function CosmosProvider ({ children }) {
 export function AuthRoute (props) {
   const auth = useAuth()
 
-  if (auth.user.walletAddress === 'Connect wallet') {
+  if (!auth.user.walletAddress === 'Connect wallet') {
     return <Navigate to='/' />
   }
 

@@ -3,7 +3,7 @@ import bbva from '../../asserts/images/logo-bbva.png'
 import iconSearch from '../../asserts/images/icon-search.png'
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { useAuth } from '../../provider/context'
+import { useAuth } from '../CosmosContext'
 
 export function CosmosMenu (props) {
   const auth = useAuth()

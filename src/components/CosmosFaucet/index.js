@@ -1,12 +1,13 @@
 import './CosmosFaucet.scss'
-import React, { useRef } from 'react'
+import React from 'react'
 import { ethers } from 'ethers'
 import logo from '../../asserts/images/logo-cosmos.png'
-import addresses from '../../blockchain/environment/contract-address.json'
-import cosmoContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/CosmoContract.sol/CosmoContract.json'
-const cosmoContractAddress = addresses[1].cosmocontract
+import { useAuth, useContracts } from '../CosmosContext'
+import { Navigate } from 'react-router-dom'
 
-export function CosmosFaucet () {
+export function CosmosFaucet (props) {
+  const auth = useAuth()
+  const contracts = useContracts()
   const address = React.useRef()
   const amount = ethers.utils.parseEther('10', 'ether')
 
@@ -17,17 +18,13 @@ export function CosmosFaucet () {
       amount
     }
 
-    const web3Provider = new ethers.providers.Web3Provider(window.ethereum)
-    const web3Signer = web3Provider.getSigner()
-
-    const cosmoContract = new ethers.Contract(
-      cosmoContractAddress,
-      cosmoContractAbi.abi,
-      web3Signer
-    )
-
-    await cosmoContract.safeMint(info.address, info.amount)
+    await contracts.cosmoContract.safeMint(info.address, info.amount)
   }
+
+  if (auth.user.walletAddress === 'Connect wallet') {
+    return <Navigate to='/' />
+  }
+
   return (
     <div className='faucet'>
       <p className='faucet__title'>Faucet</p>
