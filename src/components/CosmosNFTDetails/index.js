@@ -1,7 +1,6 @@
 import './CosmosNFTDetails.scss'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEthereum } from '@fortawesome/free-brands-svg-icons'
 import { faWallet, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { ethers } from 'ethers'
 import addresses from '../../blockchain/environment/contract-address.json'
@@ -57,22 +56,15 @@ export function CosmosNFTDetails ({
       </div>
       <div className='collection-modal-container-content'>
         <figure>
-          <img src={item.url} alt='logo' />
+          <img src={item.image} alt='logo' />
         </figure>
         <div className='collection-modal-container-content-metadata'>
-          <p className='collection-modal-container-content-metadata__title'>{item.title}</p>
+          <p className='collection-modal-container-content-metadata__title'>{item.name}</p>
           <p className='collection-modal-container-content-metadata__price'>Price</p>
           <div className='collection-modal-container-content-metadata-sale'>
-            {/* <FontAwesomeIcon
-              icon={faEthereum}
-              className='collection-modal-container-content-metadata-sale__icon'
-            /> */}
             <img alt='logo' src={logo} width={20} height={20} />
             <p className='collection-modal-container-content-metadata-sale__icon'>
-              {(parseInt(item.price) / currency).toFixed(3)}
-            </p>
-            <p className='collection-modal-container-content-metadata-sale__currency'>
-              ${parseInt(item.price).toFixed(2)}
+              {parseInt(item.price) / 1000000000000000000}
             </p>
           </div>
           <div className='collection-modal-container-content-metadata-container'>
@@ -88,9 +80,6 @@ export function CosmosNFTDetails ({
             </p>
             <p className='collection-modal-container-content-metadata-container__item'>
               Token Standard <p>{item.tokenStandard}</p>
-            </p>
-            <p className='collection-modal-container-content-metadata-container__item'>
-              Blockchain <p>{item.blockchain}</p>
             </p>
           </div>
         </div>

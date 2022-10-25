@@ -10,7 +10,6 @@
 
   figure {
     margin-top: 2rem;
-    padding: 0;
     width: 28.5rem;
     height: 28.1rem;
 
@@ -55,7 +54,28 @@
       border-radius: 0.25em;
       border: none;
       cursor: pointer;
-      
     }
   }
 }
+
+  // tablets
+  @media screen and (min-width: 40em) and (max-width: 63.9em) {
+    .nfts-container {
+      margin-bottom: 8.4rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+      justify-items: center;
+    }
+  }
+
+  //web
+  @media screen and (min-width: 64em) {
+    .nfts-container {
+      margin-bottom: 8.4rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      justify-items: center;
+    }
+  }

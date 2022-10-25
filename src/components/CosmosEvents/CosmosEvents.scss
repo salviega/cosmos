@@ -8,7 +8,7 @@
 
   // tablets
   @media screen and (min-width: 40em) and (max-width: 63.9em) {
-    .events-benefits {
+    .events-container {
       padding-top: 6.2rem;
 
       margin-bottom: 8.4rem;
@@ -21,7 +21,7 @@
 
   //web
   @media screen and (min-width: 64em) {
-    .events-benefits {
+    .events-container {
       padding-top: 6.2rem;
       margin-bottom: 8.4rem;
       display: grid;

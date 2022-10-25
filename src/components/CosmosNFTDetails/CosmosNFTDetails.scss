@@ -1,7 +1,6 @@
 .collection-modal {
   &-container {
-    margin: 0px;
-    padding: 0px;
+    position: relative;
     width: 739.5px;
     height: 483px;
     display: flex;
@@ -11,22 +10,22 @@
     border-radius: 20px;
 
     &__cancel {
+      padding-top: 6px;
+      padding-right: 14px;
       width: 30px;
       height: 30px;
-      cursor: pointer;
       position: absolute;
       top: 0;
       right: 0;
       display: flex;
       font-size: 28px;
-      padding-top: 6px;
-      padding-right: 14px;
+      cursor: pointer;
     }
 
     &-content {
-      margin:  0 20.5px;
+      margin: 0 20.5px;
       margin-top: 23px;
-      margin-bottom: 0px;
+      margin-bottom: 2rem;
       padding: 0px;
       display: flex;
       justify-content: space-around;
@@ -111,12 +110,9 @@
         }
 
         &-container {
-          margin: 0px;
-          padding: 0px;
           display: flex;
           flex-direction: column;
-          margin: 0px;
-          max-width: 100%;
+          align-items: center;
 
           &__contract {
             margin: 0px;
@@ -124,26 +120,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 12px;
-
-            p {
-              max-width: max-content;
-              font-style: normal;
-              font-weight: 400;
-              font-size: 12px;
-              line-height: 36px;
-              text-decoration: none;
-              color: #000000;
-            }
+            font-size: var(--p);
+            color: var(--navy);
 
             a {
               max-width: max-content;
               font-style: normal;
-              font-weight: 400;
-              font-size: 12px;
+              font-weight: 300;
+              font-size: var(--p);
               line-height: 36px;
               text-decoration: none;
-              color: #ff3c82;
+              color: var(--blue);
               border-bottom: 1px solid #000000;
             }
           }
@@ -154,16 +141,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 12px;
+            font-size: var(--p);
+            color: var(--navy);
 
             p {
               max-width: max-content;
               font-style: normal;
               font-weight: 300;
-              font-size: 12px;
+              font-size: var(--p);
               line-height: 36px;
               text-decoration: none;
-              color: #000000;
+              color: var(--navy);
             }
           }
         }
@@ -171,15 +159,13 @@
     }
 
     &__description {
-      margin:  0 20.5px;
       margin-bottom: 2rem;
-      padding: 0px;
-      width: 698.5px;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 16px;
-      color: #000000;
+      margin-left: 6rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      color: var(--navy);
     }
 
     &-buy {
@@ -194,17 +180,17 @@
       button {
         cursor: pointer;
         font-size: 12px;
-        color: #ff3c82;
+        color: var(--navy);
         background: #fff;
-        border: 2px solid #ff3c82;
+        border: 2px solid var(--navy);
         border-radius: 25px;
         padding: 10px 25px;
         max-width: max-content;
         transition: all 0.27s ease;
 
         &:hover {
-          border: 2px solid rgba(146, 3, 241, 1);
-          color: rgba(146, 3, 241, 1);
+          border: 2px solid var(--blue);
+          color: var(--blue);
         }
       }
     }

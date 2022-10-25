@@ -4,9 +4,9 @@ import { useAuth, useContracts } from "../CosmosContext";
 import "./CosmosMarketplace.scss";
 import { CosmosNFTs } from "../CosmosNFTs";
 import { CosmosNFT } from "../CosmosNFT";
-import { CosmosModal } from "../CosmosModal";
 import { CosmosNFTDetails } from "../CosmosNFTDetails";
 import { CosmosLoading } from "../../shared/CosmosLoading";
+import { CosmosModal } from "../../shared/CosmosModal";
 import { ethers } from "ethers";
 import { CosmosSupplyNFTs } from "../CosmosSupplyNFTs";
 import { CosmosNFTsResume } from "../CosmosNFTsResume";
@@ -59,17 +59,16 @@ export function CosmosMarketplace() {
       const metadata = await response.json();
       const refactoredItem = {
         itemId: item.itemId,
-        title: metadata.title,
+        name: metadata.name,
         description: metadata.description,
         price: item.price,
-        url: metadata.url,
+        image: metadata.image,
         artist: item.artist,
         taxFee: item.taxFee,
         addressTaxFeeToken: item.addressTaxFeeToken,
         contract: item.nft,
         tokenId: item.tokenId,
         tokenStandard: metadata.tokenStandard,
-        blockchain: metadata.Blockchain,
         buyer: item.buyer,
       };
       return refactoredItem;

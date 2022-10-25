@@ -20,11 +20,11 @@
   }
 
   &-list {
-
-
-    padding: 0px;
     height: 566px;
     width: 854.67px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: var(--white);
     overflow-x: hidden;
     overflow-y: auto;
@@ -65,10 +65,12 @@
       border-bottom: 1px solid var(--navy);
 
       &__item {
-        margin: 0px;
-        padding: 0px;
         width: 56px;
         height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
         font-style: normal;
         font-weight: 300;
         font-size: var(--p);
@@ -147,10 +149,9 @@
         line-height: 1.5em;
         color: var(--blue);
 
-        &:hover {
-          width: max-content;
-          border-bottom: 2px solid var(--blue);
-        }
+          &:hover {
+              color: var(--blue);
+          }
 
       }
 

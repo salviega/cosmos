@@ -49,6 +49,7 @@ export function CosmosSupplyNFTs ({ tokenIdCounter, setLoading, setSincronizedIt
                 .waitForTransaction(response3.hash)
                 .then((_response3) => {
                   setTimeout(() => {
+                    alert('Ya está en venta el NFT')
                     setSincronizedItems(false)
                   }, 3000)
                 })
