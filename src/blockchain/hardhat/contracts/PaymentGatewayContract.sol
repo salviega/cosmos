@@ -39,11 +39,11 @@ contract PaymentGatewayContract is  VulnerableRecipientContract, ChainlinkClient
         string memory email,
         uint256 value,
         string memory valor
-    ) public onlyOwner {
+    ) public {
 
-        require(ICosmosContract(cosmoContract).getSupplyBalance(msg.sender) > value * 1e18, "Insufficient tokens");
+        require(ICosmosContract(cosmoContract).getSupplyBalance(msg.sender) > value, "Insufficient tokens");
 
-        deposit(value * 1e18);
+        deposit(value);
 
         Chainlink.Request memory req = buildOperatorRequest(
             stringToBytes32(_jobId),

@@ -12,11 +12,11 @@
     "blocknumber": 14906244
   },
   {
-    "benefitscontract": "0x6352EAe846fD0201b5B9070aF528AAF9576b1FDD",
-    "blocknumber": 14911635
+    "benefitscontract": "0xc2406EBb9DDdeedEd891Ba031C2A3647B803aB98",
+    "blocknumber": 15052009
   },
   {
-    "paymentgatewaycontract": "0x72e1aC672Dc22BcD64F7Ae856ce9722e67a280b6",
-    "blocknumber": 14920476
+    "paymentgatewaycontract": "0x2F0E5329cE2A4A3e08e39C73794a1b27777Ef1A9",
+    "blocknumber": 15049227
   }
 ]

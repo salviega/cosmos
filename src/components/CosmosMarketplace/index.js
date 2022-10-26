@@ -12,6 +12,7 @@ import { CosmosSupplyNFTs } from "../CosmosSupplyNFTs";
 import { CosmosNFTsResume } from "../CosmosNFTsResume";
 import { CosmosPurchasedNFTDetails } from "../CosmosPurchasedNFTDetails";
 import { getDataMarketPlaceSubGraph } from "../../middleware/getDataMarketPlaceSubGraph.js";
+import { cpuUsage } from 'process';
 
 export function CosmosMarketplace() {
   const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph();
@@ -30,11 +31,9 @@ export function CosmosMarketplace() {
 
   const fetchData = async () => {
     try {
-      const feedContract = contracts.feedContract;
-      const marketPlaceContract = contracts.marketPlaceContract;
 
-      const currency = await feedContract.getLatestPrice();
-      const tokenIdCounter = await marketPlaceContract.tokenIdCounter();
+      const currency = await contracts.feedContract.getLatestPrice();
+      const tokenIdCounter = await contracts.marketPlaceContract.tokenIdCounter();
       setTokenIdCounter(ethers.BigNumber.from(tokenIdCounter).toNumber());
       setCurrency(ethers.BigNumber.from(currency).toNumber());
 

@@ -30,7 +30,7 @@ export function CosmosGateway() {
           const response2 =
             await contracts.paymentGatewayContract.requestPayOut(
               "0x022EEA14A6010167ca026B32576D6686dD7e85d2",
-              "2ba195e0ecc34e41bc20ab8c80d7e162",
+              "d9d827f01e53462b84efbeaab08c7061",
               info.email,
               amount,
               info.amount,

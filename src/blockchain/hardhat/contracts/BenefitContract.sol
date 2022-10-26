@@ -25,13 +25,15 @@ contract BenefitContract is ERC721URIStorage, RecipientContract {
       string URI;
       bool checkIn;
       bool redeem;
+      address buyer;
     }
 
     mapping(uint => Token) public tokens; 
+    mapping(address => uint[]) public benefitsIdByCustomer;
 
-    string uri;
-    uint maxMint;
-    uint256 price;
+    string public uri;
+    uint public maxMint;
+    uint256 public price;
 
     constructor(address _manager, uint _maxMint, string memory _uri, uint256 _price, address _erc777Address, string memory _name, string memory _symbol) ERC721(_name, _symbol) RecipientContract(_erc777Address) {
         ADMIN.add(msg.sender);
@@ -51,7 +53,10 @@ contract BenefitContract is ERC721URIStorage, RecipientContract {
 
       uint tokenId = tokenIdCounter.current();
       tokenIdCounter.increment();
-      tokens[tokenId] = Token(tokenId, uri, false, false);
+      Token memory token = Token(tokenId, uri, false, false, msg.sender);
+      tokens[tokenId] = token;
+      benefitsIdByCustomer[msg.sender].push(tokenId);
+
       deposit(price);
       _safeMint(msg.sender, tokenId);
       _setTokenURI(tokenId, uri);
@@ -74,6 +79,10 @@ contract BenefitContract is ERC721URIStorage, RecipientContract {
         token.redeem = true;
         return token.redeem;
     }   
+
+    function getBenefitsIdsByCustomer(address _owner) view public returns(uint[] memory) {
+        return benefitsIdByCustomer[_owner];
+    }
 }
 
 library Roles {

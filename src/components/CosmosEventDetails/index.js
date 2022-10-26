@@ -35,6 +35,7 @@ export function CosmosEventDetails({ getItem }) {
   };
 
   const getBenefit = async (id) => {
+
     const benefitContractAddress = await contracts.benefitsContract.getBenefit(
       id
     );
@@ -43,10 +44,14 @@ export function CosmosEventDetails({ getItem }) {
       benefitContractAbi.abi,
       contracts.web3Signer
     );
-    setContract(benefitContract);
+      console.log(benefitContract)
+      setContract(benefitContract);
+      console.log(await benefitContract.getBenefitsIdsByCustomer(auth.user.walletAddress))
+      console.log(await benefitContract.tokens(0))
   };
-
+  
   const mintBenefit = async () => {
+    
     try {
       setLoading(true);
       const response = await contracts.cosmoContract.authorizeOperator(
