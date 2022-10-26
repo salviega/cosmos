@@ -2,46 +2,53 @@ import './CosmosNFTDetails.scss'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWallet, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { ethers } from 'ethers'
-import addresses from '../../blockchain/environment/contract-address.json'
-import marketPlaceContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/MarketplaceContract.sol/MarketPlaceContract.json'
 import logo from './../../asserts/images/logo-cosmos.png'
-const marketPlaceContractAddress = addresses[2].marketplacecontract
+import { useContracts } from '../CosmosContext'
 
 export function CosmosNFTDetails ({
   item,
-  currency,
   setLoading,
   setSincronizedItems,
   setOpenModal
 }) {
-  const buyItem = async () => {
+  const contracts = useContracts()
+
+  const onBuy = async () => {
+    console.log(':d')
     try {
-      const weiPrice = (parseInt(item.price) / currency) * 10 ** 18
-      const web3Provider = new ethers.providers.Web3Provider(window.ethereum)
-      const web3Signer = web3Provider.getSigner()
+      setLoading(true);
+      const response = await contracts.cosmoContract.authorizeOperator(
+        contracts.marketPlaceContract.address
+      );
 
-      const marketPlaceContract = new ethers.Contract(
-        marketPlaceContractAddress,
-        marketPlaceContractAbi.abi,
-        web3Signer
-      )
-
-      const response = await marketPlaceContract.buyItem(item.itemId, {
-        value: weiPrice.toString(),
-        gasLimit: 250000
-      })
-      setOpenModal(false)
-      setLoading(true)
-
-      web3Provider.waitForTransaction(response.hash).then((_response) => {
-        setSincronizedItems(false)
-      })
+      contracts.web3Provider
+        .waitForTransaction(response.hash)
+        .then(async (_response) => {
+          const response2 = await contracts.marketPlaceContract.buyItem(
+            contracts.cosmoContract.address,
+            item.itemId,
+            { /*value: item.price,*/ gasLimit: 250000 }
+          );
+          contracts.web3Provider
+            .waitForTransaction(response2.hash)
+            .then((_response2) => {
+              alert("Compra exitosa");
+              setSincronizedItems(false);
+            })
+            .catch((error) => {
+              console.error(error);
+              setLoading(false);
+            });
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+        });
     } catch (error) {
-      setLoading(false)
-      console.log(error)
+      setLoading(false);
+      console.log(error);
     }
-  }
+  };
   const closeModal = () => {
     setOpenModal(false)
   }
@@ -81,18 +88,23 @@ export function CosmosNFTDetails ({
             <p className='collection-modal-container-content-metadata-container__item'>
               Token Standard <p>{item.tokenStandard}</p>
             </p>
+            <div className='collection-modal-container-content-metadata-container__item'>
+            Derechos de autor
+            <p className='collection-modal-container-content-metadata-container__item' style={{'column-gap': '8px'}}>
+               <img alt='logo' src={logo} /> <p>{item.taxFee / 1000000000000000000}</p>
+            </p>
+            </div>
           </div>
         </div>
       </div>
       <p className='collection-modal-container__description'>{item.description}</p>
-      <div className='collection-modal-container-buy'>
+      <div className='collection-modal-container-buy' onClick={() =>onBuy()}>
         <button>
           <FontAwesomeIcon
             icon={faWallet}
             className='collection-modal-container-metadata-buy__icon'
-            onClick={() => buyItem()}
           />
-          Buy now
+          Comprar
         </button>
       </div>
     </div>

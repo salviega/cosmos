@@ -76,17 +76,13 @@
         }
 
         &-sale {
-          margin: 0px;
-          padding-left: 3px;
           display: flex;
+          max-width: max-content;
           align-items: center;
           justify-content: center;
           column-gap: 8px;
-          max-width: max-content;
 
           &__icon {
-            margin: 0px;
-            padding: 0px;
             font-style: normal;
             font-weight: 800;
             font-size: 14px;
@@ -95,9 +91,7 @@
           }
 
           &__currency {
-            margin: 0px;
             margin: 12px 0px;
-            padding: 0px;
             padding-top: 3px;
             height: 36px;
             font-style: normal;

@@ -7,7 +7,6 @@ import { useContracts } from "../CosmosContext";
 export function CosmosNFT({
   key,
   item,
-  currency,
   setItem,
   setLoading,
   setSincronizedItems,

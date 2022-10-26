@@ -1,57 +1,15 @@
 import React from 'react'
 import './CosmosPurchasedNFTDetails.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWallet, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import logo from './../../asserts/images/logo-cosmos.png'
 import { useContracts } from '../CosmosContext'
 
 
 export function CosmosPurchasedNFTDetails ({
   item,
-  currency,
-  setLoading,
-  setSincronizedItems,
   setOpenModalSummary
 }) {
-  const contracts = useContracts()
-
-  const onBuy = async () => {
-    try {
-      const weiPrice = (parseInt(item.price) / currency) * 10 ** 18;
-
-      setLoading(true);
-      const response = await contracts.cosmoContract.authorizeOperator(
-        contracts.marketPlaceContract.address
-      );
-
-      contracts.web3Provider
-        .waitForTransaction(response.hash)
-        .then(async (_response) => {
-          const response2 = await contracts.marketPlaceContract.buytItem(
-            contracts.cosmoContract.address,
-            item.itemId,
-            { value: weiPrice.toString(), gasLimit: 250000 }
-          );
-          contracts.web3Provider
-            .waitForTransaction(response2.hash)
-            .then((_response2) => {
-              alert("Compra exitosa");
-              setSincronizedItems(false);
-            })
-            .catch((error) => {
-              console.error(error);
-              setLoading(false);
-            });
-        })
-        .catch((error) => {
-          console.error(error);
-          setLoading(false);
-        });
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
 
   const closeModal = () => {
     setOpenModalSummary(false)
@@ -92,19 +50,17 @@ export function CosmosPurchasedNFTDetails ({
             <p className='collection-modal-container-content-metadata-container__item'>
               Token Standard <p>{item.tokenStandard}</p>
             </p>
+            <div className='collection-modal-container-content-metadata-container__item'>
+            Derechos de autor
+            <p className='collection-modal-container-content-metadata-container__item' style={{'column-gap': '8px'}}>
+               <img alt='logo' src={logo} /> <p>{item.taxFee / 1000000000000000000}</p>
+            </p>
+            </div>
           </div>
         </div>
       </div>
       <p className='collection-modal-container__description'>{item.description}</p>
       <div className='collection-modal-container-buy'>
-        <button>
-          <FontAwesomeIcon
-            icon={faWallet}
-            className='collection-modal-container-metadata-buy__icon'
-            onClick={onBuy}
-          />
-          Buy now
-        </button>
       </div>
     </div>
   )
