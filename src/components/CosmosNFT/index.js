@@ -16,8 +16,6 @@ export function CosmosNFT({
   const contracts = useContracts();
   const onBuy = async () => {
     try {
-      const weiPrice = (parseInt(item.price) / currency) * 10 ** 18;
-
       setLoading(true);
       const response = await contracts.cosmoContract.authorizeOperator(
         contracts.marketPlaceContract.address
@@ -26,10 +24,10 @@ export function CosmosNFT({
       contracts.web3Provider
         .waitForTransaction(response.hash)
         .then(async (_response) => {
-          const response2 = await contracts.marketPlaceContract.buytItem(
+          const response2 = await contracts.marketPlaceContract.buyItem(
             contracts.cosmoContract.address,
             item.itemId,
-            { value: weiPrice.toString(), gasLimit: 250000 }
+            { /*value: item.price,*/ gasLimit: 250000 }
           );
           contracts.web3Provider
             .waitForTransaction(response2.hash)

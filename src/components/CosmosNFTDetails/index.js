@@ -90,7 +90,7 @@ export function CosmosNFTDetails ({
           <FontAwesomeIcon
             icon={faWallet}
             className='collection-modal-container-metadata-buy__icon'
-            onClick={buyItem}
+            onClick={() => buyItem()}
           />
           Buy now
         </button>
