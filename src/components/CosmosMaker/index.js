@@ -95,7 +95,7 @@ export function CosmosMaker ({ createItem, setSincronizedItems }) {
           <input className='maker-form__add' ref={managerAddress} />
         </span>
         <span>
-          <p className='maker-form__subtitle'>URL</p>
+          <p className='maker-form__subtitle'>URI</p>
           <input className='maker-form__add' ref={uri} />
         </span>
         <span>

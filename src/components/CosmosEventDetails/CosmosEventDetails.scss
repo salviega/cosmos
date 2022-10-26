@@ -1,3 +1,10 @@
+.details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} 
+
 .details {
   display: grid;
   grid-template-columns: 30vw 1fr;
@@ -45,6 +52,7 @@
       color: var(--blue);
       border: 1px solid var(--blue);
       border-radius: 0.25em;
+      cursor: pointer;
     }
 
     &__redimir {
@@ -56,6 +64,13 @@
       border: 1px solid var(--blue);
       border-radius: 0.25em;
       margin-left: 1.5vw;
+      cursor: pointer;
     }
+  }
+    &__loading {
+    margin-top: 160px;
+    margin-bottom: 160px;
+    height: auto;
+    width: auto;
   }
 }
