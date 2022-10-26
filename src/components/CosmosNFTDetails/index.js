@@ -76,10 +76,10 @@ export function CosmosNFTDetails ({
           </div>
           <div className='collection-modal-container-content-metadata-container'>
             <p className='collection-modal-container-content-metadata-container__contract'>
-              Contract Address{' '}
-              <a href={`https://goerli.etherscan.io/address/${item.contract}`}>
+              Dirección del artista{' '}
+              <a href={`https://testnet.snowtrace.io/address/${item.artist}`}>
                 {' '}
-                {item.contract.slice(0, 6) + '...' + item.contract.slice(36)}
+                {item.artist.slice(0, 6) + '...' + item.artist.slice(36)}
               </a>
             </p>
             <p className='collection-modal-container-content-metadata-container__item'>
