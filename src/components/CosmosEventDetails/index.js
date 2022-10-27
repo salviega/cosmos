@@ -18,6 +18,8 @@ export function CosmosEventDetails({ getItem }) {
   const [contract, setContract] = React.useState({});
   const [buttons, setButtons] = React.useState([]);
   const [error, setError] = React.useState(false);
+  const [counter, setCounter] = React.useState(0);
+  const [maxMint, setmaxMint] = React.useState(0);
   const [loading, setLoading] = React.useState(true);
   const [sincronizedItems, setSincronizedItems] = React.useState(true);
   const auth = useAuth();
@@ -25,7 +27,6 @@ export function CosmosEventDetails({ getItem }) {
   const location = useLocation();
   const { slug } = useParams();
   const navigate = useNavigate();
-  let counter, maxMint 
 
   const data = async (id) => {
     try {
@@ -47,8 +48,10 @@ export function CosmosEventDetails({ getItem }) {
       benefitContractAbi.abi,
       contracts.web3Signer
     );
-    counter = await benefitContract.tokenIdCounter() 
-    maxMint = await benefitContract.maxMint 
+    setCounter(ethers.BigNumber.from(await benefitContract.tokenIdCounter()).toNumber())
+    setmaxMint(ethers.BigNumber.from(await benefitContract.maxMint()).toNumber())
+    console.log(counter)
+    console.log(maxMint)
     setContract(benefitContract);
 
     const benefitsIdByOwner = await benefitContract.getBenefitsIdsByCustomer(
@@ -148,6 +151,8 @@ export function CosmosEventDetails({ getItem }) {
           <img src={item.imageBase64} alt="logo" />
           <div className="details-info">
             <h1>{item.name}</h1>
+            <p>count: {counter} </p>
+            <p>max: {maxMint}</p>
             <div className='details-info-price'>
               <figure>
                 <img src={logo} alt='logo' />
