@@ -55,7 +55,7 @@ export function CosmosApprove({ getItem }) {
   }, [sincronizedItems]);
 
   const onRedeemBenefit = () => {
-    contract.redeemBenefit(customer, id)
+    //contract.redeemBenefit(customer, id)
     console.log('QUEMADOO')
   }
 
