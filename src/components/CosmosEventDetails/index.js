@@ -6,6 +6,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { QRCodeSVG } from 'qrcode.react'
 import { useAuth, useContracts } from "../CosmosContext";
 import { ethers } from "ethers";
 import benefitContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitContract.sol/BenefitContract.json";
@@ -14,6 +15,7 @@ import { CosmosLoading } from "../../shared/CosmosLoading";
 export function CosmosEventDetails({ getItem }) {
   const [item, setItem] = React.useState({});
   const [contract, setContract] = React.useState({});
+  const [buttons, setButtons] = React.useState([]);
   const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [sincronizedItems, setSincronizedItems] = React.useState(true);
@@ -35,7 +37,6 @@ export function CosmosEventDetails({ getItem }) {
   };
 
   const getBenefit = async (id) => {
-
     const benefitContractAddress = await contracts.benefitsContract.getBenefit(
       id
     );
@@ -44,14 +45,33 @@ export function CosmosEventDetails({ getItem }) {
       benefitContractAbi.abi,
       contracts.web3Signer
     );
-      console.log(benefitContract)
-      setContract(benefitContract);
-      console.log(await benefitContract.getBenefitsIdsByCustomer(auth.user.walletAddress))
-      console.log(await benefitContract.tokens(0))
+    setContract(benefitContract);
+
+    const benefitsIdByOwner = await benefitContract.getBenefitsIdsByCustomer(
+      auth.user.walletAddress
+    );
+    const parsedBenefitsIdByOwner = benefitsIdByOwner.map(async (benefitId) => {
+      const parsedIntId = ethers.BigNumber.from(benefitId).toNumber();
+      const benefit = await benefitContract.tokens(parsedIntId);
+      return { id: parsedIntId, checkIn: benefit[2] };
+    });
+    const refactoredBenefits = await Promise.all(parsedBenefitsIdByOwner);
+    setButtons(refactoredBenefits);
   };
-  
+
+  const onCheckOut = async (benefit) => {
+    console.log(benefit);
+    const response = await contract.checkIn(benefit.id)
+
+    contracts.web3Provider
+      .waitForTransaction(response.hash)
+      .then(async (_response) => {
+        alert(`Firmas el beneficio ${benefit.id}`)
+        setSincronizedItems(false)
+      }) 
+  };
+
   const mintBenefit = async () => {
-    
     try {
       setLoading(true);
       const response = await contracts.cosmoContract.authorizeOperator(
@@ -138,6 +158,23 @@ export function CosmosEventDetails({ getItem }) {
             <button className="details-buttons__redimir" onClick={mintBenefit}>
               Redimir
             </button>
+            <div>
+              {buttons ? buttons.map(
+                (button, index) =>
+                  !button.checkIn ? (
+                    <button
+                      key={index}
+                      className="details-buttons__redimir"
+                      onClick={() => onCheckOut(button)}
+                    >
+                      Check-in {button.id}
+                    </button>
+                  ) : 
+                  <div className='qr'>
+                    <QRCodeSVG value={`https://cosmos-ivory.vercel.app/approve/${button.id}`} />,
+                  </div>
+              ) : 'No hay beneficios que redimir'}
+            </div>
           </div>
         </div>
       )}
