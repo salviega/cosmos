@@ -6,7 +6,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { QRCodeSVG } from 'qrcode.react'
+import { QRCodeSVG } from "qrcode.react";
 import { useAuth, useContracts } from "../CosmosContext";
 import { ethers } from "ethers";
 import benefitContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitContract.sol/BenefitContract.json";
@@ -59,16 +59,15 @@ export function CosmosEventDetails({ getItem }) {
     setButtons(refactoredBenefits);
   };
 
-  const onCheckOut = async (benefit) => {
-    console.log(benefit);
-    const response = await contract.checkIn(benefit.id)
+  const onCheckIn = async (benefit) => {
+    const response = await contract.checkIn(benefit.id);
 
     contracts.web3Provider
       .waitForTransaction(response.hash)
       .then(async (_response) => {
-        alert(`Firmas el beneficio ${benefit.id}`)
-        setSincronizedItems(false)
-      }) 
+        alert(`Firmas el beneficio ${benefit.id}`);
+        setSincronizedItems(false);
+      });
   };
 
   const mintBenefit = async () => {
@@ -159,21 +158,33 @@ export function CosmosEventDetails({ getItem }) {
               Redimir
             </button>
             <div>
-              {buttons ? buttons.map(
-                (button, index) =>
-                  !button.checkIn ? (
-                    <button
-                      key={index}
-                      className="details-buttons__redimir"
-                      onClick={() => onCheckOut(button)}
-                    >
-                      Check-in {button.id}
-                    </button>
-                  ) : 
-                  <div className='qr'>
-                    <QRCodeSVG value={`https://cosmos-ivory.vercel.app/approve/${button.id}`} />,
-                  </div>
-              ) : 'No hay beneficios que redimir'}
+              {buttons
+                ? buttons.map((button, index) =>
+                    !button.checkIn ? (
+                      <button
+                        key={index}
+                        className="details-buttons__redimir"
+                        onClick={() => onCheckIn(button)}
+                      >
+                        Check-in {button.id}
+                      </button>
+                    ) : (
+                      <div className="qr">
+                        <QRCodeSVG
+                          value={`https://cosmos-ivory.vercel.app/approve/${slug}/${button.id}`}
+                        />
+                        <button
+                          className="details-buttons__volver"
+                          onClick={() =>
+                            navigate(`/approve/${slug}?${button.id}`)
+                          }
+                        >
+                          redeem
+                        </button>
+                      </div>
+                    )
+                  )
+                : "No hay beneficios que redimir"}
             </div>
           </div>
         </div>

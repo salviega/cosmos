@@ -83,6 +83,16 @@ contract BenefitContract is ERC721URIStorage, RecipientContract {
     function getBenefitsIdsByCustomer(address _owner) view public returns(uint[] memory) {
         return benefitsIdByCustomer[_owner];
     }
+
+    function isManagerOrAdmin() view public returns(bool) {
+        if(MANAGER.has(msg.sender)) {
+            return true;
+        }
+        if(ADMIN.has(msg.sender)) {
+            return true;
+        }
+        return false;
+    }
 }
 
 library Roles {

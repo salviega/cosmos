@@ -25,7 +25,7 @@ export function CosmosMaker({ createItem, setSincronizedItems }) {
   const createBenefit = async (event) => {
     event.preventDefault();
     const benefitId = uuid();
-    const info = {
+    let info = {
       benefitId,
       maxNft: maxNft.current.value,
       managerAddress: managerAddress.current.value,
@@ -53,12 +53,14 @@ export function CosmosMaker({ createItem, setSincronizedItems }) {
       info.name,
       info.symbol
     );
-    console.log(benefitContract);
     await benefitContract.deployed();
     await contracts.benefitsContract.createBenefit(
       info.benefitId,
       benefitContract.address
     );
+
+    info = {...info, benefitContractAddress: benefitContract.address}
+    console.log(info)
 
     await createItem(info);
     setSincronizedItems(false);
