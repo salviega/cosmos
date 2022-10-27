@@ -183,7 +183,7 @@ export function CosmosEventDetails({ getItem }) {
                       button.reedem ? null :
                       <div className="qr">
                         <QRCodeSVG
-                          value={`https://cosmos-ivory.vercel.app/approve/${slug}?${button.id}`}
+                          value={`https://cosmos-ivory.vercel.app/approve/${slug}==${button.id}`}
                         />
                         <button
                           className="details-buttons__volver"

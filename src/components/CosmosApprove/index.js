@@ -27,7 +27,7 @@ export function CosmosApprove({ getItem }) {
   const data = async (param) => {
     try {
       console.log(slug)
-      const splitedParam = param.split("'");
+      const splitedParam = param.split("==");
       const firebaseId = splitedParam[0];
       const tokenId = splitedParam[1];
       setItem(await getItem(firebaseId));
