@@ -73,7 +73,7 @@ contract BenefitContract is ERC721URIStorage, RecipientContract {
 
     function redeemBenefit(address _customer, uint _tokenId) public returns(bool){
         require(MANAGER.has(msg.sender) || ADMIN.has(msg.sender), "DOES_NOT_HAVE_MINTER_ROLE");
-        require(balanceOf(_customer) == _tokenId, "This token doesn't your");
+        require(ownerOf(_tokenId) == _customer, "This token doesn't your");
         require(tokens[_tokenId].checkIn, "You need to do check-in");
         Token storage token = tokens[_tokenId];
         token.redeem = true;

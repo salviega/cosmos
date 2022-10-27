@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefitContract.sol": {
-      "lastModificationDate": 1666873697298,
-      "contentHash": "df53805049651ded94080b07681823df",
+      "lastModificationDate": 1666878329984,
+      "contentHash": "6af144c36b90a9a30c0a8387bda002ec",
       "sourceName": "src/blockchain/hardhat/contracts/BenefitContract.sol",
       "solcConfig": {
         "version": "0.8.15",

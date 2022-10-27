@@ -53,7 +53,7 @@ export function CosmosEventDetails({ getItem }) {
     const parsedBenefitsIdByOwner = benefitsIdByOwner.map(async (benefitId) => {
       const parsedIntId = ethers.BigNumber.from(benefitId).toNumber();
       const benefit = await benefitContract.tokens(parsedIntId);
-      return { id: parsedIntId, checkIn: benefit[2] };
+      return { id: parsedIntId, checkIn: benefit[2], reedem: benefit[3] };
     });
     const refactoredBenefits = await Promise.all(parsedBenefitsIdByOwner);
     setButtons(refactoredBenefits);
@@ -169,6 +169,7 @@ export function CosmosEventDetails({ getItem }) {
                         Check-in {button.id}
                       </button>
                     ) : (
+                      button.reedem ? null :
                       <div className="qr">
                         <QRCodeSVG
                           value={`https://cosmos-ivory.vercel.app/approve/${slug}/${button.id}`}
@@ -176,7 +177,7 @@ export function CosmosEventDetails({ getItem }) {
                         <button
                           className="details-buttons__volver"
                           onClick={() =>
-                            navigate(`/approve/${slug}?${button.id}`)
+                            navigate(`/approve/${slug}id=${button.id}`)
                           }
                         >
                           redeem

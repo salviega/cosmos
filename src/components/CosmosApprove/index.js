@@ -13,7 +13,7 @@ import benefitContractAbi from "../../blockchain/hardhat/artifacts/src/blockchai
 export function CosmosApprove({ getItem }) {
   const [item, setItem] = React.useState({});
   const [contract, setContract] = React.useState({});
-  const [buttons, setButtons] = React.useState([]);
+  const [customer, setCustomer] = React.useState({});
   const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [sincronizedItems, setSincronizedItems] = React.useState(true);
@@ -24,21 +24,25 @@ export function CosmosApprove({ getItem }) {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  const data = async (id) => {
+  const data = async (param) => {
     try {
-      setItem(await getItem(id));
-      const item = await getItem(id);
+      const splitedParam = param.split("id=");
+      const firebaseId = splitedParam[0];
+      const tokenId = splitedParam[1];
+      setItem(await getItem(firebaseId));
+      const item = await getItem(firebaseId);
       const benefitContract = new ethers.Contract(
         item.benefitContractAddress,
         benefitContractAbi.abi,
         contracts.web3Signer
       );
-      const token = await benefitContract.tokens(0);
-      const managerAddress = token[4];
-      if (auth.user.walletAddress !== managerAddress.toLowerCase()) {
+      const token = await benefitContract.tokens(tokenId);
+      const managerAddress = await benefitContract.isManagerOrAdmin();
+      console.log('managerAddress: ' + managerAddress + " " + "redeem: " + token[3])
+      if (!managerAddress || token[3]) {
         return navigate("/");
       }
-
+      setCustomer({ address: await benefitContract.ownerOf(tokenId), tokenId });
       setContract(benefitContract);
       setLoading(false);
     } catch (error) {
@@ -52,19 +56,29 @@ export function CosmosApprove({ getItem }) {
     data(slug);
     setLoading(false);
     setSincronizedItems(true);
-  }, [sincronizedItems]);
+  },[]);
 
-  const onRedeemBenefit = () => {
-    //contract.redeemBenefit(customer, id)
-    console.log('QUEMADOO')
-  }
+  const onRedeemBenefit = async () => {
+    console.log('customer address', customer.address);
+    console.log('tokenId', customer.tokenId)
+    const response = await contract.redeemBenefit(
+      customer.address,
+      parseInt(customer.tokenId),
+      {
+        gasLimit: 2500000,
+      }
+    );
+    contracts.web3Provider
+      .waitForTransaction(response.hash)
+      .then(async (_response) => {
+        alert("Fue aceptado el beneficio");
+        navigate("/")
+      });
+  };
 
   return (
     <div className="approve">
-      <button
-        className="details-buttons__redimir"
-        onClick={onRedeemBenefit}
-      >
+      <button className="details-buttons__redimir" onClick={onRedeemBenefit}>
         Quemar
       </button>
     </div>
