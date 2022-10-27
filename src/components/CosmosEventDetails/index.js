@@ -11,6 +11,7 @@ import { useAuth, useContracts } from "../CosmosContext";
 import { ethers } from "ethers";
 import benefitContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitContract.sol/BenefitContract.json";
 import { CosmosLoading } from "../../shared/CosmosLoading";
+import logo from '../../asserts/images/logo-cosmos.png'
 
 export function CosmosEventDetails({ getItem }) {
   const [item, setItem] = React.useState({});
@@ -142,9 +143,14 @@ export function CosmosEventDetails({ getItem }) {
       {!loading && !error && (
         <div className="details">
           <img src={item.imageBase64} alt="logo" />
-          <div className="details__info">
+          <div className="details-info">
             <h1>{item.name}</h1>
-            <h2>{parseInt(item.price)}</h2>
+            <div className='details-info-price'>
+              <figure>
+                <img src={logo} alt='logo' />
+              </figure>
+              <h2>{parseInt(item.price)}</h2>
+            </div>
             <p>{item.description}</p>
           </div>
           <div className="details-buttons">
