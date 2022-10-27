@@ -25,6 +25,7 @@ export function CosmosEventDetails({ getItem }) {
   const location = useLocation();
   const { slug } = useParams();
   const navigate = useNavigate();
+  let counter, maxMint 
 
   const data = async (id) => {
     try {
@@ -46,6 +47,8 @@ export function CosmosEventDetails({ getItem }) {
       benefitContractAbi.abi,
       contracts.web3Signer
     );
+    counter = await benefitContract.tokenIdCounter() 
+    maxMint = await benefitContract.maxMint 
     setContract(benefitContract);
 
     const benefitsIdByOwner = await benefitContract.getBenefitsIdsByCustomer(
@@ -160,9 +163,11 @@ export function CosmosEventDetails({ getItem }) {
             >
               Volver
             </button>
+            { counter === maxMint ? null : 
             <button className="details-buttons__redimir" onClick={mintBenefit}>
               Redimir
             </button>
+            }
             <div>
               {buttons
                 ? buttons.map((button, index) =>
