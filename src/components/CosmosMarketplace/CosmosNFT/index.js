@@ -1,7 +1,8 @@
 import './CosmosNFT.scss'
-import logo from './../../asserts/images/logo-cosmos.png'
+import logo from './../../../asserts/images/logo-cosmos.png'
 import React from 'react'
-import { useContracts } from '../CosmosContext'
+import { useContracts } from '../../../hooks/context'
+
 
 export function CosmosNFT ({
   key,

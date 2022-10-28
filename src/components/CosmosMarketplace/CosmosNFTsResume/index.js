@@ -1,5 +1,5 @@
 import './CosmosNFTsResume.scss'
-import logo from './../../asserts/images/logo-cosmos.png'
+import logo from './../../../asserts/images/logo-cosmos.png'
 import React from 'react'
 
 export function CosmosNFTsResume ({

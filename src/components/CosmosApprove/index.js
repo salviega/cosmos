@@ -1,6 +1,6 @@
-import React from 'react'
-import { useAuth, useContracts } from '../CosmosContext'
 import './CosmosApprove.scss'
+import React from 'react'
+import { useAuth, useContracts } from '../../hooks/context'
 import {
   Navigate,
   useLocation,

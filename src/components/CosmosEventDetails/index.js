@@ -7,7 +7,7 @@ import {
   useParams
 } from 'react-router-dom'
 import { QRCodeSVG } from 'qrcode.react'
-import { useAuth, useContracts } from '../CosmosContext'
+import { useAuth, useContracts } from '../../hooks/context'
 import { ethers } from 'ethers'
 import benefitContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitContract.sol/BenefitContract.json'
 import { CosmosLoading } from '../../shared/CosmosLoading'

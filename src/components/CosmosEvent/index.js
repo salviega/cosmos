@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth, useContracts } from '../CosmosContext'
+import { useAuth } from '../../hooks/context'
 import './CosmosEvent.scss'
 
 export function CosmosEvent ({ event }) {

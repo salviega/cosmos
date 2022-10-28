@@ -1,7 +1,8 @@
 import './CosmosSupplyNFTs.scss'
 import React, { useRef } from 'react'
 import { ethers } from 'ethers'
-import { useContracts } from '../CosmosContext'
+import { useContracts } from '../../../hooks/context'
+
 
 export function CosmosSupplyNFTs ({
   tokenIdCounter,

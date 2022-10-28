@@ -2,7 +2,7 @@ import './CosmosFaucet.scss'
 import React from 'react'
 import { ethers } from 'ethers'
 import logo from '../../asserts/images/logo-cosmos.png'
-import { useAuth, useContracts } from '../CosmosContext'
+import { useAuth, useContracts } from '../../hooks/context'
 import { Navigate } from 'react-router-dom'
 import { CosmosLoading } from '../../shared/CosmosLoading'
 

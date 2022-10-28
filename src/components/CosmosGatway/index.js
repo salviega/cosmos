@@ -1,7 +1,7 @@
 import './CosmosGateway.scss'
 import React from 'react'
 import { ethers } from 'ethers'
-import { useContracts } from '../CosmosContext'
+import { useContracts } from '../../hooks/context'
 import { CosmosLoading } from '../../shared/CosmosLoading'
 
 export function CosmosGateway () {

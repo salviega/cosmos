@@ -1,9 +1,10 @@
 import './CosmosNFTDetails.scss'
-import logo from './../../asserts/images/logo-cosmos.png'
+import logo from './../../../asserts/images/logo-cosmos.png'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWallet, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { useContracts } from '../CosmosContext'
+import { useContracts } from '../../../hooks/context'
+
 
 export function CosmosNFTDetails ({
   item,

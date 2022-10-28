@@ -1,6 +1,7 @@
-import { actionTypes } from './actionTypes'
+import { actionMarketplace } from '../actionTypes/actionMarketplace'
 
-export function reducer () {
+export const reducerObjectMarketplace = () => {
+  
   const initialValue = {
     itemsSale: [],
     purchasedItems: [],
@@ -48,5 +49,5 @@ export function reducer () {
     }
   }
 
-  return { initialValue, reducerObject, actionTypes }
+  return { initialValue, reducerObject, actionMarketplace }
 }

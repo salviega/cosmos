@@ -2,15 +2,15 @@ import './CosmosMarketplace.scss'
 import React, { useReducer, useState } from 'react'
 import { ethers } from 'ethers'
 import { Navigate } from 'react-router-dom'
-import { reducer } from './reducer'
-import { useAuth, useContracts } from '../CosmosContext'
-import { CosmosNFTs } from '../CosmosNFTs'
-import { CosmosNFT } from '../CosmosNFT'
-import { CosmosNFTDetails } from '../CosmosNFTDetails'
+import { reducerMarketPlace } from '../../hooks/reducer'
+import { useAuth, useContracts } from '../../hooks/context'
+import { CosmosNFTs } from './CosmosNFTs'
+import { CosmosNFT } from './CosmosNFT'
+import { CosmosNFTDetails } from './CosmosNFTDetails'
+import { CosmosSupplyNFTs } from './CosmosSupplyNFTs'
+import { CosmosNFTsResume } from './CosmosNFTsResume'
 import { CosmosLoading } from '../../shared/CosmosLoading'
 import { CosmosModal } from '../../shared/CosmosModal'
-import { CosmosSupplyNFTs } from '../CosmosSupplyNFTs'
-import { CosmosNFTsResume } from '../CosmosNFTsResume'
 import { CosmosPurchasedNFTDetails } from '../CosmosPurchasedNFTDetails'
 import { getDataMarketPlaceSubGraph } from '../../middleware/getDataMarketPlaceSubGraph.js'
 
@@ -18,7 +18,7 @@ export function CosmosMarketplace () {
   const auth = useAuth()
   const contracts = useContracts()
   const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph()
-  const { reducerObject, initialValue, actionTypes } = reducer()
+  const { initialValue, reducerObject, actionTypes } = reducerMarketPlace()
   const [state, dispatch] = useReducer(reducerObject, initialValue)
   const [item, setItem] = useState({})
   const [openModal, setOpenModal] = useState(false)

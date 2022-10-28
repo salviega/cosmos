@@ -1,9 +1,9 @@
 import './CosmosMenu.scss'
 import bbva from '../../asserts/images/logo-bbva.png'
-import iconSearch from '../../asserts/images/icon-search.png'
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { useAuth } from '../CosmosContext'
+import { useAuth } from '../../hooks/context'
+
 
 export function CosmosMenu (props) {
   const auth = useAuth()
