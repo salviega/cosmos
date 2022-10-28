@@ -1,109 +1,83 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAuth, useContracts } from "../CosmosContext";
-import "./CosmosMarketplace.scss";
-import { CosmosNFTs } from "../CosmosNFTs";
-import { CosmosNFT } from "../CosmosNFT";
-import { CosmosNFTDetails } from "../CosmosNFTDetails";
-import { CosmosLoading } from "../../shared/CosmosLoading";
-import { CosmosModal } from "../../shared/CosmosModal";
-import { ethers } from "ethers";
-import { CosmosSupplyNFTs } from "../CosmosSupplyNFTs";
-import { CosmosNFTsResume } from "../CosmosNFTsResume";
-import { CosmosPurchasedNFTDetails } from "../CosmosPurchasedNFTDetails";
-import { getDataMarketPlaceSubGraph } from "../../middleware/getDataMarketPlaceSubGraph.js";
+import './CosmosMarketplace.scss'
+import React, { useReducer, useState } from 'react'
+import { ethers } from 'ethers'
+import { Navigate } from 'react-router-dom'
+import { reducer } from './reducer'
+import { useAuth, useContracts } from '../CosmosContext'
+import { CosmosNFTs } from '../CosmosNFTs'
+import { CosmosNFT } from '../CosmosNFT'
+import { CosmosNFTDetails } from '../CosmosNFTDetails'
+import { CosmosLoading } from '../../shared/CosmosLoading'
+import { CosmosModal } from '../../shared/CosmosModal'
+import { CosmosSupplyNFTs } from '../CosmosSupplyNFTs'
+import { CosmosNFTsResume } from '../CosmosNFTsResume'
+import { CosmosPurchasedNFTDetails } from '../CosmosPurchasedNFTDetails'
+import { getDataMarketPlaceSubGraph } from '../../middleware/getDataMarketPlaceSubGraph.js'
 
-export function CosmosMarketplace() {
-  const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph();
-  const auth = useAuth();
-  const contracts = useContracts();
-  const [itemsForSale, setItemsForSale] = React.useState([]);
-  const [purchasedItems, setPurchasedItems] = React.useState([]);
-  const [currency, setCurrency] = React.useState(0);
-  const [tokenIdCounter, setTokenIdCounter] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(false);
-  const [sincronizedItems, setSincronizedItems] = React.useState(true);
-  const [item, setItem] = React.useState({});
-  const [openModal, setOpenModal] = React.useState(false);
-  const [openModalSummary, setOpenModalSummary] = React.useState(false);
+export function CosmosMarketplace () {
+  const auth = useAuth()
+  const contracts = useContracts()
+  const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph()
+  const { reducerObject, initialValue, actionTypes } = reducer()
+  const [state, dispatch] = useReducer(reducerObject, initialValue)
+  const [item, setItem] = useState({})
+  const [openModal, setOpenModal] = useState(false)
+  const [openModalSummary, setOpenModalSummary] = useState(false)
+  const { loading, error, sincronizedItems, itemsSale, purchasedItems, currency, tokenIdCounter } = state
+
+  // ACTIONS CREATORS
+  const onError = (error) =>
+    dispatch({ type: actionTypes.error, payload: error })
+  const onLoading = () =>
+    dispatch({ type: actionTypes.loading })
+  const onSincronizedItems = () =>
+    dispatch({ type: actionTypes.sincronize })
+  const onSuccess = ({ refactoredSaleItems, refactoredPurchasedItems }) =>
+    dispatch({ type: actionTypes.success, payload: { refactoredSaleItems, refactoredPurchasedItems } })
 
   const fetchData = async () => {
     try {
+      let currency = await contracts.feedContract.getLatestPrice()
+      currency = ethers.BigNumber.from(currency).toNumber()
+      let tokenIdCounter = await contracts.marketPlaceContract.tokenIdCounter()
+      tokenIdCounter = ethers.BigNumber.from(tokenIdCounter).toNumber()
 
-      const currency = await contracts.feedContract.getLatestPrice();
-      const tokenIdCounter = await contracts.marketPlaceContract.tokenIdCounter();
-      setTokenIdCounter(ethers.BigNumber.from(tokenIdCounter).toNumber());
-      setCurrency(ethers.BigNumber.from(currency).toNumber());
-
-      const filteredSaleForItems = await filterSaleForItems(
-        await getItemsForSale(),
-        await getPurchasedItems()
-      );
-
-      console.log(await getItemsForSale())
-
-      await refactorItems(filteredSaleForItems, setItemsForSale);
-      await refactorItems(await getPurchasedItems(), setPurchasedItems);
-      setSincronizedItems(true);
-      console.log("Fetch sincronized");
-      setLoading(false);
+      const filteredSaleItems = await filterSaleForItems(await getItemsForSale(), await getPurchasedItems())
+      const refactoredSaleItems = await refactorItems(filteredSaleItems)
+      const refactoredPurchasedItems = await refactorItems(await getPurchasedItems())
+      onSuccess({ refactoredSaleItems, refactoredPurchasedItems, currency, tokenIdCounter })
     } catch (error) {
-      console.log(error);
+      onError(error)
     }
-  };
-
-  const refactorItems = async (items, state) => {
-    const result = items.map(async (item) => {
-      const response = await fetch(item.tokenURI);
-      const metadata = await response.json();
-      const refactoredItem = {
-        itemId: item.itemId,
-        name: metadata.name,
-        description: metadata.description,
-        price: item.price,
-        image: metadata.image,
-        artist: item.artist,
-        taxFee: item.taxFee,
-        addressTaxFeeToken: item.addressTaxFeeToken,
-        contract: item.nft,
-        tokenId: item.tokenId,
-        tokenStandard: metadata.tokenStandard,
-        buyer: item.buyer,
-      };
-      return refactoredItem;
-    });
-    const refactoredItems = await Promise.all(result);
-    console.log(refactoredItems)
-    state(refactoredItems);
-  };
+  }
 
   React.useEffect(() => {
-    fetchData();
-  }, [sincronizedItems]);
+    fetchData()
+  }, [sincronizedItems])
 
-  if (auth.user.walletAddress === "Connect wallet") {
-    return <Navigate to="/" />;
+  if (auth.user.walletAddress === 'Connect wallet') {
+    return <Navigate to='/' />
   }
+
   return (
-    <div className="marketplace">
-      <p className="marketplace__title">Una vida llena de arte</p>
-      <p className="marketplace__description">
+    <div className='marketplace'>
+      <p className='marketplace__title'>Una vida llena de arte</p>
+      <p className='marketplace__description'>
         Curamos una colección de piezas de arte digital exclusivas para nuestros
         clientes Cosmos BBVA.
       </p>
-      {error && "Hubo un error... mira la consola"}
+      {error && 'Hubo un error... mira la consola'}
       {!loading && !error && auth.user.isAdmin && (
-        <div className="marketplace-admin">
+        <div className='marketplace-admin'>
           <CosmosSupplyNFTs
             tokenIdCounter={tokenIdCounter}
-            setLoading={setLoading}
-            setSincronizedItems={setSincronizedItems}
+            onLoading={onLoading}
+            onSincronizedItems={onSincronizedItems}
           />
         </div>
       )}
       {loading && !error && (
-        <div className="marketplace__loading">
+        <div className='marketplace__loading'>
           <CosmosLoading />
         </div>
       )}
@@ -111,20 +85,19 @@ export function CosmosMarketplace() {
         <div>
           <CosmosNFTs
             currency={currency}
+            onLoading={onLoading}
+            onSincronizedItems={onSincronizedItems}
             setItem={setItem}
-            setLoading={setLoading}
-            setSincronizedItems={setSincronizedItems}
             setOpenModal={setOpenModal}
           >
-            {itemsForSale
-              ? itemsForSale.map((item, index) => (
-                  <CosmosNFT key={index} item={item} />
-                ))
+            {itemsSale
+              ? itemsSale.map((item, index) => (
+                <CosmosNFT key={index} item={item} />
+              ))
               : "There don't NFTs in sale"}
           </CosmosNFTs>
           <CosmosNFTsResume
             currency={currency}
-            itemsForSale={itemsForSale}
             purchasedItems={purchasedItems}
             setItem={setItem}
             setOpenModalSummary={setOpenModalSummary}
@@ -134,10 +107,10 @@ export function CosmosMarketplace() {
       {openModal && (
         <CosmosModal>
           <CosmosNFTDetails
-            item={item}
             currency={currency}
-            setLoading={setLoading}
-            setSincronizedItems={setSincronizedItems}
+            item={item}
+            onLoading={onLoading}
+            onSincronizedItems={onSincronizedItems}
             setOpenModal={setOpenModal}
           />
         </CosmosModal>
@@ -145,43 +118,67 @@ export function CosmosMarketplace() {
       {openModalSummary && (
         <CosmosModal>
           <CosmosPurchasedNFTDetails
-            item={item}
             currency={currency}
+            item={item}
             setOpenModalSummary={setOpenModalSummary}
           />
         </CosmosModal>
       )}
     </div>
-  );
+  )
 }
 
-async function filterSaleForItems(itemsForSale, purchasedItems) {
-  const boughtItems = [];
+async function filterSaleForItems (itemsForSale, purchasedItems) {
+  const boughtItems = []
   itemsForSale.forEach((itemForSale) => {
     purchasedItems.forEach((purchasedItem) => {
       if (itemForSale.itemId === purchasedItem.itemId) {
-        boughtItems.push(itemForSale);
+        boughtItems.push(itemForSale)
       }
-    });
-  });
+    })
+  })
 
   const filteredItems = await removeDuplicates([
     ...itemsForSale,
-    ...boughtItems,
-  ]);
-  return filteredItems;
+    ...boughtItems
+  ])
+  return filteredItems
 }
 
-async function removeDuplicates(itemListWithDuplicates) {
+async function removeDuplicates (itemListWithDuplicates) {
   const itemListWithoutDuplicates = itemListWithDuplicates.filter(
     (item, index) => {
-      itemListWithDuplicates.splice(index, 1);
-      const unique = !itemListWithDuplicates.includes(item);
-      itemListWithDuplicates.splice(index, 0, item);
-      return unique;
+      itemListWithDuplicates.splice(index, 1)
+      const unique = !itemListWithDuplicates.includes(item)
+      itemListWithDuplicates.splice(index, 0, item)
+      return unique
     }
-  );
+  )
 
-  const saleForItems = await Promise.all(itemListWithoutDuplicates);
-  return saleForItems;
+  const saleForItems = await Promise.all(itemListWithoutDuplicates)
+  return saleForItems
 }
+
+async function refactorItems (items) {
+  const result = items.map(async (item) => {
+    const response = await fetch(item.tokenURI)
+    const metadata = await response.json()
+    const refactoredItem = {
+      itemId: item.itemId,
+      name: metadata.name,
+      description: metadata.description,
+      price: item.price,
+      image: metadata.image,
+      artist: item.artist,
+      taxFee: item.taxFee,
+      addressTaxFeeToken: item.addressTaxFeeToken,
+      contract: item.nft,
+      tokenId: item.tokenId,
+      tokenStandard: metadata.tokenStandard,
+      buyer: item.buyer
+    }
+    return refactoredItem
+  })
+  const refactoredItems = await Promise.all(result)
+  return refactoredItems
+};

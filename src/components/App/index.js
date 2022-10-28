@@ -70,7 +70,7 @@ function App () {
           <Route path='/marketplace' element={<CosmosMarketplace />} />
           <Route path='/gateway' element={<CosmosGateway />} />
           <Route path='/faucet' element={<CosmosFaucet />} />
-          <Route path='/approve/:slug' element={<CosmosApprove getItem={getItem}/>} />
+          <Route path='/approve/:slug' element={<CosmosApprove getItem={getItem} />} />
           <Route path='*' element={<Navigate replace to='/' />} />
         </Routes>
       </main>

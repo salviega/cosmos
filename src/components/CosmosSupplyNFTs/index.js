@@ -1,35 +1,38 @@
 import './CosmosSupplyNFTs.scss'
-import React from 'react'
+import React, { useRef } from 'react'
 import { ethers } from 'ethers'
 import { useContracts } from '../CosmosContext'
 
-export function CosmosSupplyNFTs ({ tokenIdCounter, setLoading, setSincronizedItems }) {
+export function CosmosSupplyNFTs ({
+  tokenIdCounter,
+  onLoading,
+  onSincronizedItems
+}) {
   const contracts = useContracts()
-  const price = React.useRef()
-  const tokenURI = React.useRef()
-  const tokenId = React.useRef()
-  const artistWallet = React.useRef()
-  const taxFee = React.useRef()
+  const price = useRef()
+  const tokenURI = useRef()
+  const tokenId = useRef()
+  const artistWallet = useRef()
+  const taxFee = useRef()
 
   const putInSale = async (event) => {
     event.preventDefault()
     let roundPrice = Math.round(parseInt(price.current.value))
+    roundPrice = ethers.utils.parseEther(roundPrice.toString(), 'ether')
     let parsedTaxFee = parseInt(taxFee.current.value)
     parsedTaxFee = (parsedTaxFee * roundPrice) / 100
     parsedTaxFee = ethers.utils.parseEther(parsedTaxFee.toString(), 'ether')
-    roundPrice = ethers.utils.parseEther(roundPrice.toString(), 'ether')
     const parsedTokenId = parseInt(tokenId.current.value)
 
     try {
-       
       const response = await contracts.marketPlaceContract.mint(
         tokenURI.current.value,
         artistWallet.current.value,
         parsedTaxFee,
         contracts.cosmoContract.address
       )
-      setLoading(true)
 
+      onLoading()
       contracts.web3Provider
         .waitForTransaction(response.hash)
         .then(async (_response) => {
@@ -49,90 +52,99 @@ export function CosmosSupplyNFTs ({ tokenIdCounter, setLoading, setSincronizedIt
                 .waitForTransaction(response3.hash)
                 .then((_response3) => {
                   setTimeout(() => {
+                    onSincronizedItems()
                     alert('Ya está en venta el NFT')
-                    setSincronizedItems(false)
                   }, 3000)
                 })
                 .catch((error) => {
+                  onSincronizedItems()
+                  alert('Hubo un error, revisa la consola')
                   console.error(error)
-                  setLoading(false)
                 })
             })
             .catch((error) => {
+              onSincronizedItems()
+              alert('Hubo un error, revisa la consola')
               console.error(error)
-              setLoading(false)
             })
         })
         .catch((error) => {
+          onSincronizedItems()
+          alert('Hubo un error, revisa la consola')
           console.error(error)
-          setLoading(false)
         })
     } catch (error) {
+      onSincronizedItems()
+      alert('Hubo un error, revisa la consola')
       console.error(error)
-      setLoading(false)
     }
-   }
+  }
 
   return (
     <div className='supply'>
       <h1 className='supply__title'>Sell NFT</h1>
       <form className='supply-form' onSubmit={putInSale}>
-          <span>
-            <p className='supply-form__subtitle'>Add the price in COSMOS: </p>
-            <input
-              className='supply-form__add'
-              type='number'
-              required
-              min='1'
-              step='0.01'
-              ref={price}
-            />
-          </span>
-          <span>
-            <p className='supply-form__subtitle'>Add the token ID: </p>
-            <input
-              className='supply-form__add'
-              type='number'
-              required
-              min='0'
-              step='0'
-              ref={tokenId}
-            />
-          </span>
-          <span>
-            <p className='supply-form__subtitle'>Add the metadata of the new NFT: </p>
-            <input
-              className='supply-form__add'
-              type='url'
-              required
-              ref={tokenURI}
-            />
-          </span>
-          <span>
-            <p className='supply-form__subtitle'>Wallet of the artist: </p>
-            <input
-              className='supply-form__add'
-              type='text'
-              required
-              ref={artistWallet}
-            />
-          </span>
-          <span>
-            <p className='supply-form__subtitle'>% Fee of the artist: </p>
-            <input
-              className='supply-form__add'
-              type='number'
-              required
-              min='1'
-              step='1'
-              max='100'
-              ref={taxFee}
-            />
-          </span>
-          <div className='supply-form-create'>
-            <button className='supply-form-create__submit'>Create NFT</button> 
-            <p className='supply-form-create__idCounter'> currency token ID: {tokenIdCounter}</p>
-          </div>
+        <span>
+          <p className='supply-form__subtitle'>Add the price in COSMOS: </p>
+          <input
+            className='supply-form__add'
+            type='number'
+            required
+            min='1'
+            step='0.01'
+            ref={price}
+          />
+        </span>
+        <span>
+          <p className='supply-form__subtitle'>Add the token ID: </p>
+          <input
+            className='supply-form__add'
+            type='number'
+            required
+            min='0'
+            step='0'
+            ref={tokenId}
+          />
+        </span>
+        <span>
+          <p className='supply-form__subtitle'>
+            Add the metadata of the new NFT:{' '}
+          </p>
+          <input
+            className='supply-form__add'
+            type='url'
+            required
+            ref={tokenURI}
+          />
+        </span>
+        <span>
+          <p className='supply-form__subtitle'>Wallet of the artist: </p>
+          <input
+            className='supply-form__add'
+            type='text'
+            required
+            ref={artistWallet}
+          />
+        </span>
+        <span>
+          <p className='supply-form__subtitle'>% Fee of the artist: </p>
+          <input
+            className='supply-form__add'
+            type='number'
+            required
+            min='1'
+            step='1'
+            max='100'
+            ref={taxFee}
+          />
+        </span>
+        <div className='supply-form-create'>
+          <button className='supply-form-create__submit'>Create NFT</button>
+          <p className='supply-form-create__idCounter'>
+            {' '}
+            currency token ID: {tokenIdCounter}
+          </p>
+        </div>
       </form>
     </div>
   )
