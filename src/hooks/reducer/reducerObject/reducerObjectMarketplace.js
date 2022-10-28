@@ -1,7 +1,6 @@
 import { actionMarketplace } from '../actionTypes/actionMarketplace'
 
-export const reducerObjectMarketplace = () => {
-  
+export function reducerObjectMarketplace () {
   const initialValue = {
     itemsSale: [],
     purchasedItems: [],

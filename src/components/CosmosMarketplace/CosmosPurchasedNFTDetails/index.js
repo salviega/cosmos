@@ -1,5 +1,5 @@
 import './CosmosPurchasedNFTDetails.scss'
-import logo from './../../asserts/images/logo-cosmos.png'
+import logo from '../../../asserts/images/logo-cosmos.png'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'

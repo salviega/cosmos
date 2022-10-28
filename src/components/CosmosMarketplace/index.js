@@ -9,21 +9,21 @@ import { CosmosNFT } from './CosmosNFT'
 import { CosmosNFTDetails } from './CosmosNFTDetails'
 import { CosmosSupplyNFTs } from './CosmosSupplyNFTs'
 import { CosmosNFTsResume } from './CosmosNFTsResume'
+import { CosmosPurchasedNFTDetails } from './CosmosPurchasedNFTDetails'
 import { CosmosLoading } from '../../shared/CosmosLoading'
 import { CosmosModal } from '../../shared/CosmosModal'
-import { CosmosPurchasedNFTDetails } from '../CosmosPurchasedNFTDetails'
 import { getDataMarketPlaceSubGraph } from '../../middleware/getDataMarketPlaceSubGraph.js'
 
 export function CosmosMarketplace () {
   const auth = useAuth()
   const contracts = useContracts()
-  const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph()
   const { initialValue, reducerObject, actionTypes } = reducerMarketPlace()
   const [state, dispatch] = useReducer(reducerObject, initialValue)
+  const { loading, error, sincronizedItems, itemsSale, purchasedItems, currency, tokenIdCounter } = state
   const [item, setItem] = useState({})
   const [openModal, setOpenModal] = useState(false)
   const [openModalSummary, setOpenModalSummary] = useState(false)
-  const { loading, error, sincronizedItems, itemsSale, purchasedItems, currency, tokenIdCounter } = state
+  const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph()
 
   // ACTIONS CREATORS
   const onError = (error) =>
