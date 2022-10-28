@@ -1,3 +1,4 @@
+import logo from '../../../asserts/images/logo-cosmos.png'
 import React from 'react'
 import './CosmosEventDetails.scss'
 import {
@@ -6,12 +7,11 @@ import {
   useNavigate,
   useParams
 } from 'react-router-dom'
-import { QRCodeSVG } from 'qrcode.react'
-import { useAuth, useContracts } from '../../hooks/context'
 import { ethers } from 'ethers'
-import benefitContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitContract.sol/BenefitContract.json'
-import { CosmosLoading } from '../../shared/CosmosLoading'
-import logo from '../../asserts/images/logo-cosmos.png'
+import { QRCodeSVG } from 'qrcode.react'
+import { useAuth, useContracts } from '../../../hooks/context'
+import { CosmosLoading } from '../../../shared/CosmosLoading'
+import benefitContractAbi from '../../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitContract.sol/BenefitContract.json'
 
 export function CosmosEventDetails ({ getItem }) {
   const [item, setItem] = React.useState({})

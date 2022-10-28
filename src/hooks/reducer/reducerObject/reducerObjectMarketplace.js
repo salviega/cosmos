@@ -1,4 +1,4 @@
-import { actionMarketplace } from '../actionTypes/actionMarketplace'
+import { actionMarketplace } from '../actionTypes'
 
 export function reducerObjectMarketplace () {
   const initialValue = {

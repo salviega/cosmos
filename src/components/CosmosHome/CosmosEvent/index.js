@@ -1,7 +1,7 @@
+import './CosmosEvent.scss'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../hooks/context'
-import './CosmosEvent.scss'
+import { useAuth } from '../../../hooks/context'
 
 export function CosmosEvent ({ event }) {
   const auth = useAuth()

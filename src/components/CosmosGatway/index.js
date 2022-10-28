@@ -1,29 +1,38 @@
 import './CosmosGateway.scss'
-import React from 'react'
 import { ethers } from 'ethers'
-import { useContracts } from '../../hooks/context'
+import React, { useRef, useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { useAuth, useContracts } from '../../hooks/context'
 import { CosmosLoading } from '../../shared/CosmosLoading'
 
 export function CosmosGateway () {
+  const auth = useAuth()
   const contracts = useContracts()
-  const [loading, setLoading] = React.useState(false)
-  const [error, setError] = React.useState(false)
-  const email = React.useRef()
-  let amount = React.useRef()
+  let amount = useRef()
+  const email = useRef()
+  const [loading, setLoading] = useState(false)
 
-  const changeCurrency = async (event) => {
+  const onError = (error) => {
+    alert('Hubo un error, revisa la consola')
+    setLoading(false)
+    console.error(error)
+  }
+
+  const onRequestPayOut = async (event) => {
     event.preventDefault()
     amount = ethers.utils.parseEther(amount.current.value, 'ether')
+
     const info = {
       email: email.current.value,
       amount: parseInt(amount) * 10 ** 18
     }
-    setLoading(true)
 
     try {
+      setLoading(true)
       const response = await contracts.cosmoContract.authorizeOperator(
         contracts.paymentGatewayContract.address
       )
+
       contracts.web3Provider
         .waitForTransaction(response.hash)
         .then(async (_response) => {
@@ -45,21 +54,19 @@ export function CosmosGateway () {
               }, 3000)
             })
             .catch((error) => {
-              console.log(error)
-              setLoading(false)
-              setError(true)
+              onError(error)
             })
         })
         .catch((error) => {
-          console.log(error)
-          setLoading(false)
-          setError(true)
+          onError(error)
         })
     } catch (error) {
-      console.log(error)
-      setLoading(false)
-      setError(true)
+      onError(error)
     }
+  }
+
+  if (auth.user.walletAddress === 'Connect wallet') {
+    return <Navigate to='/' />
   }
 
   return (
@@ -68,33 +75,33 @@ export function CosmosGateway () {
       <p className='faucet__description'>
         Convierte tus Cosmos en dólares, te llegaran a tu cuenta de Paypal
       </p>
-      {error && 'Hubo un error... mira la consola'}
-      {loading && !error && (
-        <div className='faucet__loading'>
-          <CosmosLoading />
-        </div>
-      )}
-      {!loading && !error && (
-        <form className='faucet-form' onSubmit={changeCurrency}>
-          <span>
-            <p className='faucet-form__subtitle'>Correo electrónico</p>
-
-            <input
-              className='faucet-form__add'
-              ref={email}
-              type='email'
-              required
-            />
-          </span>
-          <span>
-            <p className='faucet-form__subtitle'>Cosmos</p>
-            <input className='faucet-form__add' ref={amount} required min='1' />
-          </span>
-          <div className='faucet-form-container'>
-            <button className='faucet-form__submit'>Canjear</button>
+      {loading
+        ? (
+          <div className='faucet__loading'>
+            <CosmosLoading />
           </div>
-        </form>
-      )}
+          )
+        : (
+          <form className='faucet-form' onSubmit={onRequestPayOut}>
+            <span>
+              <p className='faucet-form__subtitle'>Correo electrónico</p>
+
+              <input
+                className='faucet-form__add'
+                ref={email}
+                type='email'
+                required
+              />
+            </span>
+            <span>
+              <p className='faucet-form__subtitle'>Cosmos</p>
+              <input className='faucet-form__add' ref={amount} required min='1' />
+            </span>
+            <div className='faucet-form-container'>
+              <button className='faucet-form__submit'>Canjear</button>
+            </div>
+          </form>
+          )}
     </div>
   )
 }

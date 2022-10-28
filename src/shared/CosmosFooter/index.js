@@ -1,9 +1,6 @@
 import React from 'react'
 import './CosmosFooter.scss'
 import bbva from '../../asserts/images/logo-bbva.png'
-import discored from '../../asserts/images/icon-discored.svg'
-import twitter from '../../asserts/images/icon-twitter.svg'
-import instagram from '../../asserts/images/icon-instagram.svg'
 
 export function CosmosFooter () {
   return (

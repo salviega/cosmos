@@ -1,106 +1,100 @@
-import "./CosmosFaucet.scss";
-import logo from "../../asserts/images/logo-cosmos.png";
-import React, { useReducer } from "react";
-import { Navigate } from "react-router-dom";
-import { useAuth, useContracts } from "../../hooks/context";
-import { CosmosLoading } from "../../shared/CosmosLoading";
-import { reducerFaucet } from "../../hooks/reducer";
+import './CosmosFaucet.scss'
+import logo from '../../asserts/images/logo-cosmos.png'
+import { ethers } from 'ethers'
+import React, { useRef, useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { useAuth, useContracts } from '../../hooks/context'
+import { CosmosLoading } from '../../shared/CosmosLoading'
 
-export function CosmosFaucet(props) {
-  const auth = useAuth();
-  const contracts = useContracts();
-  const { initialValue, reducerObject, actionTypes } = reducerFaucet();
-  const [state, dispatch] = useReducer(reducerObject, initialValue);
-  const { amount, error, loading } = state;
-  const address = React.useRef();
+export function CosmosFaucet () {
+  const auth = useAuth()
+  const contracts = useContracts()
+  const address = useRef()
+  const [loading, setLoading] = useState(false)
+  const amount = ethers.utils.parseEther('10', 'ether')
 
-  // ACTIONS CREATORS
-  const onError = (error) => dispatch({ type: actionTypes.error, payload: error });
-  const onLoading = () => dispatch({ type: actionTypes.loading });
-  const onSuccess = () => dispatch({ type: actionTypes.success });
+  const onError = (error) => {
+    alert('Hubo un error, revisa la consola')
+    setLoading(false)
+    console.error(error)
+  }
 
   const onSafeMint = async (event) => {
+    event.preventDefault()
+
+    const info = {
+      address: address.current.value,
+      amount
+    }
+
     try {
-      event.preventDefault();
-      onLoading();
-      
-      const info = {
-        address: address.current.value,
-        amount,
-      };
-      
+      setLoading(true)
       const response = await contracts.cosmoContract.authorizeOperator(
         contracts.marketPlaceContract.address
-      );
-      
+      )
+
       contracts.web3Provider
         .waitForTransaction(response.hash)
         .then(async (_response) => {
           const response2 = await contracts.cosmoContract.safeMint(
             info.address,
             info.amount
-          );
+          )
           contracts.web3Provider
             .waitForTransaction(response2.hash)
             .then(async (_response2) => {
               setTimeout(() => {
-                onSuccess();
-                alert("Fueron añadidos 10 cosmos a su billetera");
-              }, 3000);
+                setLoading(true)
+                alert('Fueron añadidos 10 cosmos a su billetera')
+              }, 3000)
             })
             .catch((error) => {
-              onError(error);
-              alert("Hubo un error, revisa la consola");
-              console.error(error);
-            });
+              onError(error)
+            })
         })
         .catch((error) => {
-          onError();
-          alert("Hubo un error, revisa la consola");
-          console.error(error);
-        });
+          onError(error)
+        })
     } catch (error) {
-      onError();
-      alert("Hubo un error, revisa la consola");
-      console.error(error);
+      onError()
     }
-  };
+  }
 
-  if (auth.user.walletAddress === "Connect wallet") {
-    return <Navigate to="/" />;
+  if (auth.user.walletAddress === 'Connect wallet') {
+    return <Navigate to='/' />
   }
 
   return (
-    <div className="faucet">
-      <p className="faucet__title">Faucet</p>
-      <p className="faucet__description">
+    <div className='faucet'>
+      <p className='faucet__title'>Faucet</p>
+      <p className='faucet__description'>
         Retira todos los Cosmos que quieras.
       </p>
-      {error && "Hubo un error... mira la consola"}
-      {loading && !error && (
-        <div className="faucet__loading">
-          <CosmosLoading />
-        </div>
-      )}
-      {!loading && !error && (
-        <form className="faucet-form" onSubmit={onSafeMint}>
-          <span>
-            <p className="faucet-form__subtitle">Dirección de billetera</p>
-            <input
-              className="faucet-form__add"
-              ref={address}
-              type="text"
-              required
-            />
-          </span>
-          <div className="faucet-form-container">
-            <figure>
-              <img src={logo} alt="logo" />
-            </figure>
-            <button className="faucet-form__submit">Redime 10 CMS</button>
+      {loading
+        ? (
+          <div className='faucet__loading'>
+            <CosmosLoading />
           </div>
-        </form>
-      )}
+          )
+        : (
+          <form className='faucet-form' onSubmit={onSafeMint}>
+            <span>
+              <p className='faucet-form__subtitle'>Dirección de billetera</p>
+              <input
+                className='faucet-form__add'
+                ref={address}
+                type='text'
+                required
+              />
+            </span>
+            <div className='faucet-form-container'>
+              <figure>
+                <img src={logo} alt='logo' />
+              </figure>
+              <button className='faucet-form__submit'>Redime 10 CMS</button>
+            </div>
+          </form>
+          )}
     </div>
-  );
+  )
 }

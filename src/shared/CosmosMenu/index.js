@@ -4,7 +4,6 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useAuth } from '../../hooks/context'
 
-
 export function CosmosMenu (props) {
   const auth = useAuth()
   const privateRoutes = true
@@ -38,7 +37,7 @@ export function CosmosMenu (props) {
                     className={({ isActive }) => {
                       return isActive ? 'menu-center__item--active' : ''
                     }}
-                    to='/create'
+                    to='/maker'
                   >
                     Beneficios
                   </NavLink>

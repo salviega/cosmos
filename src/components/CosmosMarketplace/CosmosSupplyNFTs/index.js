@@ -1,15 +1,13 @@
 import './CosmosSupplyNFTs.scss'
 import React, { useRef } from 'react'
 import { ethers } from 'ethers'
-import { useContracts } from '../../../hooks/context'
-
 
 export function CosmosSupplyNFTs ({
+  contracts,
   tokenIdCounter,
   onLoading,
   onSincronizedItems
 }) {
-  const contracts = useContracts()
   const price = useRef()
   const tokenURI = useRef()
   const tokenId = useRef()
@@ -53,30 +51,30 @@ export function CosmosSupplyNFTs ({
                 .waitForTransaction(response3.hash)
                 .then((_response3) => {
                   setTimeout(() => {
-                    onSincronizedItems()
                     alert('Ya está en venta el NFT')
+                    onSincronizedItems()
                   }, 3000)
                 })
                 .catch((error) => {
-                  onSincronizedItems()
                   alert('Hubo un error, revisa la consola')
+                  onSincronizedItems()
                   console.error(error)
                 })
             })
             .catch((error) => {
-              onSincronizedItems()
               alert('Hubo un error, revisa la consola')
+              onSincronizedItems()
               console.error(error)
             })
         })
         .catch((error) => {
-          onSincronizedItems()
           alert('Hubo un error, revisa la consola')
+          onSincronizedItems()
           console.error(error)
         })
     } catch (error) {
-      onSincronizedItems()
       alert('Hubo un error, revisa la consola')
+      onSincronizedItems()
       console.error(error)
     }
   }

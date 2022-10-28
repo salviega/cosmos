@@ -3,6 +3,7 @@ import React from 'react'
 
 export function CosmosNFTs ({
   children,
+  contracts,
   currency,
   onLoading,
   onSincronizedItems,
@@ -14,7 +15,7 @@ export function CosmosNFTs ({
       <div className='nfts-container'>
         {React.Children.toArray(children).map((child) =>
           React.cloneElement(child, {
-            currency,
+            contracts,
             onLoading,
             onSincronizedItems,
             setItem,

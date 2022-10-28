@@ -1,19 +1,19 @@
 import './App.scss'
-import React from 'react'
 import { ethers } from 'ethers'
-import { firebaseApi } from '../../middleware/firebaseApi'
+import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useAuth } from '../../hooks/context'
 import { CosmosHome } from '../CosmosHome'
-import { CosmosMenu } from '../CosmosMenu'
-import { CosmosWallet } from '../CosmosWallet/'
+import { CosmosMenu } from '../../shared/CosmosMenu'
+import { CosmosWallet } from '../../shared/CosmosMenu/CosmosWallet'
 import { CosmosMaker } from '../CosmosMaker'
-import { CosmosFooter } from '../CosmosFooter'
+import { CosmosFooter } from '../../shared/CosmosFooter'
 import { CosmosMarketplace } from '../CosmosMarketplace'
-import { CosmosEventDetails } from '../CosmosEventDetails'
+import { CosmosEventDetails } from '../CosmosHome/CosmosEventDetails'
 import { CosmosFaucet } from '../CosmosFaucet'
 import { CosmosGateway } from '../CosmosGatway'
 import { CosmosApprove } from '../CosmosApprove'
+import { firebaseApi } from '../../middleware/firebaseApi'
 
 function App () {
   const { getAllItems, getItem, createItem } = firebaseApi()
@@ -23,7 +23,7 @@ function App () {
   const [loading, setLoading] = React.useState(true)
   const [sincronizedItems, setSincronizedItems] = React.useState(true)
 
-  const data = async () => {
+  const fetchData = async () => {
     try {
       setItems(await getAllItems())
       setLoading(false)
@@ -36,7 +36,7 @@ function App () {
   }
 
   React.useEffect(() => {
-    data()
+    fetchData()
     const currentNetwork = async () => {
       const web3Provider = new ethers.providers.Web3Provider(window.ethereum)
       const web3Signer = web3Provider.getSigner()
@@ -66,7 +66,7 @@ function App () {
         <Routes>
           <Route path='/' element={<CosmosHome items={items} loading={loading} error={error} />} />
           <Route path='/:slug' element={<CosmosEventDetails getItem={getItem} />} />
-          <Route path='/create' element={<CosmosMaker createItem={createItem} setSincronizedItems={setSincronizedItems} />} />
+          <Route path='/maker' element={<CosmosMaker createItem={createItem} setSincronizedItems={setSincronizedItems} />} />
           <Route path='/marketplace' element={<CosmosMarketplace />} />
           <Route path='/gateway' element={<CosmosGateway />} />
           <Route path='/faucet' element={<CosmosFaucet />} />

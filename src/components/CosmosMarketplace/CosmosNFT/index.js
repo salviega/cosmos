@@ -1,18 +1,16 @@
 import './CosmosNFT.scss'
 import logo from './../../../asserts/images/logo-cosmos.png'
 import React from 'react'
-import { useContracts } from '../../../hooks/context'
-
 
 export function CosmosNFT ({
   key,
   item,
+  contracts,
   onLoading,
   onSincronizedItems,
   setItem,
   setOpenModal
 }) {
-  const contracts = useContracts()
   const onBuy = async () => {
     try {
       onLoading()

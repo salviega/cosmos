@@ -1,8 +1,8 @@
 import './CosmosMarketplace.scss'
-import React, { useReducer, useState } from 'react'
 import { ethers } from 'ethers'
+import React, { useReducer, useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { reducerMarketPlace } from '../../hooks/reducer'
+import { reducerMarketplace } from '../../hooks/reducer'
 import { useAuth, useContracts } from '../../hooks/context'
 import { CosmosNFTs } from './CosmosNFTs'
 import { CosmosNFT } from './CosmosNFT'
@@ -17,13 +17,13 @@ import { getDataMarketPlaceSubGraph } from '../../middleware/getDataMarketPlaceS
 export function CosmosMarketplace () {
   const auth = useAuth()
   const contracts = useContracts()
-  const { initialValue, reducerObject, actionTypes } = reducerMarketPlace()
+  const { initialValue, reducerObject, actionTypes } = reducerMarketplace()
+  const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph()
   const [state, dispatch] = useReducer(reducerObject, initialValue)
-  const { loading, error, sincronizedItems, itemsSale, purchasedItems, currency, tokenIdCounter } = state
   const [item, setItem] = useState({})
   const [openModal, setOpenModal] = useState(false)
   const [openModalSummary, setOpenModalSummary] = useState(false)
-  const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph()
+  const { loading, error, sincronizedItems, itemsSale, purchasedItems, currency, tokenIdCounter } = state
 
   // ACTIONS CREATORS
   const onError = (error) =>
@@ -66,44 +66,45 @@ export function CosmosMarketplace () {
         Curamos una colección de piezas de arte digital exclusivas para nuestros
         clientes Cosmos BBVA.
       </p>
-      {error && 'Hubo un error... mira la consola'}
-      {!loading && !error && auth.user.isAdmin && (
+      {!loading && auth.user.isAdmin(
         <div className='marketplace-admin'>
           <CosmosSupplyNFTs
+            contracts={contracts}
             tokenIdCounter={tokenIdCounter}
             onLoading={onLoading}
             onSincronizedItems={onSincronizedItems}
           />
         </div>
       )}
-      {loading && !error && (
-        <div className='marketplace__loading'>
-          <CosmosLoading />
-        </div>
-      )}
-      {!loading && !error && (
-        <div>
-          <CosmosNFTs
-            currency={currency}
-            onLoading={onLoading}
-            onSincronizedItems={onSincronizedItems}
-            setItem={setItem}
-            setOpenModal={setOpenModal}
-          >
-            {itemsSale
-              ? itemsSale.map((item, index) => (
-                <CosmosNFT key={index} item={item} />
-              ))
-              : "There don't NFTs in sale"}
-          </CosmosNFTs>
-          <CosmosNFTsResume
-            currency={currency}
-            purchasedItems={purchasedItems}
-            setItem={setItem}
-            setOpenModalSummary={setOpenModalSummary}
-          />
-        </div>
-      )}
+      {loading
+        ? (
+          <div className='marketplace__loading'>
+            <CosmosLoading />
+          </div>
+          )
+        : (
+          <>
+            <CosmosNFTs
+              contracts={contracts}
+              onLoading={onLoading}
+              onSincronizedItems={onSincronizedItems}
+              setItem={setItem}
+              setOpenModal={setOpenModal}
+            >
+              {itemsSale
+                ? itemsSale.map((item, index) => (
+                  <CosmosNFT key={index} item={item} />
+                ))
+                : "There don't NFTs in sale"}
+            </CosmosNFTs>
+            <CosmosNFTsResume
+              currency={currency}
+              purchasedItems={purchasedItems}
+              setItem={setItem}
+              setOpenModalSummary={setOpenModalSummary}
+            />
+          </>
+          )}
       {openModal && (
         <CosmosModal>
           <CosmosNFTDetails

@@ -1,26 +1,22 @@
-import React from 'react'
 import './CosmosHome.scss'
-import { CosmosEvent } from '../CosmosEvent'
-import { CosmosEvents } from '../CosmosEvents'
+import React from 'react'
 import logo from '../../asserts/images/logo-cosmos.png'
+import { CosmosEvent } from './CosmosEvent'
+import { CosmosEvents } from './CosmosEvents'
 
 export function CosmosHome ({ items: events, loading, error }) {
   return (
     <div className='home'>
-      {error && <h1>Error... Check the console</h1> && loading
-        ? <h1>Loading...</h1>
-        : <>
-          <div className='home__start_page'>
-            <img src={logo} alt='logo' className='home__logo' />
-            <h1 className='home__title'>Cosmos BBVA</h1>
-            <h2 className='home__description'>Explora, conecta, diviértete.</h2>
-          </div>
-          <CosmosEvents>
-            {events?.map((event, index) => (
-              <CosmosEvent key={index} event={event} />
-            ))}
-          </CosmosEvents>
-        </>}
+      <div className='home__start_page'>
+        <img src={logo} alt='logo' className='home__logo' />
+        <h1 className='home__title'>Cosmos BBVA</h1>
+        <h2 className='home__description'>Explora, conecta, diviértete.</h2>
+      </div>
+      <CosmosEvents>
+        {events?.map((event, index) => (
+          <CosmosEvent key={index} event={event} />
+        ))}
+      </CosmosEvents>
     </div>
   )
 }

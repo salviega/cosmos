@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWallet, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useContracts } from '../../../hooks/context'
 
-
 export function CosmosNFTDetails ({
   item,
   onLoading,

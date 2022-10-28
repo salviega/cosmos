@@ -3,7 +3,6 @@ import logo from './../../../asserts/images/logo-cosmos.png'
 import React from 'react'
 
 export function CosmosNFTsResume ({
-  currency,
   purchasedItems,
   setItem,
   setOpenModalSummary
