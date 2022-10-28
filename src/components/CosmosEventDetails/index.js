@@ -193,7 +193,7 @@ export function CosmosEventDetails({ getItem }) {
                         <button
                           className="details-buttons__volver"
                           onClick={() =>
-                            navigate(`/approve/${slug}id=${button.id}`)
+                            navigate(`/approve/${slug}==${button.id}`)
                           }
                         >
                           redeem

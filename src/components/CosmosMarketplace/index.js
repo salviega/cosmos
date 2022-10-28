@@ -12,7 +12,6 @@ import { CosmosSupplyNFTs } from "../CosmosSupplyNFTs";
 import { CosmosNFTsResume } from "../CosmosNFTsResume";
 import { CosmosPurchasedNFTDetails } from "../CosmosPurchasedNFTDetails";
 import { getDataMarketPlaceSubGraph } from "../../middleware/getDataMarketPlaceSubGraph.js";
-import { cpuUsage } from 'process';
 
 export function CosmosMarketplace() {
   const { getItemsForSale, getPurchasedItems } = getDataMarketPlaceSubGraph();
@@ -41,6 +40,8 @@ export function CosmosMarketplace() {
         await getItemsForSale(),
         await getPurchasedItems()
       );
+
+      console.log(await getItemsForSale())
 
       await refactorItems(filteredSaleForItems, setItemsForSale);
       await refactorItems(await getPurchasedItems(), setPurchasedItems);
@@ -73,6 +74,7 @@ export function CosmosMarketplace() {
       return refactoredItem;
     });
     const refactoredItems = await Promise.all(result);
+    console.log(refactoredItems)
     state(refactoredItems);
   };
 
