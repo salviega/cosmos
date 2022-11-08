@@ -1,82 +1,103 @@
-import './App.scss'
-import { ethers } from 'ethers'
-import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import { useAuth } from '../../hooks/context'
-import { CosmosHome } from '../CosmosHome'
-import { CosmosMenu } from '../../shared/CosmosMenu'
-import { CosmosWallet } from '../../shared/CosmosMenu/CosmosWallet'
-import { CosmosMaker } from '../CosmosMaker'
-import { CosmosFooter } from '../../shared/CosmosFooter'
-import { CosmosMarketplace } from '../CosmosMarketplace'
-import { CosmosEventDetails } from '../CosmosHome/CosmosEventDetails'
-import { CosmosFaucet } from '../CosmosFaucet'
-import { CosmosGateway } from '../CosmosGatway'
-import { CosmosApprove } from '../CosmosApprove'
-import { firebaseApi } from '../../middleware/firebaseApi'
+import "./App.scss";
+import { ethers } from "ethers";
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useAuth } from "../../hooks/context";
+import { CosmosHome } from "../CosmosHome";
+import { CosmosMenu } from "../../shared/CosmosMenu";
+import { CosmosWallet } from "../../shared/CosmosMenu/CosmosWallet";
+import { CosmosWeb3Auth } from "../../shared/CosmosMenu/CosmosWeb3Auth";
+import { CosmosMaker } from "../CosmosMaker";
+import { CosmosFooter } from "../../shared/CosmosFooter";
+import { CosmosMarketplace } from "../CosmosMarketplace";
+import { CosmosEventDetails } from "../CosmosHome/CosmosEventDetails";
+import { CosmosFaucet } from "../CosmosFaucet";
+import { CosmosGateway } from "../CosmosGatway";
+import { CosmosApprove } from "../CosmosApprove";
+import { firebaseApi } from "../../middleware/firebaseApi";
 
-function App () {
-  const { getAllItems, getItem, createItem } = firebaseApi()
-  const auth = useAuth()
-  const [items, setItems] = React.useState()
-  const [error, setError] = React.useState(false)
-  const [loading, setLoading] = React.useState(true)
-  const [sincronizedItems, setSincronizedItems] = React.useState(true)
+function App() {
+  const { getAllItems, getItem, createItem } = firebaseApi();
+  const auth = useAuth();
+  const [items, setItems] = React.useState();
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [sincronizedItems, setSincronizedItems] = React.useState(true);
 
   const fetchData = async () => {
     try {
-      setItems(await getAllItems())
-      setLoading(false)
-      setSincronizedItems(true)
+      setItems(await getAllItems());
+      setLoading(false);
+      setSincronizedItems(true);
     } catch (error) {
-      setLoading(false)
-      setError(error)
-      console.error(error)
+      setLoading(false);
+      setError(error);
+      console.error(error);
     }
-  }
+  };
 
   React.useEffect(() => {
-    fetchData()
+    fetchData();
     const currentNetwork = async () => {
-      const web3Provider = new ethers.providers.Web3Provider(window.ethereum)
-      const web3Signer = web3Provider.getSigner()
-      const chainId = await web3Signer.getChainId()
-      return chainId
-    }
+      const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
+      const web3Signer = web3Provider.getSigner();
+      const chainId = await web3Signer.getChainId();
+      return chainId;
+    };
     if (window.ethereum) {
-      window.ethereum.on('chainChanged', () => {
+      window.ethereum.on("chainChanged", () => {
         currentNetwork().then((response) => {
           if (response !== 43113) {
-            auth.logout()
+            auth.logout();
           }
-        })
-      })
-      window.ethereum.on('accountsChanged', () => {
-        auth.logout()
-      })
+        });
+      });
+      window.ethereum.on("accountsChanged", () => {
+        auth.logout();
+      });
     }
-  }, [sincronizedItems])
+  }, [sincronizedItems]);
 
   return (
     <>
       <CosmosMenu>
-        <CosmosWallet />
+        {/* <CosmosWallet /> */}
+        <CosmosWeb3Auth />
       </CosmosMenu>
       <main>
         <Routes>
-          <Route path='/' element={<CosmosHome items={items} loading={loading} error={error} />} />
-          <Route path='/:slug' element={<CosmosEventDetails getItem={getItem} />} />
-          <Route path='/maker' element={<CosmosMaker createItem={createItem} setSincronizedItems={setSincronizedItems} />} />
-          <Route path='/marketplace' element={<CosmosMarketplace />} />
-          <Route path='/gateway' element={<CosmosGateway />} />
-          <Route path='/faucet' element={<CosmosFaucet />} />
-          <Route path='/approve/:slug' element={<CosmosApprove getItem={getItem} />} />
-          <Route path='*' element={<Navigate replace to='/' />} />
+          <Route
+            path="/"
+            element={
+              <CosmosHome items={items} loading={loading} error={error} />
+            }
+          />
+          <Route
+            path="/:slug"
+            element={<CosmosEventDetails getItem={getItem} />}
+          />
+          <Route
+            path="/maker"
+            element={
+              <CosmosMaker
+                createItem={createItem}
+                setSincronizedItems={setSincronizedItems}
+              />
+            }
+          />
+          <Route path="/marketplace" element={<CosmosMarketplace />} />
+          <Route path="/gateway" element={<CosmosGateway />} />
+          <Route path="/faucet" element={<CosmosFaucet />} />
+          <Route
+            path="/approve/:slug"
+            element={<CosmosApprove getItem={getItem} />}
+          />
+          <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
       </main>
       <CosmosFooter />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
