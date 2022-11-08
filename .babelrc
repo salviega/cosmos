@@ -1,0 +1,11 @@
+{
+  // preset: trabajar con js moderno y react
+  "presets": [
+    "@babel/preset-env", 
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    // este plugin nos permite trabajar con asincronismo
+    "@babel/plugin-transform-runtime"
+  ]
+}
