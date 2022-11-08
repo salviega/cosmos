@@ -1,50 +1,85 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  // punto de entrada de la aplicación
-  entry: "./src/index.js",
-  // donde se enviará donde mandará webpack
+  // mode: 'production', // LE INDICO EL MODO EXPLICITAMENTE
+  entry: "./src/index.js", // el punto de entrada de mi aplicación
   output: {
-    // directorio del proyecto y nombre de como se guardará
+    // Esta es la salida de mi bundle
     path: path.resolve(__dirname, "dist"),
-    // nombre del archivo de producción
+    // resolve lo que hace es darnos la ruta absoluta de el S.O hasta nuestro archivo
+    // para no tener conflictos entre Linux, Windows, etc
     filename: "main.js",
+    // EL NOMBRE DEL ARCHIVO FINAL,
+    assetModuleFilename: "assets/images/[hash][ext][query]",
   },
-  // los archivos que webpack va entender
   resolve: {
-    extensions: [".js", ".ts", ".tsx"],
+    extensions: [".js", ".ts", ".tsx"], // LOS ARCHIVOS QUE WEBPACK VA A LEER
   },
   // permite añadir una configuración
   module: {
-    // rules: las reglas del proyecto
+    // REGLAS PARA TRABAJAR CON WEBPACK
     rules: [
       {
-        // saber que tipo de extensiones vamos a utilizar
-        test: /\.(js|mjs|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
+        test: /\.(js|mjs|jsx|ts|tsx)$/, // REGLAS PARA TRABAJAR CON WEBPACK
+        exclude: /node_modules/, // IGNORA LOS MODULOS DE LA CARPETA
         use: {
-          loader: "babel-loader",
+          loader: "babel-loader", // NOMBRE DEL LOADER
         },
       },
       {
-        // utilizar css y scss, se carga el loader
-        test: /\.(sa|sc|c)ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        test: /\.(sa|sc|c)ss$/i, // REGLA PARA ACEPTAR CSS Y PREPROCESADORES
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"], // NOMBRE DEL LOADER
+      },
+      {
+        test: /\.(png|jpg|svg)/, // REGLA PARA ACEPTAR IMAGENES .PNG .JPG .SVG
+        type: "asset/resource",
+      },
+      {
+        // subir fuentes a dist
+        test: /\.(woff|woff2)$/, // REGLA PARA ARCHIVOS WOFF | WOFF2
+        use: {
+          loader: "url-loader", // NOMBRE DEL LOADER
+          options: {
+            limit: false, // O LE PASAMOS UN NUMERO
+            // Habilita o deshabilita la transformación de archivos en base64.
+            mimetype: "aplication/font-woff",
+            // Especifica el tipo MIME con el que se alineará el archivo.
+            // Los MIME Types (Multipurpose Internet Mail Extensions)
+            // son la manera standard de mandar contenido a través de la red.
+            name: "[name].[ext]",
+            // EL NOMBRE INICIAL DEL PROYECTO + SU EXTENSIÓN
+            // PUEDES AGREGARLE [name]hola.[ext] y el output del archivo seria
+            // ubuntu-regularhola.woff
+            outputPath: "./assets/fonts/",
+            // EL DIRECTORIO DE SALIDA (SIN COMPLICACIONES)
+            publicPath: "./assets/fonts/",
+            // EL DIRECTORIO PUBLICO (SIN COMPLICACIONES)
+            esModule: false,
+          },
+        },
       },
     ],
   },
+  // SECCION DE PLUGINS
   plugins: [
-    // configuras HTML para producción
     new HtmlWebpackPlugin({
-      // inserción de los elementos
-      inject: true,
-      template: "./public/index.html",
-      //resultado del build
-      filename: "./index.html",
+      // CONFIGURACIÓN DEL PLUGIN
+      inject: true, // INYECTA EL BUNDLE AL TEMPLATE HTML
+      template: "./public/index.html", // LA RUTA AL TEMPLATE HTML
+      filename: "./index.html", // NOMBRE FINAL DEL ARCHIVO
     }),
-    // utilización del recurso
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin(), // INSTANCIAMOS EL PLUGIN
+    new CopyPlugin({
+      // CONFIGURACIÓN DEL COPY PLUGIN
+      patterns: [
+        {
+          from: path.resolve(__dirname, "src", "assets/images"), // CARPETA A MOVER AL DIST
+          to: "assets/images", // RUTA FINAL DEL DIST
+        },
+      ],
+    }),
   ],
 };
