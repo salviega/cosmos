@@ -23,8 +23,8 @@ export function CosmosWeb3Auth() {
           clientId,
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
-            chainId: "0xA869", // 43113 - decimal
-            rpcTarget: "https://api.avax-test.network/ext/bc/C/rpc", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+            chainId: "0xA869",
+            rpcTarget: "https://api.avax-test.network/ext/bc/C/rpc",
             displayName: "Avalanche FUJI C-Chain",
             blockExplorer: "testnet.snowtrace.io",
             ticker: "AVAX",
@@ -73,7 +73,6 @@ export function CosmosWeb3Auth() {
                   showOnModal: false,
                 },
               },
-              // setting it to false will hide all social login methods from modal.
               showOnModal: true,
             },
           },

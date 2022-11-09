@@ -94,7 +94,6 @@ export function CosmosFaucet() {
           </div>
         </form>
       )}
-      <CosmosWeb3Auth />
     </div>
   );
 }
