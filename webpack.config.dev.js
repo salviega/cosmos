@@ -47,7 +47,34 @@ module.exports = {
       },
       {
         test: /\.(sa|sc|c)ss$/i, // REGLA PARA ACEPTAR CSS Y PREPROCESADORES
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"], // NOMBRE DEL LOADER
+        use: [
+          {
+            // inject CSS to page
+            loader: "style-loader",
+          },
+          {
+            // translates CSS into CommonJS modules
+            loader: "css-loader",
+          },
+          {
+            // Run postcss actions
+            loader: "postcss-loader",
+            options: {
+              // `postcssOptions` is needed for postcss 8.x;
+              // if you use postcss 7.x skip the key
+              postcssOptions: {
+                // postcss plugins, can be exported to postcss.config.js
+                plugins: function () {
+                  return [require("autoprefixer")];
+                },
+              },
+            },
+          },
+          {
+            // compiles Sass to CSS
+            loader: "sass-loader",
+          },
+        ] /*MiniCssExtractPlugin.loader, "css-loader", "sass-loader"*/, // NOMBRE DEL LOADER
       },
       {
         test: /\.(png|jpg|svg|ico)$/, // REGLA PARA ACEPTAR IMAGENES .PNG .JPG .SVG
@@ -88,7 +115,6 @@ module.exports = {
       template: "./public/index.html", // LA RUTA AL TEMPLATE HTML
       filename: "./index.html", // NOMBRE FINAL DEL ARCHIVO
       favicon: "./public/favicon.ico", // FAVICON
-      manifest: "./public/manifest.json", // MANIFEST
     }),
     new MiniCssExtractPlugin({
       filename: "assets/[name].[contenthash].css",

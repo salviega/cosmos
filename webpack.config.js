@@ -89,7 +89,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       // CONFIGURACIÓN DEL PLUGIN
-      //inject: true, // INYECTA EL BUNDLE AL TEMPLATE HTML
+      inject: true, // INYECTA EL BUNDLE AL TEMPLATE HTML
       template: "./public/index.html", // LA RUTA AL TEMPLATE HTML
       filename: "./index.html", // NOMBRE FINAL DEL ARCHIVO
       favicon: "./public/favicon.ico", // FAVICON
