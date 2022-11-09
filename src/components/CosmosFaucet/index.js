@@ -5,6 +5,7 @@ import React, { useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth, useContracts } from "../../hooks/context";
 import { CosmosLoading } from "../../shared/CosmosLoading";
+import { CosmosWeb3Auth } from "../../shared/CosmosMenu/CosmosWeb3Auth";
 
 export function CosmosFaucet() {
   const auth = useAuth();
@@ -93,6 +94,7 @@ export function CosmosFaucet() {
           </div>
         </form>
       )}
+      <CosmosWeb3Auth />
     </div>
   );
 }

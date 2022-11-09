@@ -6,7 +6,6 @@ import { useAuth } from "../../hooks/context";
 import { CosmosHome } from "../CosmosHome";
 import { CosmosMenu } from "../../shared/CosmosMenu";
 import { CosmosWallet } from "../../shared/CosmosMenu/CosmosWallet";
-import { CosmosWeb3Auth } from "../../shared/CosmosMenu/CosmosWeb3Auth";
 import { CosmosMaker } from "../CosmosMaker";
 import { CosmosFooter } from "../../shared/CosmosFooter";
 import { CosmosMarketplace } from "../CosmosMarketplace";
@@ -15,6 +14,7 @@ import { CosmosFaucet } from "../CosmosFaucet";
 import { CosmosGateway } from "../CosmosGatway";
 import { CosmosApprove } from "../CosmosApprove";
 import { firebaseApi } from "../../middleware/firebaseApi";
+import { CosmosWeb3Auth } from "../../shared/CosmosMenu/CosmosWeb3Auth";
 
 function App() {
   const { getAllItems, getItem, createItem } = firebaseApi();

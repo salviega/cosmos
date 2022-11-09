@@ -1,23 +1,28 @@
-import { useEffect, useState } from "react";
+import "./CosmosWeb3Auth.scss";
+import React from "react";
+import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
-import { CHAIN_NAMESPACES } from "@web3auth/base";
-import { RPC } from "./ethersRPC";
+import { ethersRPC } from "./ethersRPC";
 
 const clientId =
-  "BGmnaooOFOd-Tg7DnZb3dUKXyGjfA1jXyNro5m9jzpk5dTweKlIWVS03qHSAbKAXEr4rQx3xccwNUFKBNt8Uagg"; // get from https://dashboard.web3auth.io
+  "BIUsf57Ux9ezViHnb5VEAnK2nX6nVRv2Kw-jom21XqvBqr22cDQBi3MdsOzHnMtzRSaoybCUhhGf4YMc0llIQpk"; // get from https://dashboard.web3auth.io
 
 export function CosmosWeb3Auth() {
-  const [web3auth, setWeb3auth] = useState(null);
-  const [provider, setProvider] = useState(null);
+  const [web3auth, setWeb3auth] = React.useState(null);
+  const [provider, setProvider] = React.useState(null);
+  const {
+    getChainId: _getChainId,
+    getAccounts: _getAccounts,
+    getBalance: _getBalance,
+  } = ethersRPC();
 
-  useEffect(() => {
+  React.useEffect(() => {
     const init = async () => {
       try {
         const web3auth = new Web3Auth({
           clientId,
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
-            // chainId: "0xA86A", // 43114 - decimal
             chainId: "0xA869", // 43113 - decimal
             rpcTarget: "https://api.avax-test.network/ext/bc/C/rpc", // This is the public RPC we have added, please pass on your own endpoint while creating an app
             displayName: "Avalanche FUJI C-Chain",
@@ -26,16 +31,56 @@ export function CosmosWeb3Auth() {
             tickerName: "AVAX",
           },
           uiConfig: {
+            appLogo: "https://images.web3auth.io/web3auth-logo-w.svg",
             theme: "dark",
-            loginMethodsOrder: ["facebook", "google"],
+            loginMethodsOrder: [
+              "google",
+              "facebook",
+              "twitter",
+              "email_passwordless",
+            ],
+            defaultLanguage: "en",
           },
-          displayErrorsOnModal: true,
-          authMode: "DAPP",
+        });
+
+        await web3auth.initModal({
+          modalConfig: {
+            [WALLET_ADAPTERS.OPENLOGIN]: {
+              label: "openlogin",
+              loginMethods: {
+                reddit: {
+                  showOnModal: false,
+                },
+                github: {
+                  showOnModal: false,
+                },
+                linkedin: {
+                  showOnModal: false,
+                },
+                twitch: {
+                  showOnModal: false,
+                },
+                line: {
+                  showOnModal: false,
+                },
+                kakao: {
+                  showOnModal: false,
+                },
+                weibo: {
+                  showOnModal: false,
+                },
+                wechat: {
+                  showOnModal: false,
+                },
+              },
+              // setting it to false will hide all social login methods from modal.
+              showOnModal: true,
+            },
+          },
         });
 
         setWeb3auth(web3auth);
 
-        await web3auth.initModal();
         if (web3auth.provider) {
           setProvider(web3auth.provider);
         }
@@ -79,8 +124,7 @@ export function CosmosWeb3Auth() {
       console.log("provider not initialized yet");
       return;
     }
-    const rpc = new RPC(provider);
-    const chainId = await rpc.getChainId();
+    const chainId = await _getChainId(provider);
     console.log(chainId);
   };
   const getAccounts = async () => {
@@ -88,8 +132,7 @@ export function CosmosWeb3Auth() {
       console.log("provider not initialized yet");
       return;
     }
-    const rpc = new RPC(provider);
-    const address = await rpc.getAccounts();
+    const address = await _getAccounts(provider);
     console.log(address);
   };
 
@@ -98,40 +141,39 @@ export function CosmosWeb3Auth() {
       console.log("provider not initialized yet");
       return;
     }
-    const rpc = new RPC(provider);
-    const balance = await rpc.getBalance();
+    const balance = await _getBalance(provider);
     console.log(balance);
   };
 
-  const sendTransaction = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const receipt = await rpc.sendTransaction();
-    console.log(receipt);
-  };
+  // const sendTransaction = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const receipt = await rpc.sendTransaction();
+  //   console.log(receipt);
+  // };
 
-  const signMessage = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const signedMessage = await rpc.signMessage();
-    console.log(signedMessage);
-  };
+  // const signMessage = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const signedMessage = await rpc.signMessage();
+  //   console.log(signedMessage);
+  // };
 
-  const getPrivateKey = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const privateKey = await rpc.getPrivateKey();
-    console.log(privateKey);
-  };
+  // const getPrivateKey = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const privateKey = await rpc.getPrivateKey();
+  //   console.log(privateKey);
+  // };
   const loggedInView = (
     <>
       <button onClick={getUserInfo} className="card">
@@ -146,7 +188,7 @@ export function CosmosWeb3Auth() {
       <button onClick={getBalance} className="card">
         Get Balance
       </button>
-      <button onClick={sendTransaction} className="card">
+      {/*<button onClick={sendTransaction} className="card">
         Send Transaction
       </button>
       <button onClick={signMessage} className="card">
@@ -154,7 +196,7 @@ export function CosmosWeb3Auth() {
       </button>
       <button onClick={getPrivateKey} className="card">
         Get Private Key
-      </button>
+      </button> */}
       <button onClick={logout} className="card">
         Log Out
       </button>
@@ -173,24 +215,7 @@ export function CosmosWeb3Auth() {
 
   return (
     <div className="container">
-      <h1 className="title">
-        <a target="_blank" href="http://web3auth.io/" rel="noreferrer">
-          Web3Auth
-        </a>
-        & ReactJS Example
-      </h1>
-
       <div className="grid">{provider ? loggedInView : unloggedInView}</div>
-
-      <footer className="footer">
-        <a
-          href="https://github.com/Web3Auth/Web3Auth/tree/master/examples/react-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Source code
-        </a>
-      </footer>
     </div>
   );
 }
