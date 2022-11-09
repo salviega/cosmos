@@ -61,8 +61,7 @@ function App() {
   return (
     <>
       <CosmosMenu>
-        {/* <CosmosWallet /> */}
-        <CosmosWeb3Auth />
+        <CosmosWallet />
       </CosmosMenu>
       <main>
         <Routes>
