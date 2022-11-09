@@ -1,1 +1,0 @@
-(self.webpackChunkcosmos_nft=self.webpackChunkcosmos_nft||[]).push([[916],{3233:function(){},2263:function(){},522:function(){},6882:function(){}}]);

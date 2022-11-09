@@ -12,14 +12,16 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     // resolve lo que hace es darnos la ruta absoluta de el S.O hasta nuestro archivo
     // para no tener conflictos entre Linux, Windows, etc
-    filename: "[name].[contenthash].js",
+    filename: "bundle.js",
     // EL NOMBRE DEL ARCHIVO FINAL,
     assetModuleFilename: "assets/images/[hash][ext][query]",
   },
   // CONFIGURACIÓN ESPECIFÍCA PARA EL MODO DESARROLLO
   mode: "development",
   // ACTIVA WEBPACKWATCH
-  watch: true,
+  //watch: true,
+  // CREA UN MAPA DE NUESTRO PROYECTO
+  devtool: "source-map",
   resolve: {
     // atajos para rutas
     alias: {
@@ -48,8 +50,9 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"], // NOMBRE DEL LOADER
       },
       {
-        test: /\.(png|jpg|svg)/, // REGLA PARA ACEPTAR IMAGENES .PNG .JPG .SVG
+        test: /\.(png|jpg|svg|ico)$/, // REGLA PARA ACEPTAR IMAGENES .PNG .JPG .SVG
         type: "asset/resource",
+        use: ["file-loader?name=[name].[ext]"], // ?name=[name].[ext] is only necessary to preserve the original file name
       },
       {
         // subir fuentes a dist
@@ -84,6 +87,8 @@ module.exports = {
       inject: true, // INYECTA EL BUNDLE AL TEMPLATE HTML
       template: "./public/index.html", // LA RUTA AL TEMPLATE HTML
       filename: "./index.html", // NOMBRE FINAL DEL ARCHIVO
+      favicon: "./public/favicon.ico", // FAVICON
+      manifest: "./public/manifest.json", // MANIFEST
     }),
     new MiniCssExtractPlugin({
       filename: "assets/[name].[contenthash].css",
@@ -100,4 +105,15 @@ module.exports = {
     // SUBE LOS ELEMENTOS DOTENV A PRODUCCIÓN
     new Dotenv(),
   ],
+  // GENERAR UN SERVIDOR DE DESARROLLO
+  devServer: {
+    // IDENTIFICAR ARCHIVO DE DESARROLLO
+    static: path.join(__dirname, "dist"),
+    // COMPRIMA
+    compress: true,
+    // TENER HISTORIA DE LO QUE ESTÁ SUCEDIENDO EN EL NAVEGADOR
+    historyApiFallback: true,
+    // PUERTO EN QUE CORRERÁ
+    port: 3001,
+  },
 };

@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 module.exports = {
   // mode: 'production', // LE INDICO EL MODO EXPLICITAMENTE
@@ -15,9 +16,11 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     // resolve lo que hace es darnos la ruta absoluta de el S.O hasta nuestro archivo
     // para no tener conflictos entre Linux, Windows, etc
-    filename: "[name].[contenthash].js",
+    filename: "bundle.js",
     // EL NOMBRE DEL ARCHIVO FINAL,
     assetModuleFilename: "assets/images/[hash][ext][query]",
+    // Configuración de publicación (la raíz)
+    publicPath: "/",
   },
   resolve: {
     // atajos para rutas
@@ -31,6 +34,8 @@ module.exports = {
       stream: false,
     },
   },
+  // MODO PRODUCCIÓN
+  mode: "production",
   // permite añadir una configuración
   module: {
     // REGLAS PARA TRABAJAR CON WEBPACK
@@ -43,11 +48,15 @@ module.exports = {
         },
       },
       {
+        test: /\.html$/, // REGLA PARA ACEPTAR HTML
+        use: [{ loader: "html-loader" }], // NOMBRE DEL LOADER
+      },
+      {
         test: /\.(sa|sc|c)ss$/i, // REGLA PARA ACEPTAR CSS Y PREPROCESADORES
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"], // NOMBRE DEL LOADER
       },
       {
-        test: /\.(png|jpg|svg)/, // REGLA PARA ACEPTAR IMAGENES .PNG .JPG .SVG
+        test: /\.(png|jpg|svg|ico)$/, // REGLA PARA ACEPTAR IMAGENES .PNG .JPG .SVG
         type: "asset/resource",
       },
       {
@@ -80,9 +89,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       // CONFIGURACIÓN DEL PLUGIN
-      inject: true, // INYECTA EL BUNDLE AL TEMPLATE HTML
+      //inject: true, // INYECTA EL BUNDLE AL TEMPLATE HTML
       template: "./public/index.html", // LA RUTA AL TEMPLATE HTML
       filename: "./index.html", // NOMBRE FINAL DEL ARCHIVO
+      favicon: "./public/favicon.ico", // FAVICON
+      manifest: "./public/manifest.json", // MANIFEST
     }),
     new MiniCssExtractPlugin({
       filename: "assets/[name].[contenthash].css",
@@ -100,6 +111,8 @@ module.exports = {
     new Dotenv(),
     // Deja la última version de WEBPACK, eliminando todo lo anteri
     new CleanWebpackPlugin(),
+    // Analiza el bundle para optimizarla, lanza alerta
+    new BundleAnalyzerPlugin(),
   ],
   optimization: {
     minimize: true,
