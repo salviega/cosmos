@@ -11,7 +11,6 @@ export function CosmosNFT({
   setItem,
   setOpenModal,
 }) {
-  console.log(item);
   const onBuy = async () => {
     try {
       onLoading();

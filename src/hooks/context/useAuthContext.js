@@ -2,7 +2,6 @@ import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
 import { ethers } from "ethers";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const clientId =
   "BIUsf57Ux9ezViHnb5VEAnK2nX6nVRv2Kw-jom21XqvBqr22cDQBi3MdsOzHnMtzRSaoybCUhhGf4YMc0llIQpk";
@@ -11,11 +10,10 @@ const adminWallets = [
   "0x70a792ad975aa0977c6e9d55a14f5f2228bbc685",
   "0xa3542355604cFD6531AAf020DDAB3bDFFf4d1809",
   "0x91DC541109033C060779Aad8a578E34223e694cb",
+  "0x3fCc7e9dffC0605a9bF3bB07254c40F6d15f843c",
 ];
 
 export function useAuthContext() {
-  const navigate = useNavigate();
-
   const initialState = JSON.parse(localStorage.getItem("wallet")) || {
     walletAddress: "Connect wallet",
   };
@@ -24,8 +22,14 @@ export function useAuthContext() {
   const [web3Provider, setWeb3Provider] = useState(null);
   const [web3Signer, setWeb3Signer] = useState(null);
 
-  const getWeb3Auth = (web3auth) => {
+  const getWeb3Auth = async (web3auth) => {
     setWeb3Auth(web3auth);
+    const web3authProvider = await web3auth.connect();
+
+    const ethersProvider = new ethers.providers.Web3Provider(web3authProvider);
+    setWeb3Provider(ethersProvider);
+    const ethersSigner = ethersProvider.getSigner();
+    setWeb3Signer(ethersSigner);
   };
 
   const login = async () => {
@@ -135,10 +139,11 @@ export function useAuthContext() {
     }
 
     await web3Auth.logout();
+    setWeb3Provider(null);
+    setWeb3Signer(null);
 
     localStorage.clear();
     setUser({ walletAddress: "Connect wallet" });
-    //navigate("/");
     window.location.reload();
   };
 

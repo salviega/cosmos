@@ -5,7 +5,6 @@ import React, { useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth, useContracts } from "../../hooks/context";
 import { CosmosLoading } from "../../shared/CosmosLoading";
-import { CosmosWeb3Auth } from "../../shared/CosmosMenu/CosmosWeb3Auth";
 
 export function CosmosFaucet() {
   const auth = useAuth();
@@ -30,6 +29,7 @@ export function CosmosFaucet() {
 
     try {
       setLoading(true);
+
       const response = await contracts.cosmoContract.authorizeOperator(
         contracts.marketPlaceContract.address
       );
@@ -45,7 +45,7 @@ export function CosmosFaucet() {
             .waitForTransaction(response2.hash)
             .then(async (_response2) => {
               setTimeout(() => {
-                setLoading(true);
+                setLoading(false);
                 alert("Fueron añadidos 10 cosmos a su billetera");
               }, 3000);
             })

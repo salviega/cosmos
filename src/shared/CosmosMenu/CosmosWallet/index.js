@@ -1,6 +1,5 @@
 import "./CosmosWallet.scss";
 import React from "react";
-import { ethers } from "ethers";
 import { useAuth } from "../../../hooks/context";
 
 export function CosmosWallet() {
@@ -8,15 +7,13 @@ export function CosmosWallet() {
   const auth = useAuth();
 
   const connectWallet = async () => {
-    setTimeout(async () => {
-      if (auth.user.walletAddress === "Connect wallet") {
-        await auth.login();
-        setLoading(false);
-      } else {
-        await auth.logout();
-        setLoading(false);
-      }
-    }, 1000);
+    if (auth.user.walletAddress === "Connect wallet") {
+      await auth.login();
+      setLoading(false);
+    } else {
+      await auth.logout();
+      setLoading(false);
+    }
   };
 
   return (

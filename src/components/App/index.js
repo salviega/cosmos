@@ -31,6 +31,7 @@ function App() {
       setItems(await getAllItems());
       setLoading(false);
       setSincronizedItems(true);
+      console.log(auth.user.walletAddress);
     } catch (error) {
       setLoading(false);
       setError(error);
