@@ -2,6 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   // mode: 'production', // LE INDICO EL MODO EXPLICITAMENTE
@@ -11,12 +15,21 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     // resolve lo que hace es darnos la ruta absoluta de el S.O hasta nuestro archivo
     // para no tener conflictos entre Linux, Windows, etc
-    filename: "main.js",
+    filename: "[name].[contenthash].js",
     // EL NOMBRE DEL ARCHIVO FINAL,
     assetModuleFilename: "assets/images/[hash][ext][query]",
   },
   resolve: {
+    // atajos para rutas
+    alias: {
+      "@images": path.resolve(__dirname, "src/assets/images/"),
+    },
     extensions: [".js", ".ts", ".tsx"], // LOS ARCHIVOS QUE WEBPACK VA A LEER
+    fallback: {
+      // not present by default
+      crypto: false,
+      stream: false,
+    },
   },
   // permite añadir una configuración
   module: {
@@ -49,13 +62,13 @@ module.exports = {
             // Especifica el tipo MIME con el que se alineará el archivo.
             // Los MIME Types (Multipurpose Internet Mail Extensions)
             // son la manera standard de mandar contenido a través de la red.
-            name: "[name].[ext]",
+            name: "[name].[contenthash].[ext]",
             // EL NOMBRE INICIAL DEL PROYECTO + SU EXTENSIÓN
             // PUEDES AGREGARLE [name]hola.[ext] y el output del archivo seria
             // ubuntu-regularhola.woff
             outputPath: "./assets/fonts/",
             // EL DIRECTORIO DE SALIDA (SIN COMPLICACIONES)
-            publicPath: "./assets/fonts/",
+            publicPath: "../assets/fonts/",
             // EL DIRECTORIO PUBLICO (SIN COMPLICACIONES)
             esModule: false,
           },
@@ -71,7 +84,9 @@ module.exports = {
       template: "./public/index.html", // LA RUTA AL TEMPLATE HTML
       filename: "./index.html", // NOMBRE FINAL DEL ARCHIVO
     }),
-    new MiniCssExtractPlugin(), // INSTANCIAMOS EL PLUGIN
+    new MiniCssExtractPlugin({
+      filename: "assets/[name].[contenthash].css",
+    }), // INSTANCIAMOS EL PLUGIN
     new CopyPlugin({
       // CONFIGURACIÓN DEL COPY PLUGIN
       patterns: [
@@ -81,5 +96,14 @@ module.exports = {
         },
       ],
     }),
+    // SUBE LOS ELEMENTOS DOTENV A PRODUCCIÓN
+    new Dotenv(),
+    // Deja la última version de WEBPACK, eliminando todo lo anteri
+    new CleanWebpackPlugin(),
   ],
+  optimization: {
+    minimize: true,
+    // OPTIMIZACIÓN DE CSS Y JAVASCRIPT
+    minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
+  },
 };
