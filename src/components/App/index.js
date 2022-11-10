@@ -1,8 +1,6 @@
 import "./App.scss";
-import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
-import { Web3Auth } from "@web3auth/modal";
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/context";
 import { CosmosHome } from "../CosmosHome";
 import { CosmosMenu } from "../../shared/CosmosMenu";
@@ -15,11 +13,10 @@ import { CosmosFaucet } from "../CosmosFaucet";
 import { CosmosGateway } from "../CosmosGatway";
 import { CosmosApprove } from "../CosmosApprove";
 import { firebaseApi } from "../../middleware/firebaseApi";
-const clientId =
-  "BIUsf57Ux9ezViHnb5VEAnK2nX6nVRv2Kw-jom21XqvBqr22cDQBi3MdsOzHnMtzRSaoybCUhhGf4YMc0llIQpk";
 
 function App() {
   const auth = useAuth();
+  const navigate = useNavigate();
   const { getAllItems, getItem, createItem } = firebaseApi();
   const [items, setItems] = React.useState();
   const [error, setError] = React.useState(false);
@@ -40,70 +37,8 @@ function App() {
   };
 
   const init = async () => {
-    try {
-      const web3auth = new Web3Auth({
-        clientId,
-        chainConfig: {
-          chainNamespace: CHAIN_NAMESPACES.EIP155,
-          chainId: "0xA869",
-          rpcTarget: "https://api.avax-test.network/ext/bc/C/rpc",
-          displayName: "Avalanche FUJI C-Chain",
-          blockExplorer: "testnet.snowtrace.io",
-          ticker: "AVAX",
-          tickerName: "AVAX",
-        },
-        uiConfig: {
-          appLogo: "https://images.web3auth.io/web3auth-logo-w.svg",
-          theme: "dark",
-          loginMethodsOrder: [
-            "google",
-            "facebook",
-            "twitter",
-            "email_passwordless",
-          ],
-          defaultLanguage: "en",
-        },
-      });
-
-      await web3auth.initModal({
-        modalConfig: {
-          [WALLET_ADAPTERS.OPENLOGIN]: {
-            label: "openlogin",
-            loginMethods: {
-              reddit: {
-                showOnModal: false,
-              },
-              github: {
-                showOnModal: false,
-              },
-              linkedin: {
-                showOnModal: false,
-              },
-              twitch: {
-                showOnModal: false,
-              },
-              line: {
-                showOnModal: false,
-              },
-              kakao: {
-                showOnModal: false,
-              },
-              weibo: {
-                showOnModal: false,
-              },
-              wechat: {
-                showOnModal: false,
-              },
-            },
-            showOnModal: true,
-          },
-        },
-      });
-
-      auth.getWeb3Auth(web3auth);
-    } catch (error) {
-      console.error(error);
-    }
+    navigate("/");
+    auth.login();
   };
 
   React.useEffect(() => {

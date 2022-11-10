@@ -109,8 +109,8 @@ export function useAuthContext() {
       const ethersSigner = ethersProvider.getSigner();
       setWeb3Signer(ethersSigner);
 
-      const walletAddress = await ethersSigner.getAddress();
-
+      let walletAddress = await ethersSigner.getAddress();
+      walletAddress = walletAddress.toLowerCase();
       let isAdmin = false;
       let adminWallet = adminWallets.find(
         (wallet) => wallet.toLowerCase() === walletAddress
@@ -118,6 +118,7 @@ export function useAuthContext() {
 
       try {
         adminWallet = adminWallet.toLowerCase();
+        console.log("adminWallet ", adminWallet);
         if (adminWallet.toLowerCase() === walletAddress) isAdmin = true;
         const stringifiedUser = JSON.stringify({ walletAddress, isAdmin });
         localStorage.setItem("wallet", stringifiedUser);
