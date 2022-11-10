@@ -18,7 +18,7 @@ export function CosmosProvider({ children }) {
 
   const cosmoContract = _cosmoContract(web3Signer);
   const marketPlaceContract = _marketPlaceContract(web3Signer);
-  const benefitsContract = _benefitsContract(web3Provider);
+  const benefitsContract = _benefitsContract(web3Signer);
   const paymentGatewayContract = _paymentGatewayContract(web3Signer);
 
   return (

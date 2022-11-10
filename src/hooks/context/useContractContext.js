@@ -23,7 +23,6 @@ export function useContractContext(web3authProvider) {
   );
 
   const _cosmoContract = (web3Signer) => {
-    console.log(web3Signer?.address);
     return generateContract(
       cosmoContractAddress,
       cosmoContractAbi.abi,
