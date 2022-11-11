@@ -1,7 +1,5 @@
 import "./CosmosFaucet.scss";
 import logo from "../../asserts/images/logo-cosmos.png";
-import * as PushAPI from "@pushprotocol/restapi";
-import { NotificationItem } from "@pushprotocol/uiweb";
 import { ethers } from "ethers";
 import React, { useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
@@ -13,7 +11,6 @@ export function CosmosFaucet() {
   const contracts = useContracts();
   const address = useRef();
   const [loading, setLoading] = useState(false);
-  const [notifications, setNotificactions] = useState([]);
   const amount = ethers.utils.parseEther("10", "ether");
 
   const onError = (error) => {
@@ -64,19 +61,6 @@ export function CosmosFaucet() {
     }
   };
 
-  const getNotifications = async () => {
-    setNotificactions(
-      await PushAPI.user.getFeeds({
-        user: "eip155:5:0x70a792ad975aa0977c6e9d55a14f5f2228bbc685",
-        env: "staging",
-      })
-    );
-  };
-
-  React.useEffect(() => {
-    getNotifications();
-  }, []);
-
   if (auth.user.walletAddress === "Connect wallet") {
     return <Navigate to="/" />;
   }
@@ -110,37 +94,6 @@ export function CosmosFaucet() {
           </div>
         </form>
       )}
-      <div>
-        {notifications.map((oneNotification, index) => {
-          const {
-            cta,
-            title,
-            message,
-            app,
-            icon,
-            image,
-            url,
-            blockchain,
-            notification,
-          } = oneNotification;
-
-          return (
-            <NotificationItem
-              key={index} // any unique id
-              notificationTitle={title}
-              notificationBody={message}
-              cta={cta}
-              app={app}
-              icon={icon}
-              image={image}
-              url={url}
-              theme="dark"
-              chainName={blockchain}
-              notification={notification}
-            />
-          );
-        })}
-      </div>
     </div>
   );
 }

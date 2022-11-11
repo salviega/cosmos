@@ -99,7 +99,6 @@ export function useAuthContext() {
       });
 
       setWeb3Auth(web3auth);
-
       const web3authProvider = await web3auth.connect();
       const ethersProvider = new ethers.providers.Web3Provider(
         web3authProvider
@@ -118,7 +117,6 @@ export function useAuthContext() {
 
       try {
         adminWallet = adminWallet.toLowerCase();
-        console.log("adminWallet ", adminWallet);
         if (adminWallet.toLowerCase() === walletAddress) isAdmin = true;
         const stringifiedUser = JSON.stringify({ walletAddress, isAdmin });
         localStorage.setItem("wallet", stringifiedUser);
@@ -148,5 +146,13 @@ export function useAuthContext() {
     window.location.reload();
   };
 
-  return { user, login, logout, getWeb3Auth, web3Provider, web3Signer };
+  return {
+    user,
+    login,
+    logout,
+    getWeb3Auth,
+    web3Auth,
+    web3Provider,
+    web3Signer,
+  };
 }

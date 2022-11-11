@@ -13,6 +13,8 @@ import { CosmosFaucet } from "../CosmosFaucet";
 import { CosmosGateway } from "../CosmosGatway";
 import { CosmosApprove } from "../CosmosApprove";
 import { firebaseApi } from "../../middleware/firebaseApi";
+import { CosmosLoading } from "../../shared/CosmosLoading";
+import { CosmosDashboard } from "../CosmosDashboard";
 
 function App() {
   const auth = useAuth();
@@ -37,53 +39,67 @@ function App() {
   };
 
   const init = async () => {
+    if (!localStorage.getItem("wallet")) {
+      loading(false);
+    }
     navigate("/");
     auth.login();
   };
 
   React.useEffect(() => {
     init();
-    fetchData();
+    setTimeout(() => {
+      fetchData();
+    }, 1800);
   }, [sincronizedItems]);
 
   return (
-    <>
-      <CosmosMenu>
-        <CosmosWallet />
-      </CosmosMenu>
-      <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <CosmosHome items={items} loading={loading} error={error} />
-            }
-          />
-          <Route
-            path="/:slug"
-            element={<CosmosEventDetails getItem={getItem} />}
-          />
-          <Route
-            path="/maker"
-            element={
-              <CosmosMaker
-                createItem={createItem}
-                setSincronizedItems={setSincronizedItems}
+    <React.Fragment>
+      {loading ? (
+        <div className="main__loading">
+          <CosmosLoading />
+        </div>
+      ) : (
+        <>
+          <CosmosMenu>
+            <CosmosWallet />
+          </CosmosMenu>
+          <main>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <CosmosHome items={items} loading={loading} error={error} />
+                }
               />
-            }
-          />
-          <Route path="/marketplace" element={<CosmosMarketplace />} />
-          <Route path="/gateway" element={<CosmosGateway />} />
-          <Route path="/faucet" element={<CosmosFaucet />} />
-          <Route
-            path="/approve/:slug"
-            element={<CosmosApprove getItem={getItem} />}
-          />
-          <Route path="*" element={<Navigate replace to="/" />} />
-        </Routes>
-      </main>
-      <CosmosFooter />
-    </>
+              <Route
+                path="/:slug"
+                element={<CosmosEventDetails getItem={getItem} />}
+              />
+              <Route
+                path="/maker"
+                element={
+                  <CosmosMaker
+                    createItem={createItem}
+                    setSincronizedItems={setSincronizedItems}
+                  />
+                }
+              />
+              <Route path="/marketplace" element={<CosmosMarketplace />} />
+              <Route path="/gateway" element={<CosmosGateway />} />
+              <Route path="/faucet" element={<CosmosFaucet />} />
+              <Route path="/dashboard" element={<CosmosDashboard />} />
+              <Route
+                path="/approve/:slug"
+                element={<CosmosApprove getItem={getItem} />}
+              />
+              <Route path="*" element={<Navigate replace to="/" />} />
+            </Routes>
+          </main>
+          <CosmosFooter />
+        </>
+      )}
+    </React.Fragment>
   );
 }
 

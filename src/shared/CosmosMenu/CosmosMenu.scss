@@ -1,13 +1,11 @@
 header {
-  height: 15vh;
+  min-height: 15vh;
   display: flex;
   align-items: center;
-  position: fixed;
   background: var(--navy);
 
   .menu {
     width: 98%;
-    height: 6.3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
