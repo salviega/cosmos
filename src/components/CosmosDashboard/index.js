@@ -22,14 +22,6 @@ export function CosmosDashboard() {
   const [userInformation, setUserInformation] = React.useState(initialState);
   const { getNotifications } = pushRestApi();
 
-  const info = async () => {
-    console.log("getUserInfo: ", await dashboardInfo.getUserInfo);
-    console.log("getChainId: ", await dashboardInfo.getChainId);
-    console.log("account: ", await dashboardInfo.getAccounts);
-    console.log("getBalance: ", await dashboardInfo.getBalance);
-    console.log("getPrivateKey: ", await dashboardInfo.getPrivateKey);
-  };
-
   React.useEffect(() => {
     getNotifications(auth.user.walletAddress)
       .then(async (response) => {
@@ -72,9 +64,11 @@ export function CosmosDashboard() {
         </div>
       ) : (
         <div className="dashboard">
-          {Object.values(userInformation)?.map((data, index) => (
-            <p key={index}>{data}</p>
-          ))}
+          <div className="dashboard-personal">
+            {Object.values(userInformation)?.map((data, index) => (
+              <p key={index}>{data}</p>
+            ))}
+          </div>
           <div className="dashboard-notifications">
             {notifications.map((oneNotification, index) => {
               const {

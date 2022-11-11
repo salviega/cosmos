@@ -1,12 +1,23 @@
 .dashboard {
+  margin-left: 5%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  &-notifications {
+  justify-content: center;
+
+  &-personal {
+    margin: 2.4rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%;
+  }
+
+  &-notifications {
+    margin-bottom: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   &__loading {
     margin-top: 160px;
