@@ -11,6 +11,15 @@ export function CosmosDashboard() {
   const dashboardInfo = useDashboardInfo();
   const [loading, setLoading] = React.useState(true);
   const [notifications, setNotifications] = React.useState();
+  const initialState = {
+    name: "",
+    email: "",
+    chainId: "",
+    wallet: "",
+    balance: "",
+    privateKey: "",
+  };
+  const [userInformation, setUserInformation] = React.useState(initialState);
   const { getNotifications } = pushRestApi();
 
   const info = async () => {
@@ -22,11 +31,33 @@ export function CosmosDashboard() {
   };
 
   React.useEffect(() => {
-    getNotifications(auth.user.walletAddress).then((response) => {
-      setNotifications(response);
-      setLoading(false);
-    });
-    info();
+    getNotifications(auth.user.walletAddress)
+      .then(async (response) => {
+        const userInfo = await dashboardInfo.getUserInfo;
+        let balance = await dashboardInfo.getBalance;
+        balance = parseFloat(balance);
+        let user = {
+          name: userInfo.name || null,
+          email: userInfo.email || null,
+          chainId: await dashboardInfo.getChainId,
+          wallet: await dashboardInfo.getAccounts,
+          balance: balance.toFixed(4),
+          privateKey: (await dashboardInfo.getPrivateKey) || null,
+        };
+        Object.keys(user).map((attribute) => {
+          if (user[attribute] === null) {
+            delete user[attribute];
+          }
+        });
+
+        setUserInformation(user);
+        setNotifications(response);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
   }, []);
 
   if (auth.user.walletAddress === "Connect wallet") {
@@ -41,6 +72,9 @@ export function CosmosDashboard() {
         </div>
       ) : (
         <div className="dashboard">
+          {Object.values(userInformation)?.map((data, index) => (
+            <p key={index}>{data}</p>
+          ))}
           <div className="dashboard-notifications">
             {notifications.map((oneNotification, index) => {
               const {

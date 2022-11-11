@@ -140,9 +140,7 @@ export function useAuthContext() {
     await web3Auth.logout();
     setWeb3Provider(null);
     setWeb3Signer(null);
-
     localStorage.clear();
-    setUser({ walletAddress: "Connect wallet" });
     window.location.reload();
   };
 

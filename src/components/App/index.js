@@ -30,7 +30,6 @@ function App() {
       setItems(await getAllItems());
       setLoading(false);
       setSincronizedItems(true);
-      console.log(auth.user.walletAddress);
     } catch (error) {
       setLoading(false);
       setError(error);
@@ -40,7 +39,8 @@ function App() {
 
   const init = async () => {
     if (!localStorage.getItem("wallet")) {
-      loading(false);
+      setLoading(false);
+      return;
     }
     navigate("/");
     auth.login();

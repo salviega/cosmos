@@ -3,17 +3,14 @@ import { ethers } from "ethers";
 export function useDashboardInformationContext() {
   const _getUserInfo = (web3Auth) => {
     if (web3Auth) {
-      if (!web3Auth.getUserInfo() === {}) {
-        return web3Auth.getUserInfo();
-      }
-      return null;
+      return web3Auth.getUserInfo();
     }
   };
 
   const _getChainId = async (web3Provider) => {
     if (web3Provider) {
-      const detailsNetwork = await web3Provider?.getNetwork();
-      return detailsNetwork?.chainId;
+      const detailsNetwork = await web3Provider.getNetwork();
+      return detailsNetwork.chainId;
     }
   };
 
@@ -35,16 +32,13 @@ export function useDashboardInformationContext() {
 
   const _getPrivateKey = async (web3Provider) => {
     if (web3Provider) {
-      if (
-        web3Provider.provider.request({
-          method: "eth_private_key",
-        })
-      ) {
+      try {
         return await web3Provider.provider.request({
           method: "eth_private_key",
         });
+      } catch {
+        return null;
       }
-      return null;
     }
   };
 
