@@ -1,5 +1,5 @@
 import "./CosmosMenu.scss";
-import bbva from "../../asserts/images/logo-bbva.png";
+import bbva from "../../assets/images/logo-bbva.png";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/context";

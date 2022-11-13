@@ -1,5 +1,5 @@
 import "./CosmosFaucet.scss";
-import logo from "../../asserts/images/logo-cosmos.png";
+import logo from "../../assets/images/logo-cosmos.png";
 import { ethers } from "ethers";
 import React, { useRef, useState } from "react";
 import { Navigate } from "react-router-dom";

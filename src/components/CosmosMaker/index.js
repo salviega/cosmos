@@ -1,5 +1,5 @@
 import "./CosmosMaker.scss";
-import defaultImage from "../../asserts/images/default-image.jpg";
+import defaultImage from "../../assets/images/default-image.jpg";
 import { ethers } from "ethers";
 import React, { useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";

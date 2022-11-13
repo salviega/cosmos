@@ -1,16 +1,32 @@
 .dashboard {
   margin-left: 5%;
+  margin-top: 2.4rem;
+  margin-bottom: 2.4rem;
   width: 90%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 
   &-personal {
-    margin: 2.4rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+
+    &-image {
+      margin-bottom: 2rem;
+      width: 20vw;
+
+      figcaption {
+        background: var(--white);
+        font-family: "Libre Franklin", sans-serif;
+        font-size: var(--h4);
+        color: var(--navy);
+      }
+    }
+
+    &-info {
+      text-align: center;
+    }
   }
 
   &-notifications {
@@ -18,6 +34,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    &__title {
+      text-align: center;
+    }
   }
   &__loading {
     margin-top: 160px;

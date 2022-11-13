@@ -38,10 +38,20 @@ export function CosmosMarketplace() {
     dispatch({ type: actionTypes.error, payload: error });
   const onLoading = () => dispatch({ type: actionTypes.loading });
   const onSincronizedItems = () => dispatch({ type: actionTypes.sincronize });
-  const onSuccess = ({ refactoredSaleItems, refactoredPurchasedItems }) =>
+  const onSuccess = ({
+    refactoredSaleItems,
+    refactoredPurchasedItems,
+    currency,
+    tokenIdCounter,
+  }) =>
     dispatch({
       type: actionTypes.success,
-      payload: { refactoredSaleItems, refactoredPurchasedItems },
+      payload: {
+        refactoredSaleItems,
+        refactoredPurchasedItems,
+        currency,
+        tokenIdCounter,
+      },
     });
 
   const fetchData = async () => {

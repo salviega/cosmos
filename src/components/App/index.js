@@ -48,7 +48,7 @@ function App() {
 
   React.useEffect(() => {
     init();
-    setTimeout(() => {
+    setTimeout(async () => {
       fetchData();
     }, 1800);
   }, [sincronizedItems]);

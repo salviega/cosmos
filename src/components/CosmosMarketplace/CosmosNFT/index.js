@@ -1,5 +1,5 @@
 import "./CosmosNFT.scss";
-import logo from "./../../../asserts/images/logo-cosmos.png";
+import logo from "./../../../assets/images/logo-cosmos.png";
 import React from "react";
 
 export function CosmosNFT({

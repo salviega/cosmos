@@ -1,6 +1,6 @@
 import "./CosmosHome.scss";
 import React from "react";
-import logo from "../../asserts/images/logo-cosmos.png";
+import logo from "../../assets/images/logo-cosmos.png";
 import { CosmosEvent } from "./CosmosEvent";
 import { CosmosEvents } from "./CosmosEvents";
 import { CosmosLoading } from "../../shared/CosmosLoading";
