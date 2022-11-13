@@ -38,7 +38,6 @@
     "web-vitals": "^2.1.4",
     "web3.storage": "^4.4.0"
   },
-  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
@@ -79,7 +78,6 @@
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.7.1",
     "hardhat": "^2.12.0",
-    "http-proxy-middleware": "^2.0.6",
     "https-browserify": "^1.0.0",
     "os-browserify": "^0.3.0",
     "process": "^0.11.10",

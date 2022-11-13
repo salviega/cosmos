@@ -2,20 +2,23 @@ import "./CosmosDashboard.scss";
 import defaultImage from "../../assets/images/default-image.jpg";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { NotificationItem } from "@pushprotocol/uiweb";
 import { pushProtocolRestApi } from "../../middleware/pushProtocolRestApi";
 import { CosmosLoading } from "../../shared/CosmosLoading";
 import { useAuth, useContracts, useDashboardInfo } from "../../hooks/context";
 import { Navigate } from "react-router-dom";
 import { ethers } from "ethers";
 import { CosmosLineGraph } from "./CosmosGraph";
+import { CosmosNotifications } from "./CosmosNotifications";
+import { CosmosDashboardNFTs } from "./CosmosDashboardNFTs";
+import { CosmosDashboardNFT } from "./CosmosDashboardNFT";
 
 export function CosmosDashboard() {
   const auth = useAuth();
   const contracts = useContracts();
   const dashboardInfo = useDashboardInfo();
   const [loading, setLoading] = React.useState(true);
-  const [notifications, setNotifications] = React.useState();
+  const [sincronized, setSincronized] = React.useState(true);
+  const [notifications, setNotifications] = React.useState([]);
   const [imageBase64, setImageBase64] = React.useState("");
   const initialState = {
     name: "",
@@ -28,16 +31,36 @@ export function CosmosDashboard() {
   };
   const [userInformation, setUserInformation] = useState(initialState);
   const [graphInformation, setGraphInformation] = useState([]);
+  const [NFTs, setNFTs] = useState([]);
   const { getNotifications } = pushProtocolRestApi();
+  const [item, setItem] = useState({});
+  const [openModal, setOpenModal] = useState(false);
+  const [openModalSummary, setOpenModalSummary] = useState(false);
 
   const getGraphInfo = async () => {
     try {
-      const response = await fetch("http://localhost:8080/", { mode: "cors" });
-      const data = await response.json();
-      console.log({ data });
-    } catch (e) {
-      console.log(e);
+      const response = await axios.get("http://localhost:8080/lastest");
+      const data = await response.data;
+      const refactoredData = data.map((datum) => {
+        return {
+          x: datum.DATE_C,
+          y: datum.CO2,
+        };
+      });
+      setGraphInformation(refactoredData);
+    } catch (error) {
+      console.error(error);
     }
+  };
+
+  const getNFTInfo = async () => {
+    const response = await axios.get(`http://localhost:8080/allNFTs`, {
+      params: {
+        address: contracts.marketPlaceContract.address,
+        wallet: auth.user.walletAddress,
+      },
+    });
+    setNFTs(response.data);
   };
 
   const handleImage = (event) => {
@@ -53,8 +76,8 @@ export function CosmosDashboard() {
   const perfilInformation = () => {
     if (userInformation.name) {
       return (
-        <aside className="dashboard-personal">
-          <div className="dashboard-personal-image">
+        <aside className="dashboard-personal-data">
+          <div className="dashboard-personal-data-image">
             <figure>
               <img
                 src={imageBase64 === "" ? defaultImage : imageBase64}
@@ -81,9 +104,9 @@ export function CosmosDashboard() {
       );
     }
     return (
-      <aside className="dashboard-personal">
-        <div className="dashboard-personal-image">
-          <figure>
+      <React.Fragment>
+        <div className="dashboard-personal-data">
+          <figure className="dashboard-personal-data-image">
             <img
               src={imageBase64 === "" ? defaultImage : imageBase64}
               alt="default"
@@ -97,15 +120,14 @@ export function CosmosDashboard() {
               />
             </figcaption>
           </figure>
+          <div className="dashboard-personal-data-info">
+            <p>wallet: {userInformation.wallet}</p>
+            <p>balance: {userInformation.balance}</p>
+            <p>Cosmos: {userInformation.cosmos}</p>
+            <p>chainId: {userInformation.chainId}</p>
+          </div>
         </div>
-        <div className="dashboard-personal-info">
-          <p>wallet: {userInformation.wallet}</p>
-          <p>balance: {userInformation.balance}</p>
-          <p>Cosmos: {userInformation.cosmos}</p>
-
-          <p>chainId: {userInformation.chainId}</p>
-        </div>
-      </aside>
+      </React.Fragment>
     );
   };
 
@@ -133,16 +155,18 @@ export function CosmosDashboard() {
             delete user[attribute];
           }
         });
+        getNFTInfo();
         getGraphInfo();
         setUserInformation(user);
         setNotifications(response);
         setLoading(false);
+        setSincronized(true);
       })
       .catch((error) => {
         console.error(error);
         setLoading(false);
       });
-  }, []);
+  }, [sincronized]);
 
   if (auth.user.walletAddress === "Connect wallet") {
     return <Navigate to="/" />;
@@ -156,40 +180,31 @@ export function CosmosDashboard() {
         </div>
       ) : (
         <div className="dashboard">
-          {perfilInformation()}
-          <div className="dashboard-notifications">
-            <h1 className="dashboard-notifications__title">Notifications</h1>
-            {notifications.map((oneNotification, index) => {
-              const {
-                cta,
-                title,
-                message,
-                app,
-                icon,
-                image,
-                url,
-                blockchain,
-                notification,
-              } = oneNotification;
-
-              return (
-                <NotificationItem
-                  key={index}
-                  notificationTitle={title}
-                  notificationBody={message}
-                  cta={cta}
-                  app={app}
-                  icon={icon}
-                  image={image}
-                  url={url}
-                  theme="dark"
-                  chainName={blockchain}
-                  notification={notification}
-                />
-              );
-            })}
+          <div className="dashboard-personal">
+            {perfilInformation()}
+            <div className="dashboard-notifications">
+              <h1 className="dashboard-notifications__title">Notifications</h1>
+              <CosmosNotifications notifications={notifications} />
+            </div>
           </div>
-          <CosmosLineGraph />
+          <CosmosLineGraph graphInformation={graphInformation} />
+          <h1 className="dashboard-notifications__title">My NFTs</h1>
+
+          <CosmosDashboardNFTs
+            contracts={contracts}
+            setLoading={setLoading}
+            setSincronized={setSincronized}
+            setItem={setItem}
+            setOpenModal={setOpenModal}
+          >
+            {NFTs
+              ? NFTs?.map((NFT, index) => (
+                  <>
+                    <CosmosDashboardNFT key={index} item={NFT} />
+                  </>
+                ))
+              : "There don't NFTs"}
+          </CosmosDashboardNFTs>
         </div>
       )}
     </React.Fragment>

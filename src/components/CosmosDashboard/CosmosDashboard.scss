@@ -1,26 +1,25 @@
 .dashboard {
+  margin: 2.4rem 0;
   margin-left: 5%;
-  margin-top: 2.4rem;
-  margin-bottom: 2.4rem;
   width: 90%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
 
   &-personal {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 
-    &-image {
-      margin-bottom: 2rem;
-      width: 20vw;
+    &-data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
 
-      figcaption {
-        background: var(--white);
-        font-family: "Libre Franklin", sans-serif;
-        font-size: var(--h4);
-        color: var(--navy);
+      &-image {
+        margin-bottom: 2rem;
+        width: 20vw;
       }
     }
 

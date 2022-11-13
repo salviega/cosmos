@@ -1,4 +1,4 @@
-import { Chart } from "chart.js";
+import "./CosmosLineGraph.scss";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,33 +21,33 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
+export function CosmosLineGraph({ graphInformation }) {
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Lastest activity",
+      },
     },
-    title: {
-      display: true,
-      text: "Chart.js Line Chart",
-    },
-  },
-};
-
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [20, 10, 10, 20, 1, 3, 1],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-  ],
-};
-
-export function CosmosLineGraph() {
-  return <Line options={options} data={data} />;
+  };
+  const data = {
+    labels: graphInformation.y,
+    datasets: [
+      {
+        label: "CO2",
+        data: graphInformation.x,
+        borderColor: "rgba(243, 114, 181, 0.8)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
+  return (
+    <div className="container">
+      <Line options={options} data={data} />
+    </div>
+  );
 }
