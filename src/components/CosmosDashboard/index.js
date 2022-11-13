@@ -11,15 +11,21 @@ import { CosmosLineGraph } from "./CosmosGraph";
 import { CosmosNotifications } from "./CosmosNotifications";
 import { CosmosDashboardNFTs } from "./CosmosDashboardNFTs";
 import { CosmosDashboardNFT } from "./CosmosDashboardNFT";
+import { CosmosModal } from "../../shared/CosmosModal";
+import { CosmosDashboardNFTDetails } from "./CosmosDashboardNFTDetails";
 
 export function CosmosDashboard() {
   const auth = useAuth();
   const contracts = useContracts();
   const dashboardInfo = useDashboardInfo();
-  const [loading, setLoading] = React.useState(true);
-  const [sincronized, setSincronized] = React.useState(true);
-  const [notifications, setNotifications] = React.useState([]);
-  const [imageBase64, setImageBase64] = React.useState("");
+  const [loading, setLoading] = useState(true);
+  const [sincronized, setSincronized] = useState(true);
+  const [notifications, setNotifications] = useState([]);
+  const [imageBase64, setImageBase64] = useState("");
+  const [graphInformation, setGraphInformation] = useState([]);
+  const [NFTs, setNFTs] = useState([]);
+  const [item, setItem] = useState({});
+  const [openModal, setOpenModal] = useState(false);
   const initialState = {
     name: "",
     email: "",
@@ -30,17 +36,12 @@ export function CosmosDashboard() {
     privateKey: "",
   };
   const [userInformation, setUserInformation] = useState(initialState);
-  const [graphInformation, setGraphInformation] = useState([]);
-  const [NFTs, setNFTs] = useState([]);
   const { getNotifications } = pushProtocolRestApi();
-  const [item, setItem] = useState({});
-  const [openModal, setOpenModal] = useState(false);
-  const [openModalSummary, setOpenModalSummary] = useState(false);
 
   const getGraphInfo = async () => {
     try {
       const response = await axios.get("http://localhost:8080/lastest");
-      const data = await response.data;
+      const data = response.data;
       const refactoredData = data.map((datum) => {
         return {
           x: datum.DATE_C,
@@ -54,13 +55,17 @@ export function CosmosDashboard() {
   };
 
   const getNFTInfo = async () => {
-    const response = await axios.get(`http://localhost:8080/allNFTs`, {
-      params: {
-        address: contracts.marketPlaceContract.address,
-        wallet: auth.user.walletAddress,
-      },
-    });
-    setNFTs(response.data);
+    try {
+      const response = await axios.get("http://localhost:8080/allNFTs", {
+        params: {
+          address: contracts.marketPlaceContract.address,
+          wallet: auth.user.walletAddress,
+        },
+      });
+      return await response.data;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleImage = (event) => {
@@ -155,12 +160,12 @@ export function CosmosDashboard() {
             delete user[attribute];
           }
         });
-        getNFTInfo();
+
+        setNFTs(await getNFTInfo());
         getGraphInfo();
         setUserInformation(user);
         setNotifications(response);
         setLoading(false);
-        setSincronized(true);
       })
       .catch((error) => {
         console.error(error);
@@ -198,14 +203,22 @@ export function CosmosDashboard() {
             setOpenModal={setOpenModal}
           >
             {NFTs
-              ? NFTs?.map((NFT, index) => (
-                  <>
-                    <CosmosDashboardNFT key={index} item={NFT} />
-                  </>
+              ? NFTs.map((item, index) => (
+                  <CosmosDashboardNFT key={index} item={item} />
                 ))
               : "There don't NFTs"}
           </CosmosDashboardNFTs>
         </div>
+      )}
+      {openModal && (
+        <CosmosModal>
+          <CosmosDashboardNFTDetails
+            item={item}
+            setLoading={setLoading}
+            setSincronized={setSincronized}
+            setOpenModal={setOpenModal}
+          />
+        </CosmosModal>
       )}
     </React.Fragment>
   );

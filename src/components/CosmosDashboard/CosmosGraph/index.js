@@ -22,6 +22,23 @@ ChartJS.register(
 );
 
 export function CosmosLineGraph({ graphInformation }) {
+  let xAxes = [];
+  let yAxes = [];
+  graphInformation.map((datum) => {
+    xAxes.push(datum.x);
+  });
+  graphInformation.map((datum) => {
+    yAxes.push(datum.y);
+  });
+
+  xAxes = xAxes.map((datum) => {
+    let milliseconds = datum * 1000;
+    let dateObject = new Date(milliseconds);
+    let humanDateFormat = dateObject.toLocaleString([], {
+      hour12: false,
+    });
+    return humanDateFormat;
+  });
   const options = {
     responsive: true,
     plugins: {
@@ -35,11 +52,11 @@ export function CosmosLineGraph({ graphInformation }) {
     },
   };
   const data = {
-    labels: graphInformation.y,
+    labels: xAxes,
     datasets: [
       {
         label: "CO2",
-        data: graphInformation.x,
+        data: yAxes,
         borderColor: "rgba(243, 114, 181, 0.8)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },

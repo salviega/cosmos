@@ -4,23 +4,24 @@ import React, { useEffect } from "react";
 
 export function CosmosDashboardNFT({
   key,
-  item,
+  item: initialState,
   contracts,
   setLoading,
   setSincronized,
   setItem,
   setOpenModal,
 }) {
-  const [parsedItem, setParsedItem] = React.useState(item);
+  const [parsedItem, setParsedItem] = React.useState(initialState);
 
   const onShowDetail = (item) => {
+    console.log(item);
     setItem(item);
     setOpenModal(true);
   };
 
   useEffect(() => {
-    setParsedItem(JSON.parse(item.metadata));
-  });
+    setParsedItem(JSON.parse(initialState.metadata));
+  }, []);
 
   return (
     <div className="nft">

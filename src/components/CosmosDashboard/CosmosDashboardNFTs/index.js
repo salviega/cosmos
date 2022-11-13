@@ -4,7 +4,6 @@ import React from "react";
 export function CosmosDashboardNFTs({
   children,
   contracts,
-  currency,
   setLoading,
   setSincronized,
   setItem,
