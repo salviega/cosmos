@@ -1,12 +1,7 @@
 import './CosmosApprove.scss'
 import React from 'react'
 import { useAuth, useContracts } from '../../hooks/context'
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams
-} from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ethers } from 'ethers'
 import benefitContractAbi from '../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitContract.sol/BenefitContract.json'
 
@@ -39,7 +34,9 @@ export function CosmosApprove ({ getItem }) {
       )
       const token = await benefitContract.tokens(tokenId)
       const managerAddress = await benefitContract.isManagerOrAdmin()
-      console.log('managerAddress: ' + managerAddress + ' ' + 'redeem: ' + token[3])
+      console.log(
+        'managerAddress: ' + managerAddress + ' ' + 'redeem: ' + token[3]
+      )
       if (!managerAddress || token[3]) {
         return navigate('/')
       }

@@ -1,9 +1,9 @@
-import React from "react";
-import { NotificationItem } from "@pushprotocol/uiweb";
+import React from 'react'
+import { NotificationItem } from '@pushprotocol/uiweb'
 
-export function CosmosNotifications({ notifications }) {
+export function CosmosNotifications ({ notifications }) {
   return (
-    <React.Fragment>
+    <>
       {notifications?.map((oneNotification, index) => {
         const {
           cta,
@@ -14,8 +14,8 @@ export function CosmosNotifications({ notifications }) {
           image,
           url,
           blockchain,
-          notification,
-        } = oneNotification;
+          notification
+        } = oneNotification
 
         return (
           <NotificationItem
@@ -27,13 +27,13 @@ export function CosmosNotifications({ notifications }) {
             icon={icon}
             image={image}
             url={url}
-            theme="dark"
+            theme='dark'
             chainName={blockchain}
             notification={notification}
           />
-        );
+        )
       })}
       ;
-    </React.Fragment>
-  );
+    </>
+  )
 }

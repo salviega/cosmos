@@ -1,18 +1,18 @@
-import "./CosmosDashboardNFTs.scss";
-import React from "react";
+import './CosmosDashboardNFTs.scss'
+import React from 'react'
 
-export function CosmosDashboardNFTs({
+export function CosmosDashboardNFTs ({
   children,
   contracts,
   setLoading,
   setSincronized,
   setItem,
   setOpenModal,
-  setOpenModalTransfer,
+  setOpenModalTransfer
 }) {
   return (
-    <div className="nfts">
-      <div className="nfts-container">
+    <div className='nfts'>
+      <div className='nfts-container'>
         {React.Children.toArray(children).map((child) =>
           React.cloneElement(child, {
             contracts,
@@ -20,10 +20,10 @@ export function CosmosDashboardNFTs({
             setSincronized,
             setItem,
             setOpenModal,
-            setOpenModalTransfer,
+            setOpenModalTransfer
           })
         )}
       </div>
     </div>
-  );
+  )
 }
