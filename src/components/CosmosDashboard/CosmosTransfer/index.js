@@ -22,6 +22,7 @@ export function CosmosTransfer({
   };
 
   const onTransferFrom = async (event) => {
+    console.log(item.tokenId);
     event.preventDefault();
     const info = {
       from: auth.user.walletAddress,
@@ -29,9 +30,10 @@ export function CosmosTransfer({
       tokenId: parseInt(item.tokenId),
     };
 
+    console.log(info.tokenId);
+
     try {
       setLoading(true);
-
       const response = await contracts.cosmoContract.authorizeOperator(
         contracts.marketPlaceContract.address
       );
