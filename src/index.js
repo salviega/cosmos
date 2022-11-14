@@ -1,11 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './components/App'
-import './styles/index.scss'
-import { HashRouter } from 'react-router-dom'
-import { CosmosProvider } from './hooks/context'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./components/App";
+import "./styles/index.scss";
+import { HashRouter } from "react-router-dom";
+import { CosmosProvider } from "./hooks/context";
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <HashRouter>
@@ -14,4 +14,4 @@ root.render(
       </CosmosProvider>
     </HashRouter>
   </React.StrictMode>
-)
+);

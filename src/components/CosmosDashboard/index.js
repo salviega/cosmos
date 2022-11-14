@@ -14,6 +14,7 @@ import { CosmosDashboardNFT } from "./CosmosDashboardNFT";
 import { CosmosModal } from "../../shared/CosmosModal";
 import { CosmosDashboardNFTDetails } from "./CosmosDashboardNFTDetails";
 import { CosmosTransfer } from "./CosmosTransfer";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export function CosmosDashboard() {
   const auth = useAuth();
@@ -26,6 +27,8 @@ export function CosmosDashboard() {
   const [graphInformation, setGraphInformation] = useState([]);
   const [NFTs, setNFTs] = useState([]);
   const [item, setItem] = useState({});
+  const [counter, setCounter] = useState(0);
+  const [reedemedToken, setRedeemToken] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [openModalTransfer, setOpenModalTransfer] = useState(false);
   const initialState = {
@@ -39,6 +42,32 @@ export function CosmosDashboard() {
   };
   const [userInformation, setUserInformation] = useState(initialState);
   const { getNotifications } = pushProtocolRestApi();
+
+  const onRedeemTokens = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get("http://localhost:8080/redeem");
+      const data = response.data;
+      console.log(data);
+      alert("Revisa la consola");
+      setRedeemToken(data);
+      setSincronized(false);
+    } catch (error) {
+      console.error(error);
+      alert("hubo un error revisa la consola");
+      setSincronized(false);
+    }
+  };
+
+  const getPackagesData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/counter");
+      const data = response.data;
+      setCounter(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const getGraphInfo = async () => {
     try {
@@ -163,7 +192,7 @@ export function CosmosDashboard() {
             delete user[attribute];
           }
         });
-
+        getPackagesData();
         setNFTs(await getNFTInfo());
         getGraphInfo();
         setUserInformation(user);
@@ -195,8 +224,18 @@ export function CosmosDashboard() {
               <CosmosNotifications notifications={notifications} />
             </div>
           </div>
-          <CosmosLineGraph graphInformation={graphInformation} />
-          <h1 className="dashboard-notifications__title">My NFTs</h1>
+          <div className="dashboard-sensor">
+            <CosmosLineGraph graphInformation={graphInformation} />
+            <div className="dashboard-sensor-redeem">
+              <h2>
+                Redime {counter} COSMOS por el total de tus datos recolectados
+              </h2>
+              {counter !== 0 && (
+                <button onClick={onRedeemTokens}>Redeem</button>
+              )}
+            </div>
+          </div>
+          <h2 className="dashboard-notifications__title">My NFTs</h2>
 
           <CosmosDashboardNFTs
             contracts={contracts}
@@ -227,7 +266,12 @@ export function CosmosDashboard() {
       )}
       {openModalTransfer && (
         <CosmosModal>
-          <CosmosTransfer setOpenModalTransfer={setOpenModalTransfer} />
+          <CosmosTransfer
+            item={item}
+            setLoading={setLoading}
+            setSincronized={setSincronized}
+            setOpenModalTransfer={setOpenModalTransfer}
+          />
         </CosmosModal>
       )}
     </React.Fragment>

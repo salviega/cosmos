@@ -77,12 +77,11 @@ export function CosmosDashboardNFTDetails({
       <p className="collection-modal-container__description">
         {item.description}
       </p>
-      <div className="collection-modal-container-buy">
+      <div className="collection-modal-container-buy" onClick={onTransferFrom}>
         <button>
           <FontAwesomeIcon
             icon={faArrowRightArrowLeft}
             className="collection-modal-container-metadata-buy__icon"
-            onClick={onTransferFrom}
           />
           Transferir
         </button>

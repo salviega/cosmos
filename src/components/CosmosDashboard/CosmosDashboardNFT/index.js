@@ -34,6 +34,7 @@ export function CosmosDashboardNFT({
       artist: datumSubGraph.artist,
       taxFee: datumSubGraph.taxFee,
       tokenId: datumSubGraph.tokenId,
+      price: datumSubGraph.price,
     };
     setParsedItem(newDatum);
   };
