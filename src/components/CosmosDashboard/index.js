@@ -13,6 +13,7 @@ import { CosmosDashboardNFTs } from "./CosmosDashboardNFTs";
 import { CosmosDashboardNFT } from "./CosmosDashboardNFT";
 import { CosmosModal } from "../../shared/CosmosModal";
 import { CosmosDashboardNFTDetails } from "./CosmosDashboardNFTDetails";
+import { CosmosTransfer } from "./CosmosTransfer";
 
 export function CosmosDashboard() {
   const auth = useAuth();
@@ -26,6 +27,7 @@ export function CosmosDashboard() {
   const [NFTs, setNFTs] = useState([]);
   const [item, setItem] = useState({});
   const [openModal, setOpenModal] = useState(false);
+  const [openModalTransfer, setOpenModalTransfer] = useState(false);
   const initialState = {
     name: "",
     email: "",
@@ -62,6 +64,7 @@ export function CosmosDashboard() {
           wallet: auth.user.walletAddress,
         },
       });
+
       return await response.data;
     } catch (error) {
       console.error(error);
@@ -201,6 +204,7 @@ export function CosmosDashboard() {
             setSincronized={setSincronized}
             setItem={setItem}
             setOpenModal={setOpenModal}
+            setOpenModalTransfer={setOpenModalTransfer}
           >
             {NFTs
               ? NFTs.map((item, index) => (
@@ -217,7 +221,13 @@ export function CosmosDashboard() {
             setLoading={setLoading}
             setSincronized={setSincronized}
             setOpenModal={setOpenModal}
+            setOpenModalTransfer={setOpenModalTransfer}
           />
+        </CosmosModal>
+      )}
+      {openModalTransfer && (
+        <CosmosModal>
+          <CosmosTransfer setOpenModalTransfer={setOpenModalTransfer} />
         </CosmosModal>
       )}
     </React.Fragment>

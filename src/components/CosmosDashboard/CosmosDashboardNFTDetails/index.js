@@ -2,7 +2,10 @@ import "./CosmosDashboardNFTDetails.scss";
 import logo from "./../../../assets/images/logo-cosmos.png";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWallet, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faXmark,
+  faArrowRightArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { useContracts } from "../../../hooks/context";
 
 export function CosmosDashboardNFTDetails({
@@ -10,11 +13,16 @@ export function CosmosDashboardNFTDetails({
   setLoading,
   setSincronized,
   setOpenModal,
+  setOpenModalTransfer,
 }) {
   const contracts = useContracts();
 
   const closeModal = () => {
     setOpenModal(false);
+  };
+
+  const onTransferFrom = () => {
+    setOpenModalTransfer(true);
   };
 
   return (
@@ -42,10 +50,10 @@ export function CosmosDashboardNFTDetails({
           <div className="collection-modal-container-content-metadata-container">
             <p className="collection-modal-container-content-metadata-container__contract">
               Dirección del artista{" "}
-              {/* <a href={`https://testnet.snowtrace.io/address/${item.artist}`}>
+              <a href={`https://testnet.snowtrace.io/address/${item.artist}`}>
                 {" "}
                 {item.artist.slice(0, 6) + "..." + item.artist.slice(36)}
-              </a> */}
+              </a>
             </p>
             <p className="collection-modal-container-content-metadata-container__item">
               Token ID <p>{item.tokenId}</p>
@@ -72,10 +80,11 @@ export function CosmosDashboardNFTDetails({
       <div className="collection-modal-container-buy">
         <button>
           <FontAwesomeIcon
-            icon={faWallet}
+            icon={faArrowRightArrowLeft}
             className="collection-modal-container-metadata-buy__icon"
+            onClick={onTransferFrom}
           />
-          Comprar
+          Transferir
         </button>
       </div>
     </div>

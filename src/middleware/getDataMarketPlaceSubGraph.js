@@ -1,12 +1,12 @@
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
-export function getDataMarketPlaceSubGraph () {
-  const url = 'https://api.thegraph.com/subgraphs/name/salviega/cosmos_v2'
+export function getDataMarketPlaceSubGraph() {
+  const url = "https://api.thegraph.com/subgraphs/name/salviega/cosmos_v2";
 
   const client = new ApolloClient({
     uri: url,
-    cache: new InMemoryCache()
-  })
+    cache: new InMemoryCache(),
+  });
 
   const queryItemsForSale = `
     query {
@@ -23,7 +23,7 @@ export function getDataMarketPlaceSubGraph () {
         seller
       }
     }
-  `
+  `;
   const queryPurchasedItems = `
     query {
       dataBoughts {
@@ -39,19 +39,44 @@ export function getDataMarketPlaceSubGraph () {
         buyer
       }
     }
-  `
-  const getItemsForSale = async () => {
-    const response = await client.query({ query: gql(queryItemsForSale) })
-    return response.data.dataOfferds
+  `;
+  const queryNFTByTokenId = `
+  query dataBoughts($tokenId: BigInt!) {
+    dataBoughts(where: {tokenId: $tokenId}) {
+      id
+      itemId
+      nft
+      tokenId
+      tokenURI
+      artist
+      taxFee
+      addressTaxFeeToken
+      price
+      buyer
+    }
   }
+`;
+  const getItemsForSale = async () => {
+    const response = await client.query({ query: gql(queryItemsForSale) });
+    return response.data.dataOfferds;
+  };
 
   const getPurchasedItems = async () => {
-    const response = await client.query({ query: gql(queryPurchasedItems) })
-    return response.data.dataBoughts
-  }
+    const response = await client.query({ query: gql(queryPurchasedItems) });
+    return response.data.dataBoughts;
+  };
+
+  const getNFTByTokenId = async (tokenId) => {
+    const response = await client.query({
+      query: gql(queryNFTByTokenId),
+      variables: { tokenId: tokenId },
+    });
+    return response.data.dataBoughts;
+  };
 
   return {
     getItemsForSale,
-    getPurchasedItems
-  }
+    getPurchasedItems,
+    getNFTByTokenId,
+  };
 }

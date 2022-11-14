@@ -8,6 +8,7 @@ export function CosmosDashboardNFTs({
   setSincronized,
   setItem,
   setOpenModal,
+  setOpenModalTransfer,
 }) {
   return (
     <div className="nfts">
@@ -19,6 +20,7 @@ export function CosmosDashboardNFTs({
             setSincronized,
             setItem,
             setOpenModal,
+            setOpenModalTransfer,
           })
         )}
       </div>

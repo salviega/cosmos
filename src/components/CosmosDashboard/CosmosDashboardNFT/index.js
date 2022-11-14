@@ -1,6 +1,7 @@
 import "./CosmosDashboardNFT.scss";
 import logo from "./../../../assets/images/logo-cosmos.png";
 import React, { useEffect } from "react";
+import { getDataMarketPlaceSubGraph } from "../../../middleware/getDataMarketPlaceSubGraph";
 
 export function CosmosDashboardNFT({
   key,
@@ -10,17 +11,35 @@ export function CosmosDashboardNFT({
   setSincronized,
   setItem,
   setOpenModal,
+  setOpenModalTransfer,
 }) {
   const [parsedItem, setParsedItem] = React.useState(initialState);
+  const { getNFTByTokenId } = getDataMarketPlaceSubGraph();
 
   const onShowDetail = (item) => {
-    console.log(item);
     setItem(item);
     setOpenModal(true);
   };
 
+  const onTransferFrom = () => {
+    setOpenModalTransfer(true);
+  };
+
+  const refactorItem = async () => {
+    const datumSubGraphArr = await getNFTByTokenId(initialState.token_id);
+    const datumSubGraph = datumSubGraphArr[0];
+    const itemJson = JSON.parse(initialState.metadata);
+    const newDatum = {
+      ...itemJson,
+      artist: datumSubGraph.artist,
+      taxFee: datumSubGraph.taxFee,
+      tokenId: datumSubGraph.tokenId,
+    };
+    setParsedItem(newDatum);
+  };
+
   useEffect(() => {
-    setParsedItem(JSON.parse(initialState.metadata));
+    refactorItem();
   }, []);
 
   return (
@@ -39,7 +58,9 @@ export function CosmosDashboardNFT({
           </p>
         </div>
       </div>
-      <button className="nft-description__show">Comprar</button>
+      <button className="nft-description__show" onClick={onTransferFrom}>
+        Transferir
+      </button>
     </div>
   );
 }
