@@ -1,42 +1,42 @@
-import './CosmosTransfer.scss'
-import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import "./CosmosTransfer.scss";
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightArrowLeft,
-  faXmark
-} from '@fortawesome/free-solid-svg-icons'
-import { useAuth, useContracts } from '../../../hooks/context'
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { useAuth, useContracts } from "../../../hooks/context";
 
-export function CosmosTransfer ({
+export function CosmosTransfer({
   item,
   setLoading,
   setSincronized,
-  setOpenModalTransfer
+  setOpenModal,
+  setOpenModalTransfer,
 }) {
-  const auth = useAuth()
-  const contracts = useContracts()
-  const address = React.useRef()
+  const auth = useAuth();
+  const contracts = useContracts();
+  const address = React.useRef();
 
   const closeModal = () => {
-    setOpenModalTransfer(false)
-  }
+    setOpenModalTransfer(false);
+  };
 
   const onTransferFrom = async (event) => {
-    console.log(item.tokenId)
-    event.preventDefault()
+    event.preventDefault();
     const info = {
       from: auth.user.walletAddress,
       to: address.current.value,
-      tokenId: parseInt(item.tokenId)
-    }
-
-    console.log(info.tokenId)
+      tokenId: parseInt(item.tokenId),
+    };
+    setOpenModal(false);
+    setOpenModalTransfer(false);
 
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await contracts.cosmoContract.authorizeOperator(
         contracts.marketPlaceContract.address
-      )
+      );
 
       contracts.web3Provider
         .waitForTransaction(response.hash)
@@ -45,7 +45,7 @@ export function CosmosTransfer ({
             contracts.marketPlaceContract.address,
             info.tokenId,
             { gasLimit: 250000 }
-          )
+          );
           contracts.web3Provider
             .waitForTransaction(response2.hash)
             .then(async (_response2) => {
@@ -55,67 +55,67 @@ export function CosmosTransfer ({
                   info.to,
                   info.tokenId,
                   { gasLimit: 250000 }
-                )
+                );
               contracts.web3Provider
                 .waitForTransaction(response2.hash)
                 .then(async (_response2) => {
                   setTimeout(() => {
-                    setLoading(false)
-                    alert(`Fue transferido ${item.name}`)
-                    setSincronized(false)
-                  }, 3000)
+                    setLoading(false);
+                    alert(`Fue transferido ${item.name}`);
+                    setSincronized(false);
+                  }, 3000);
                 })
                 .catch((error) => {
-                  alert('Hubo un error, revisa la consola')
-                  console.log(error)
-                  setLoading(false)
-                })
+                  alert("Hubo un error, revisa la consola");
+                  console.log(error);
+                  setLoading(false);
+                });
             })
             .catch((error) => {
-              alert('Hubo un error, revisa la consola')
-              console.log(error)
-              setLoading(false)
-            })
+              alert("Hubo un error, revisa la consola");
+              console.log(error);
+              setLoading(false);
+            });
         })
         .catch((error) => {
-          alert('Hubo un error, revisa la consola')
-          console.log(error)
-          setLoading(false)
-        })
+          alert("Hubo un error, revisa la consola");
+          console.log(error);
+          setLoading(false);
+        });
     } catch (error) {
-      alert('Hubo un error, revisa la consola')
-      console.log(error)
-      setLoading(false)
+      alert("Hubo un error, revisa la consola");
+      console.log(error);
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className='modal'>
-      <div className='modal-container'>
-        <div className='modal-container__cancel' onClick={closeModal}>
+    <div className="modal">
+      <div className="modal-container">
+        <div className="modal-container__cancel" onClick={closeModal}>
           <FontAwesomeIcon icon={faXmark} />
         </div>
-        <form className='modal-container-form' onSubmit={onTransferFrom}>
+        <form className="modal-container-form" onSubmit={onTransferFrom}>
           <span>
-            <p className='modal-container-form__subtitle'>
+            <p className="modal-container-form__subtitle">
               Dirección de billetera
             </p>
             <input
-              className='modal-container-form__add'
+              className="modal-container-form__add"
               ref={address}
-              type='text'
+              type="text"
               required
             />
           </span>
-          <button className='modal-container-form__submit'>
+          <button className="modal-container-form__submit">
             <FontAwesomeIcon
               icon={faArrowRightArrowLeft}
-              className='collection-modal-container-metadata-buy__icon'
+              className="collection-modal-container-metadata-buy__icon"
             />
             Transferir
           </button>
         </form>
       </div>
     </div>
-  )
+  );
 }
