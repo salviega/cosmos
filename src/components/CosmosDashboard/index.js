@@ -146,12 +146,12 @@ export function CosmosDashboard() {
           auth.user.walletAddress
         );
         cosmos = ethers.utils.formatEther(cosmos);
-        const userInfo = await dashboardInfo.getUserInfo;
+        //const userInfo = await dashboardInfo.getUserInfo;
         let balance = await dashboardInfo.getBalance;
         balance = parseFloat(balance);
         const user = {
-          name: userInfo.name || null,
-          email: userInfo.email || null,
+          // name: userInfo.name || null,
+          // email: userInfo.email || null,
           chainId: await dashboardInfo.getChainId,
           wallet: await dashboardInfo.getAccounts,
           balance: balance.toFixed(4),
