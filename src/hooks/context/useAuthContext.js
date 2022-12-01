@@ -1,36 +1,38 @@
-import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from '@web3auth/base'
-import { Web3Auth } from '@web3auth/modal'
-import { ethers } from 'ethers'
-import { useState } from 'react'
+import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
+//import { Web3Auth } from "@web3auth/modal";
+import { Web3Auth } from "@web3auth/web3auth";
+import { Biconomy } from "@biconomy/mexa";
+import { ethers } from "ethers";
+import { useState } from "react";
 
 const clientId =
-  'BIUsf57Ux9ezViHnb5VEAnK2nX6nVRv2Kw-jom21XqvBqr22cDQBi3MdsOzHnMtzRSaoybCUhhGf4YMc0llIQpk'
+  "BIUsf57Ux9ezViHnb5VEAnK2nX6nVRv2Kw-jom21XqvBqr22cDQBi3MdsOzHnMtzRSaoybCUhhGf4YMc0llIQpk";
 
 const adminWallets = [
-  '0x70a792ad975aa0977c6e9d55a14f5f2228bbc685',
-  '0xa3542355604cFD6531AAf020DDAB3bDFFf4d1809',
-  '0x91DC541109033C060779Aad8a578E34223e694cb',
-  '0x3fCc7e9dffC0605a9bF3bB07254c40F6d15f843c'
-]
+  "0x70a792ad975aa0977c6e9d55a14f5f2228bbc685",
+  "0xa3542355604cFD6531AAf020DDAB3bDFFf4d1809",
+  "0x91DC541109033C060779Aad8a578E34223e694cb",
+  "0x3fCc7e9dffC0605a9bF3bB07254c40F6d15f843c",
+];
 
-export function useAuthContext () {
-  const initialState = JSON.parse(localStorage.getItem('wallet')) || {
-    walletAddress: 'Connect wallet'
-  }
-  const [user, setUser] = useState(initialState)
-  const [web3Auth, setWeb3Auth] = useState(null)
-  const [web3Provider, setWeb3Provider] = useState(null)
-  const [web3Signer, setWeb3Signer] = useState(null)
+export function useAuthContext() {
+  const initialState = JSON.parse(localStorage.getItem("wallet")) || {
+    walletAddress: "Connect wallet",
+  };
+  const [user, setUser] = useState(initialState);
+  const [web3Auth, setWeb3Auth] = useState(null);
+  const [web3Provider, setWeb3Provider] = useState(null);
+  const [web3Signer, setWeb3Signer] = useState(null);
 
   const getWeb3Auth = async (web3auth) => {
-    setWeb3Auth(web3auth)
-    const web3authProvider = await web3auth.connect()
+    setWeb3Auth(web3auth);
+    const web3authProvider = await web3auth.connect();
 
-    const ethersProvider = new ethers.providers.Web3Provider(web3authProvider)
-    setWeb3Provider(ethersProvider)
-    const ethersSigner = ethersProvider.getSigner()
-    setWeb3Signer(ethersSigner)
-  }
+    const ethersProvider = new ethers.providers.Web3Provider(web3authProvider);
+    setWeb3Provider(ethersProvider);
+    const ethersSigner = ethersProvider.getSigner();
+    setWeb3Signer(ethersSigner);
+  };
 
   const login = async () => {
     try {
@@ -38,111 +40,114 @@ export function useAuthContext () {
         clientId,
         chainConfig: {
           chainNamespace: CHAIN_NAMESPACES.EIP155,
-          chainId: '0xA869', // 43113 - decimal
-          rpcTarget: 'https://api.avax-test.network/ext/bc/C/rpc', // This is the public RPC we have added, please pass on your own endpoint while creating an app
-          displayName: 'Avalanche FUJI C-Chain',
-          blockExplorer: 'testnet.snowtrace.io',
-          ticker: 'AVAX',
-          tickerName: 'AVAX'
+          chainId: "0x13881", // hex of 80001, polygon testnet
+          rpcTarget: "https://rpc.ankr.com/polygon_mumbai",
+          // Avoid using public rpcTarget in production.
+          // Use services like Infura, Quicknode etc
+          displayName: "Polygon Mainnet",
+          blockExplorer: "https://mumbai.polygonscan.com/",
+          ticker: "MATIC",
+          tickerName: "Matic",
         },
         uiConfig: {
-          appLogo: 'https://images.web3auth.io/web3auth-logo-w.svg',
-          theme: 'dark',
+          appLogo: "https://images.web3auth.io/web3auth-logo-w.svg",
+          theme: "dark",
           loginMethodsOrder: [
-            'google',
-            'facebook',
-            'twitter',
-            'email_passwordless'
+            "google",
+            "facebook",
+            "twitter",
+            "email_passwordless",
           ],
-          defaultLanguage: 'en'
-        }
-      })
+          defaultLanguage: "en",
+        },
+      });
 
       if (!web3auth) {
-        console.log('web3auth not initialized yet')
-        return
+        console.log("web3auth not initialized yet");
+        return;
       }
 
       await web3auth.initModal({
         modalConfig: {
           [WALLET_ADAPTERS.OPENLOGIN]: {
-            label: 'openlogin',
+            label: "openlogin",
             loginMethods: {
               reddit: {
-                showOnModal: false
+                showOnModal: false,
               },
               github: {
-                showOnModal: false
+                showOnModal: false,
               },
               linkedin: {
-                showOnModal: false
+                showOnModal: false,
               },
               twitch: {
-                showOnModal: false
+                showOnModal: false,
               },
               line: {
-                showOnModal: false
+                showOnModal: false,
               },
               kakao: {
-                showOnModal: false
+                showOnModal: false,
               },
               weibo: {
-                showOnModal: false
+                showOnModal: false,
               },
               wechat: {
-                showOnModal: false
-              }
+                showOnModal: false,
+              },
             },
-            showOnModal: true
-          }
-        }
-      })
+            showOnModal: true,
+          },
+        },
+      });
 
-      setWeb3Auth(web3auth)
-      const web3authProvider = await web3auth.connect()
+      setWeb3Auth(web3auth);
+
+      const web3authProvider = await web3auth.connect();
       const ethersProvider = new ethers.providers.Web3Provider(
         web3authProvider
-      )
-      setWeb3Provider(ethersProvider)
+      );
+      setWeb3Provider(ethersProvider);
 
-      const ethersSigner = ethersProvider.getSigner()
-      setWeb3Signer(ethersSigner)
+      const ethersSigner = ethersProvider.getSigner();
+      setWeb3Signer(ethersSigner);
 
-      let walletAddress = await ethersSigner.getAddress()
-      walletAddress = walletAddress.toLowerCase()
-      let isAdmin = false
+      let walletAddress = await ethersSigner.getAddress();
+      walletAddress = walletAddress.toLowerCase();
+      let isAdmin = false;
       let adminWallet = adminWallets.find(
         (wallet) => wallet.toLowerCase() === walletAddress
-      )
+      );
 
       try {
-        adminWallet = adminWallet.toLowerCase()
-        if (adminWallet.toLowerCase() === walletAddress) isAdmin = true
-        const stringifiedUser = JSON.stringify({ walletAddress, isAdmin })
-        localStorage.setItem('wallet', stringifiedUser)
-        setUser({ walletAddress, isAdmin })
+        adminWallet = adminWallet.toLowerCase();
+        if (adminWallet.toLowerCase() === walletAddress) isAdmin = true;
+        const stringifiedUser = JSON.stringify({ walletAddress, isAdmin });
+        localStorage.setItem("wallet", stringifiedUser);
+        setUser({ walletAddress, isAdmin });
       } catch {
-        const stringifiedUser = JSON.stringify({ walletAddress, isAdmin })
-        localStorage.setItem('wallet', stringifiedUser)
-        setUser({ walletAddress, isAdmin })
+        const stringifiedUser = JSON.stringify({ walletAddress, isAdmin });
+        localStorage.setItem("wallet", stringifiedUser);
+        setUser({ walletAddress, isAdmin });
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const logout = async () => {
     if (!web3Auth) {
-      console.log('web3auth not initialized yet')
-      return
+      console.log("web3auth not initialized yet");
+      return;
     }
 
-    await web3Auth.logout()
-    setWeb3Provider(null)
-    setWeb3Signer(null)
-    localStorage.clear()
-    window.location.reload()
-  }
+    await web3Auth.logout();
+    setWeb3Provider(null);
+    setWeb3Signer(null);
+    localStorage.clear();
+    window.location.reload();
+  };
 
   return {
     user,
@@ -151,6 +156,6 @@ export function useAuthContext () {
     getWeb3Auth,
     web3Auth,
     web3Provider,
-    web3Signer
-  }
+    web3Signer,
+  };
 }

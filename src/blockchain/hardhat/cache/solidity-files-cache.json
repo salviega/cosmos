@@ -1,10 +1,10 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefitContract.sol": {
-      "lastModificationDate": 1666878329984,
-      "contentHash": "6af144c36b90a9a30c0a8387bda002ec",
-      "sourceName": "src/blockchain/hardhat/contracts/BenefitContract.sol",
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefictGaslessContract.sol": {
+      "lastModificationDate": 1669804210904,
+      "contentHash": "e747ce04f01a631163b6c235c438d1c6",
+      "sourceName": "src/blockchain/hardhat/contracts/BenefictGaslessContract.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -29,21 +29,24 @@
         }
       },
       "imports": [
+        "@openzeppelin/contracts/metatx/ERC2771Context.sol",
+        "@openzeppelin/contracts/metatx/MinimalForwarder.sol",
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
         "@openzeppelin/contracts/utils/Counters.sol",
+        "@openzeppelin/contracts/utils/Strings.sol",
         "./RecipientContract.sol"
       ],
       "versionPragmas": [
         ">=0.7.0 <=0.8.15"
       ],
       "artifacts": [
-        "BenefitContract",
-        "ICosmosContract",
+        "BenefitGaslessContract",
+        "ICycliContract",
         "Roles"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\RecipientContract.sol": {
-      "lastModificationDate": 1666471826968,
+      "lastModificationDate": 1666530073835,
       "contentHash": "43cfa738d02881fa9b4725091603a394",
       "sourceName": "src/blockchain/hardhat/contracts/RecipientContract.sol",
       "solcConfig": {
@@ -80,7 +83,7 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
-      "lastModificationDate": 1666472136756,
+      "lastModificationDate": 1668015922546,
       "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
@@ -114,8 +117,120 @@
         "Counters"
       ]
     },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\metatx\\ERC2771Context.sol": {
+      "lastModificationDate": 1668015922820,
+      "contentHash": "21f86a5846802b47da7f6bb6b9ce89d4",
+      "sourceName": "@openzeppelin/contracts/metatx/ERC2771Context.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "ERC2771Context"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
+      "lastModificationDate": 1668015924065,
+      "contentHash": "396031251978f8febfd90cb62cb240ec",
+      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./math/Math.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Strings"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\metatx\\MinimalForwarder.sol": {
+      "lastModificationDate": 1668015923843,
+      "contentHash": "db6973737efc2877acc878f9d3ce9c9e",
+      "sourceName": "@openzeppelin/contracts/metatx/MinimalForwarder.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/cryptography/ECDSA.sol",
+        "../utils/cryptography/EIP712.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MinimalForwarder"
+      ]
+    },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721URIStorage.sol": {
-      "lastModificationDate": 1666472138712,
+      "lastModificationDate": 1668015922960,
       "contentHash": "8af32effd0536e2971ff8496812a5016",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
       "solcConfig": {
@@ -152,8 +267,8 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\ERC777.sol": {
-      "lastModificationDate": 1666472138806,
-      "contentHash": "c599ea9bfe0447dd619a80d6c9e50eff",
+      "lastModificationDate": 1668015922974,
+      "contentHash": "b12032683134e4a20d525047fedad91b",
       "sourceName": "@openzeppelin/contracts/token/ERC777/ERC777.sol",
       "solcConfig": {
         "version": "0.8.15",
@@ -194,8 +309,43 @@
         "ERC777"
       ]
     },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
+      "lastModificationDate": 1668015922501,
+      "contentHash": "f31ad6fc4bbf9c06203987220156a6ba",
+      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.1"
+      ],
+      "artifacts": [
+        "Address"
+      ]
+    },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
-      "lastModificationDate": 1666472136720,
+      "lastModificationDate": 1668015922542,
       "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -229,10 +379,10 @@
         "Context"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777Sender.sol": {
-      "lastModificationDate": 1666472140261,
-      "contentHash": "7c1ce5bc5bc5f57fe7106ba767063e08",
-      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777Sender.sol",
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777.sol": {
+      "lastModificationDate": 1668015923709,
+      "contentHash": "35b56a00de0fb16f9e6a8d7464d31b0b",
+      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -261,81 +411,11 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC777Sender"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
-      "lastModificationDate": 1666472136355,
-      "contentHash": "c476b3895a94798b88a4bb97399e6dfe",
-      "sourceName": "@openzeppelin/contracts/utils/Address.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.1"
-      ],
-      "artifacts": [
-        "Address"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777Recipient.sol": {
-      "lastModificationDate": 1666472140224,
-      "contentHash": "268af1696d7a83a7e78a1a8f5ba1c685",
-      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777Recipient.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "IERC777Recipient"
+        "IERC777"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\IERC20.sol": {
-      "lastModificationDate": 1666472139850,
+      "lastModificationDate": 1668015923542,
       "contentHash": "ad7c2d0af148c8f9f097d65deeb4da6b",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
@@ -369,10 +449,10 @@
         "IERC20"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777.sol": {
-      "lastModificationDate": 1666472140199,
-      "contentHash": "840fa65314c73b948a5923169daa8cdc",
-      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777.sol",
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777Recipient.sol": {
+      "lastModificationDate": 1668015923716,
+      "contentHash": "268af1696d7a83a7e78a1a8f5ba1c685",
+      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777Recipient.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -401,12 +481,47 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "IERC777"
+        "IERC777Recipient"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC777\\IERC777Sender.sol": {
+      "lastModificationDate": 1668015923736,
+      "contentHash": "7c1ce5bc5bc5f57fe7106ba767063e08",
+      "sourceName": "@openzeppelin/contracts/token/ERC777/IERC777Sender.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC777Sender"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\IERC1820Registry.sol": {
-      "lastModificationDate": 1666472139806,
-      "contentHash": "b6d012794ce0d001210e52233bf439fc",
+      "lastModificationDate": 1668015923528,
+      "contentHash": "2d32789d582abdcbe87cc5edc2e07374",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC1820Registry.sol",
       "solcConfig": {
         "version": "0.8.15",
@@ -439,9 +554,118 @@
         "IERC1820Registry"
       ]
     },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\math\\Math.sol": {
+      "lastModificationDate": 1668015923832,
+      "contentHash": "b9c58920ce74d6dc819161786112e7ee",
+      "sourceName": "@openzeppelin/contracts/utils/math/Math.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Math"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\ECDSA.sol": {
+      "lastModificationDate": 1668015922619,
+      "contentHash": "fe1190dbb6431c2464246925713f0f7f",
+      "sourceName": "@openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../Strings.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ECDSA"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\cryptography\\EIP712.sol": {
+      "lastModificationDate": 1668015922620,
+      "contentHash": "7c33eaa0f6dc029429ed8b986694c3a4",
+      "sourceName": "@openzeppelin/contracts/utils/cryptography/EIP712.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ECDSA.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "EIP712"
+      ]
+    },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol": {
-      "lastModificationDate": 1666472138503,
-      "contentHash": "79ff1a7eb801a525aa315fb7a679eede",
+      "lastModificationDate": 1668015922857,
+      "contentHash": "190f627b9302b9602d3a313e28205cc5",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
         "version": "0.8.15",
@@ -483,8 +707,8 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721.sol": {
-      "lastModificationDate": 1666472140060,
-      "contentHash": "ec99d946db3685a3630554aa6055bd7f",
+      "lastModificationDate": 1668015923647,
+      "contentHash": "eb7e61db29f31d88b3c1cef1b063d338",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
       "solcConfig": {
         "version": "0.8.15",
@@ -520,7 +744,7 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721Receiver.sol": {
-      "lastModificationDate": 1666472140162,
+      "lastModificationDate": 1668015923703,
       "contentHash": "c22d4395e33763de693fd440c6fd10e1",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
       "solcConfig": {
@@ -555,7 +779,7 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol": {
-      "lastModificationDate": 1666472140129,
+      "lastModificationDate": 1668015923688,
       "contentHash": "efbc0d15b80a74e34dbe8da0f3e879bb",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
       "solcConfig": {
@@ -591,43 +815,8 @@
         "IERC721Metadata"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\Strings.sol": {
-      "lastModificationDate": 1666472140875,
-      "contentHash": "cf46906c4035f51639a22265066a9e78",
-      "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Strings"
-      ]
-    },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\ERC165.sol": {
-      "lastModificationDate": 1666472137838,
+      "lastModificationDate": 1668015922673,
       "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
       "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
       "solcConfig": {
@@ -664,7 +853,7 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\utils\\introspection\\IERC165.sol": {
-      "lastModificationDate": 1666472139725,
+      "lastModificationDate": 1668015923475,
       "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
       "solcConfig": {
@@ -698,10 +887,10 @@
         "IERC165"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefitsContract.sol": {
-      "lastModificationDate": 1666820919126,
-      "contentHash": "31b93e9ad071a22f34337d678dfe7dd2",
-      "sourceName": "src/blockchain/hardhat/contracts/BenefitsContract.sol",
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\MarketplaceGaslessContract.sol": {
+      "lastModificationDate": 1669805289963,
+      "contentHash": "b2bb64fbe926133212ae7627bf21b1a8",
+      "sourceName": "src/blockchain/hardhat/contracts/MarketplaceGaslessContract.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -726,61 +915,26 @@
         }
       },
       "imports": [
-        "./BenefitContract.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <=0.8.15"
-      ],
-      "artifacts": [
-        "BenefitsContract"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\MarketplaceContract.sol": {
-      "lastModificationDate": 1666471826968,
-      "contentHash": "39af7c46b9e04a7e4d2291dccf732e15",
-      "sourceName": "src/blockchain/hardhat/contracts/MarketplaceContract.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
+        "@openzeppelin/contracts/metatx/ERC2771Context.sol",
+        "@openzeppelin/contracts/metatx/MinimalForwarder.sol",
         "@openzeppelin/contracts/security/ReentrancyGuard.sol",
         "@openzeppelin/contracts/token/ERC721/IERC721.sol",
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
         "@openzeppelin/contracts/utils/Counters.sol",
-        "./RecipientContract.sol",
-        "hardhat/console.sol"
+        "@openzeppelin/contracts/utils/Strings.sol",
+        "./RecipientContract.sol"
       ],
       "versionPragmas": [
         ">=0.7.0 <=0.8.15"
       ],
       "artifacts": [
         "ICosmosContract",
-        "MarketPlaceContract"
+        "MarketPlaceGaslessContract"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\security\\ReentrancyGuard.sol": {
-      "lastModificationDate": 1666472140683,
-      "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
+      "lastModificationDate": 1668015923886,
+      "contentHash": "a8e2d1c30042f64ed89c9d4157eb6cb9",
       "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
       "solcConfig": {
         "version": "0.8.15",
@@ -813,45 +967,10 @@
         "ReentrancyGuard"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\hardhat\\console.sol": {
-      "lastModificationDate": 1666472144866,
-      "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
-      "sourceName": "hardhat/console.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">= 0.4.22 <0.9.0"
-      ],
-      "artifacts": [
-        "console"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
-      "lastModificationDate": 1666472140582,
-      "contentHash": "e436cea06129be2c73cda4b1acc848b5",
-      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\RedeemDataGaslessContract.sol": {
+      "lastModificationDate": 1669804296777,
+      "contentHash": "ed3ff1029d5763f4ea753928e14b6f46",
+      "sourceName": "src/blockchain/hardhat/contracts/RedeemDataGaslessContract.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -876,123 +995,18 @@
         }
       },
       "imports": [
-        "../utils/Context.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Ownable"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\CosmoContract.sol": {
-      "lastModificationDate": 1666471826968,
-      "contentHash": "62604c7054a459a098ebe1fdfa002ece",
-      "sourceName": "src/blockchain/hardhat/contracts/CosmoContract.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC777/ERC777.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
+        "@openzeppelin/contracts/metatx/ERC2771Context.sol",
+        "@openzeppelin/contracts/metatx/MinimalForwarder.sol",
+        "@chainlink/contracts/src/v0.8/ChainlinkClient.sol",
+        "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol",
+        "./VulnerableRecipientContract.sol"
       ],
       "versionPragmas": [
         ">=0.7.0 <=0.8.15"
       ],
       "artifacts": [
-        "CosmoContract"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\FeedContract.sol": {
-      "lastModificationDate": 1666471826968,
-      "contentHash": "6ae7f41291232972801ad2335104c66d",
-      "sourceName": "src/blockchain/hardhat/contracts/FeedContract.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol"
-      ],
-      "versionPragmas": [
-        ">=0.7.0 <=0.8.15"
-      ],
-      "artifacts": [
-        "FeedContract"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\AggregatorV3Interface.sol": {
-      "lastModificationDate": 1666472144751,
-      "contentHash": "d9654a0fc044a31d4106ee6bca772add",
-      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "AggregatorV3Interface"
+        "ICycliContract",
+        "RedeemDataContract"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\VulnerableRecipientContract.sol": {
@@ -1032,8 +1046,45 @@
         "VulnerableRecipientContract"
       ]
     },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\ConfirmedOwner.sol": {
+      "lastModificationDate": 1667907698703,
+      "contentHash": "16d64572b0310127fc8a771e63be6d20",
+      "sourceName": "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ConfirmedOwnerWithProposal.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ConfirmedOwner"
+      ]
+    },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\ChainlinkClient.sol": {
-      "lastModificationDate": 1666472141636,
+      "lastModificationDate": 1667907698664,
       "contentHash": "6af479cbde42f1a7225c9cebc6e32239",
       "sourceName": "@chainlink/contracts/src/v0.8/ChainlinkClient.sol",
       "solcConfig": {
@@ -1075,10 +1126,10 @@
         "ChainlinkClient"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\ConfirmedOwner.sol": {
-      "lastModificationDate": 1666472141650,
-      "contentHash": "16d64572b0310127fc8a771e63be6d20",
-      "sourceName": "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol",
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\ConfirmedOwnerWithProposal.sol": {
+      "lastModificationDate": 1667907698750,
+      "contentHash": "8b1c5f02622cd87472493bda6595d1be",
+      "sourceName": "@chainlink/contracts/src/v0.8/ConfirmedOwnerWithProposal.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -1103,17 +1154,52 @@
         }
       },
       "imports": [
-        "./ConfirmedOwnerWithProposal.sol"
+        "./interfaces/OwnableInterface.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "ConfirmedOwner"
+        "ConfirmedOwnerWithProposal"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\OwnableInterface.sol": {
+      "lastModificationDate": 1667907707220,
+      "contentHash": "2e814c8a9f77897f6995436d97c23d99",
+      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/OwnableInterface.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OwnableInterface"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\Chainlink.sol": {
-      "lastModificationDate": 1666472141616,
+      "lastModificationDate": 1667907698644,
       "contentHash": "9dc050539cdf1579d5650d41d0df9ec2",
       "sourceName": "@chainlink/contracts/src/v0.8/Chainlink.sol",
       "solcConfig": {
@@ -1151,7 +1237,7 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\ENSInterface.sol": {
-      "lastModificationDate": 1666472144787,
+      "lastModificationDate": 1667907706885,
       "contentHash": "06b6aefcae95de6d1597ad8e1d73a08b",
       "sourceName": "@chainlink/contracts/src/v0.8/interfaces/ENSInterface.sol",
       "solcConfig": {
@@ -1185,10 +1271,10 @@
         "ENSInterface"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\LinkTokenInterface.sol": {
-      "lastModificationDate": 1666472144818,
-      "contentHash": "da5a0c3bd86c896f6a407f909c57edf3",
-      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface.sol",
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\ChainlinkRequestInterface.sol": {
+      "lastModificationDate": 1667907706858,
+      "contentHash": "14407a6ead15cff8a0e0a7f8037c68f5",
+      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/ChainlinkRequestInterface.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -1217,11 +1303,11 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "LinkTokenInterface"
+        "ChainlinkRequestInterface"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\PointerInterface.sol": {
-      "lastModificationDate": 1666472144865,
+      "lastModificationDate": 1667907707330,
       "contentHash": "27da4b2007d200dd5afff31dbf31ac99",
       "sourceName": "@chainlink/contracts/src/v0.8/interfaces/PointerInterface.sol",
       "solcConfig": {
@@ -1255,8 +1341,43 @@
         "PointerInterface"
       ]
     },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\LinkTokenInterface.sol": {
+      "lastModificationDate": 1667907706991,
+      "contentHash": "da5a0c3bd86c896f6a407f909c57edf3",
+      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "LinkTokenInterface"
+      ]
+    },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\vendor\\ENSResolver.sol": {
-      "lastModificationDate": 1666472145284,
+      "lastModificationDate": 1667907709035,
       "contentHash": "24a98b0606654e662097eed9ffa91a11",
       "sourceName": "@chainlink/contracts/src/v0.8/vendor/ENSResolver.sol",
       "solcConfig": {
@@ -1291,7 +1412,7 @@
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\OperatorInterface.sol": {
-      "lastModificationDate": 1666472144830,
+      "lastModificationDate": 1667907707096,
       "contentHash": "e1822c36361fc3a26b5a68df3ddab15d",
       "sourceName": "@chainlink/contracts/src/v0.8/interfaces/OperatorInterface.sol",
       "solcConfig": {
@@ -1328,78 +1449,8 @@
         "OperatorInterface"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\ChainlinkRequestInterface.sol": {
-      "lastModificationDate": 1666472144781,
-      "contentHash": "14407a6ead15cff8a0e0a7f8037c68f5",
-      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/ChainlinkRequestInterface.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ChainlinkRequestInterface"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\vendor\\BufferChainlink.sol": {
-      "lastModificationDate": 1666472145266,
-      "contentHash": "52ac6f99fb0635751ae4ed11139878fd",
-      "sourceName": "@chainlink/contracts/src/v0.8/vendor/BufferChainlink.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "BufferChainlink"
-      ]
-    },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\vendor\\CBORChainlink.sol": {
-      "lastModificationDate": 1666472145273,
+      "lastModificationDate": 1667907708974,
       "contentHash": "99b3ee2c29bc0d1a5cba583d9e8d835e",
       "sourceName": "@chainlink/contracts/src/v0.8/vendor/CBORChainlink.sol",
       "solcConfig": {
@@ -1435,8 +1486,43 @@
         "CBORChainlink"
       ]
     },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\vendor\\BufferChainlink.sol": {
+      "lastModificationDate": 1667907708969,
+      "contentHash": "52ac6f99fb0635751ae4ed11139878fd",
+      "sourceName": "@chainlink/contracts/src/v0.8/vendor/BufferChainlink.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "BufferChainlink"
+      ]
+    },
     "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\OracleInterface.sol": {
-      "lastModificationDate": 1666472144843,
+      "lastModificationDate": 1667907707196,
       "contentHash": "6283e42024961596926c2b5015eef8e0",
       "sourceName": "@chainlink/contracts/src/v0.8/interfaces/OracleInterface.sol",
       "solcConfig": {
@@ -1470,10 +1556,10 @@
         "OracleInterface"
       ]
     },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\ConfirmedOwnerWithProposal.sol": {
-      "lastModificationDate": 1666472141663,
-      "contentHash": "8b1c5f02622cd87472493bda6595d1be",
-      "sourceName": "@chainlink/contracts/src/v0.8/ConfirmedOwnerWithProposal.sol",
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\PaymentGatewayGaslessContract.sol": {
+      "lastModificationDate": 1669803787567,
+      "contentHash": "72d0b4f3c6f30e7763a00c51c79ef24d",
+      "sourceName": "src/blockchain/hardhat/contracts/PaymentGatewayGaslessContract.sol",
       "solcConfig": {
         "version": "0.8.15",
         "settings": {
@@ -1498,48 +1584,18 @@
         }
       },
       "imports": [
-        "./interfaces/OwnableInterface.sol"
+        "@chainlink/contracts/src/v0.8/ChainlinkClient.sol",
+        "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol",
+        "@openzeppelin/contracts/metatx/ERC2771Context.sol",
+        "@openzeppelin/contracts/metatx/MinimalForwarder.sol",
+        "./VulnerableRecipientContract.sol"
       ],
       "versionPragmas": [
-        "^0.8.0"
+        ">=0.7.0 <=0.8.15"
       ],
       "artifacts": [
-        "ConfirmedOwnerWithProposal"
-      ]
-    },
-    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\OwnableInterface.sol": {
-      "lastModificationDate": 1666472144849,
-      "contentHash": "2e814c8a9f77897f6995436d97c23d99",
-      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/OwnableInterface.sol",
-      "solcConfig": {
-        "version": "0.8.15",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "OwnableInterface"
+        "ICycliContract",
+        "PaymentGatewayGaslessContract"
       ]
     },
     "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\PaymentGatewayContract.sol": {
@@ -1580,6 +1636,548 @@
       "artifacts": [
         "ICosmosContract",
         "PaymentGatewayContract"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\extensions\\IERC20Metadata.sol": {
+      "lastModificationDate": 1668015923561,
+      "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20Metadata"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\token\\ERC20\\ERC20.sol": {
+      "lastModificationDate": 1668015922709,
+      "contentHash": "834a0dde221759af42b030253315b086",
+      "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC20.sol",
+        "./extensions/IERC20Metadata.sol",
+        "../../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC20"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
+      "lastModificationDate": 1668015923854,
+      "contentHash": "e436cea06129be2c73cda4b1acc848b5",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\CosmoGaslessContract.sol": {
+      "lastModificationDate": 1669804730776,
+      "contentHash": "a6cb7df64d2aec81547607a9d72e153b",
+      "sourceName": "src/blockchain/hardhat/contracts/CosmoGaslessContract.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/metatx/ERC2771Context.sol",
+        "@openzeppelin/contracts/metatx/MinimalForwarder.sol",
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "@openzeppelin/contracts/utils/Strings.sol",
+        "@openzeppelin/contracts/token/ERC777/ERC777.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <=0.8.15"
+      ],
+      "artifacts": [
+        "CosmoGaslessContract"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\MarketplaceContract.sol": {
+      "lastModificationDate": 1668596371832,
+      "contentHash": "39af7c46b9e04a7e4d2291dccf732e15",
+      "sourceName": "src/blockchain/hardhat/contracts/MarketplaceContract.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "./RecipientContract.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <=0.8.15"
+      ],
+      "artifacts": [
+        "ICosmosContract",
+        "MarketPlaceContract"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\hardhat\\console.sol": {
+      "lastModificationDate": 1667907825707,
+      "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">= 0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefitGaslessContract.sol": {
+      "lastModificationDate": 1669804353673,
+      "contentHash": "c1febd2c7544d503b5d6764c4b0240e7",
+      "sourceName": "src/blockchain/hardhat/contracts/BenefitGaslessContract.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/metatx/ERC2771Context.sol",
+        "@openzeppelin/contracts/metatx/MinimalForwarder.sol",
+        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "./RecipientContract.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <=0.8.15"
+      ],
+      "artifacts": [
+        "BenefitGaslessContract",
+        "ICosmosContract",
+        "Roles"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefitsGaslessContract.sol": {
+      "lastModificationDate": 1669805789661,
+      "contentHash": "ad27018c99287cafdc55ccdf3d039c08",
+      "sourceName": "src/blockchain/hardhat/contracts/BenefitsGaslessContract.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/metatx/ERC2771Context.sol",
+        "@openzeppelin/contracts/metatx/MinimalForwarder.sol",
+        "./BenefitContract.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <=0.8.15"
+      ],
+      "artifacts": [
+        "BenefitsGaslessContract"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefitContract.sol": {
+      "lastModificationDate": 1666878329984,
+      "contentHash": "6af144c36b90a9a30c0a8387bda002ec",
+      "sourceName": "src/blockchain/hardhat/contracts/BenefitContract.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "./RecipientContract.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <=0.8.15"
+      ],
+      "artifacts": [
+        "BenefitContract",
+        "ICosmosContract",
+        "Roles"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\BenefitsContract.sol": {
+      "lastModificationDate": 1666820919126,
+      "contentHash": "31b93e9ad071a22f34337d678dfe7dd2",
+      "sourceName": "src/blockchain/hardhat/contracts/BenefitsContract.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./BenefitContract.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <=0.8.15"
+      ],
+      "artifacts": [
+        "BenefitsContract"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\CosmoContract.sol": {
+      "lastModificationDate": 1669804824158,
+      "contentHash": "664d3fdc354bd0c82a1a599b5026179c",
+      "sourceName": "src/blockchain/hardhat/contracts/CosmoContract.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC777/ERC777.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <=0.8.15"
+      ],
+      "artifacts": [
+        "CosmoContract"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\PushContract.sol": {
+      "lastModificationDate": 1668543821154,
+      "contentHash": "ea7fcc4b585cf2cd30b0e40385ce7b00",
+      "sourceName": "src/blockchain/hardhat/contracts/PushContract.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/utils/Strings.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <=0.8.15"
+      ],
+      "artifacts": [
+        "IPUSHCommInterface",
+        "Push"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\src\\blockchain\\hardhat\\contracts\\FeedContract.sol": {
+      "lastModificationDate": 1668596371819,
+      "contentHash": "6ae7f41291232972801ad2335104c66d",
+      "sourceName": "src/blockchain/hardhat/contracts/FeedContract.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol"
+      ],
+      "versionPragmas": [
+        ">=0.7.0 <=0.8.15"
+      ],
+      "artifacts": [
+        "FeedContract"
+      ]
+    },
+    "C:\\Users\\santiago.viana\\cosmos\\node_modules\\@chainlink\\contracts\\src\\v0.8\\interfaces\\AggregatorV3Interface.sol": {
+      "lastModificationDate": 1667907706693,
+      "contentHash": "d9654a0fc044a31d4106ee6bca772add",
+      "sourceName": "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol",
+      "solcConfig": {
+        "version": "0.8.15",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "AggregatorV3Interface"
       ]
     }
   }

@@ -1,6 +1,6 @@
-require('@nomiclabs/hardhat-waffle')
-require('@nomiclabs/hardhat-etherscan')
-require('dotenv').config()
+require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-etherscan");
+require("dotenv").config();
 
 /**
  @type import('hardhat/config').HardhatUserConfig
@@ -8,31 +8,49 @@ require('dotenv').config()
 
 module.exports = {
   paths: {
-    sources: './src/blockchain/hardhat/contracts',
-    tests: './src/blockchain/hardhat/test',
-    cache: './src/blockchain/hardhat/cache',
-    artifacts: './src/blockchain/hardhat/artifacts'
+    sources: "./src/blockchain/hardhat/contracts",
+    tests: "./src/blockchain/hardhat/test",
+    cache: "./src/blockchain/hardhat/cache",
+    artifacts: "./src/blockchain/hardhat/artifacts",
   },
   etherscan: {
-    apiKey: process.env.SNOWTRANCE_API_KEY
+    apiKey: process.env.POLYGONSCAN_API_KEY,
   },
 
-  defaultNetwork: 'hardhat',
+  defaultNetwork: "hardhat",
   networks: {
     hardhat: {
       allowUnlimitedContractSize: true,
       forking: {
-        url: 'https://api.avax-test.network/ext/bc/C/rpc',
-        blockNumber: 7605882
-      }
+        url: "https://api.avax-test.network/ext/bc/C/rpc",
+        blockNumber: 7605882,
+      },
     },
     localhost: {},
     fuji: {
-      url: 'https://api.avax-test.network/ext/bc/C/rpc',
-      gasPrice: 225000000000,
+      url: "https://api.avax-test.network/ext/bc/C/rpc",
+      accounts: [process.env.WALLET_PRIVATE_KEY],
       chainId: 43113,
-      accounts: [process.env.PRIVATE_KEY]
-    }
+      gas: 2100000,
+      gasPrice: 8000000000,
+      saveDeployments: true,
+    },
+    matic: {
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts: [process.env.WALLET_PRIVATE_KEY],
+      chainId: 80001,
+      gas: 2100000,
+      gasPrice: 8000000000,
+      saveDeployments: true,
+    },
+    goerli: {
+      url: process.env.REACT_APP_RPC_URL_GOERLI,
+      accounts: [process.env.WALLET_PRIVATE_KEY],
+      chainId: 5,
+      gas: 2100000,
+      gasPrice: 8000000000,
+      saveDeployments: true,
+    },
   },
-  solidity: '0.8.15'
-}
+  solidity: "0.8.15",
+};
