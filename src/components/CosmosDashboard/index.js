@@ -95,7 +95,7 @@ export function CosmosDashboard() {
         "https://cyclimate-backend-node.herokuapp.com/allNFTs",
         {
           params: {
-            address: contracts.marketPlaceContract.address,
+            address: contracts.marketPlaceContract.contract.address,
             wallet: auth.user.walletAddress,
           },
         }
@@ -142,9 +142,9 @@ export function CosmosDashboard() {
   useEffect(() => {
     getNotifications(auth.user.walletAddress)
       .then(async (response) => {
-        let cosmos = await contracts.cosmoContract.balanceOf(
-          auth.user.walletAddress
-        );
+        const { contract: cosmoContract, biconomy } =
+          await contracts.cosmoContract;
+        let cosmos = await cosmoContract.balanceOf(auth.user.walletAddress);
         cosmos = ethers.utils.formatEther(cosmos);
         const userInfo = await dashboardInfo.getUserInfo;
         let balance = await dashboardInfo.getBalance;
@@ -163,11 +163,11 @@ export function CosmosDashboard() {
             delete user[attribute];
           }
         });
-        getPackagesData();
-        setNFTs(await getNFTInfo());
-        getGraphInfo();
+        // getPackagesData();
+        // setNFTs(await getNFTInfo());
+        // getGraphInfo();
         setUserInformation(user);
-        setNotifications(response);
+        // setNotifications(response);
         setLoading(false);
       })
       .catch((error) => {

@@ -9,12 +9,12 @@ import jsonBenefitContract from "../../blockchain/hardhat/artifacts/src/blockcha
 import addresses from "../../blockchain/environment/contract-address.json";
 import { CosmosLoading } from "../../shared/CosmosLoading";
 import { web3Storage } from "../../middleware/web3Storage";
+import { toast, ToastContainer } from "react-toastify";
 const cosmoContractAddress = addresses[1].cosmocontract;
 
 export function CosmosMaker({ createItem, setSincronizedItems }) {
-  const auth = useAuth();
+  const { user } = useAuth();
   const contracts = useContracts();
-  const navigate = useNavigate();
   const description = useRef();
   const managerAddress = useRef();
   const maxNft = useRef();
@@ -29,9 +29,12 @@ export function CosmosMaker({ createItem, setSincronizedItems }) {
   const { putImage, putMetadata } = web3Storage();
 
   const onError = (error) => {
-    alert("Hubo un error, revisa la consola");
+    toast("❌ Error...", {
+      type: "default",
+      pauseOnHover: false,
+    });
     setLoading(false);
-    console.error(error);
+    console.error("❌", error);
   };
 
   const handleImage = (event) => {
@@ -46,7 +49,8 @@ export function CosmosMaker({ createItem, setSincronizedItems }) {
 
   const onCreateBenefit = async (event) => {
     event.preventDefault();
-    setLoading(true);
+    const { contract: benefitsContract, biconomy } =
+      await contracts.benefitsContract;
 
     const benefitId = uuid();
     let info = {
@@ -62,10 +66,11 @@ export function CosmosMaker({ createItem, setSincronizedItems }) {
       image,
       imageBase64,
       typeImage,
-      owner: auth.user.walletAddress,
+      owner: user.walletAddress,
       description: description.current.value,
     };
 
+    setLoading(true);
     const imageHash = await putImage(info);
     const newInfo = { ...info, imageHash };
     const uri = await putMetadata(newInfo);
@@ -87,22 +92,39 @@ export function CosmosMaker({ createItem, setSincronizedItems }) {
       );
       await benefitContract.deployed();
 
-      const response = await contracts.benefitsContract.createBenefit(
+      const { data } = await benefitsContract.populateTransaction.createBenefit(
         info.benefitId,
         benefitContract.address
       );
-      info = { ...info, benefitContractAddress: benefitContract.address };
-      contracts.web3Provider
-        .waitForTransaction(response.hash)
-        .then(async (_response) => {
-          setTimeout(async () => {
-            delete info.image;
-            await createItem(info);
-            alert("El beneficio fue creado");
-            setLoading(false);
-            setSincronizedItems(false);
-            navigate("/");
-          }, 3000);
+
+      let txParams = {
+        data: data,
+        to: benefitsContract.address,
+        from: user.walletAddress,
+        signatureType: "EIP712_SIGN",
+      };
+
+      biconomy.provider
+        .send("eth_sendTransaction", [txParams])
+        .then((response) => {
+          if (response.name !== "Error") {
+            console.log("♻️ Response: ", response);
+            toast("💥 The benefict was created", {
+              type: "default",
+              pauseOnHover: false,
+            });
+            setTimeout(async () => {
+              info = {
+                ...info,
+                benefitContractAddress: benefitContract.address,
+              };
+              delete info.image;
+              await createItem(info);
+              setSincronizedItems(false);
+            }, 1600);
+            return;
+          }
+          onError(new Error(response.message));
         })
         .catch((error) => {
           onError(error);
@@ -112,7 +134,7 @@ export function CosmosMaker({ createItem, setSincronizedItems }) {
     }
   };
 
-  if (auth.user.walletAddress === "Connect wallet") {
+  if (user.walletAddress === "Connect wallet") {
     return <Navigate to="/" />;
   }
 
@@ -179,6 +201,7 @@ export function CosmosMaker({ createItem, setSincronizedItems }) {
           <button className="maker-form__submit">Enviar</button>
         </form>
       )}
+      <ToastContainer autoClose={1400} closeOnClick />
     </div>
   );
 }

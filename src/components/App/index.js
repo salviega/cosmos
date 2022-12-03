@@ -1,7 +1,7 @@
 import "./App.scss";
 import React from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import { useAuth, useContracts } from "../../hooks/context";
+import { useAuth } from "../../hooks/context";
 import { CosmosHome } from "../CosmosHome";
 import { CosmosMenu } from "../../shared/CosmosMenu";
 import { CosmosWallet } from "../../shared/CosmosMenu/CosmosWallet";
@@ -40,10 +40,12 @@ function App() {
   const init = async () => {
     if (!localStorage.getItem("wallet")) {
       setLoading(false);
-      return;
+    } else if (!sincronizedItems) {
+      navigate("/");
+    } else {
+      navigate("/");
+      auth.login();
     }
-    navigate("/");
-    auth.login();
   };
 
   React.useEffect(() => {

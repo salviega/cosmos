@@ -1,7 +1,7 @@
 import feedContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/FeedContract.sol/FeedContract.json";
 import cosmoContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/CosmoGaslessContract.sol/CosmoGaslessContract.json";
 import marketPlaceContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/MarketplaceGaslessContract.sol/MarketPlaceGaslessContract.json";
-import benefitsContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitGaslessContract.sol/BenefitGaslessContract.json";
+import benefitsContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/BenefitsGaslessContract.sol/BenefitsGaslessContract.json";
 import paymentGatewayContractAbi from "../../blockchain/hardhat/artifacts/src/blockchain/hardhat/contracts/PaymentGatewayGaslessContract.sol/PaymentGatewayGaslessContract.json";
 import addresses from "../../blockchain/environment/contract-address.json";
 import { ethers } from "ethers";

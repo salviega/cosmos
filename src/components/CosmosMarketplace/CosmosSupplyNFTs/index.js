@@ -1,6 +1,8 @@
 import "./CosmosSupplyNFTs.scss";
 import React, { useRef } from "react";
 import { ethers } from "ethers";
+import { useAuth } from "../../../hooks/context";
+import { toast, ToastContainer } from "react-toastify";
 
 export function CosmosSupplyNFTs({
   contracts,
@@ -8,14 +10,27 @@ export function CosmosSupplyNFTs({
   onLoading,
   onSincronizedItems,
 }) {
+  const { user } = useAuth();
   const price = useRef();
   const tokenURI = useRef();
   const tokenId = useRef();
   const artistWallet = useRef();
   const taxFee = useRef();
 
+  const onError = (error) => {
+    toast("❌ Error...", {
+      type: "default",
+      pauseOnHover: false,
+    });
+    onSincronizedItems();
+    console.error("❌", error);
+  };
+
   const putInSale = async (event) => {
     event.preventDefault();
+    const { contract: cosmoContract } = await contracts.cosmoContract;
+    const { contract: marketPlaceContract, biconomy } =
+      await contracts.marketPlaceContract;
     let roundPrice = Math.round(Number(price.current.value));
     roundPrice = ethers.utils.parseEther(roundPrice.toString(), "ether");
     let parsedTaxFee = parseInt(taxFee.current.value);
@@ -23,60 +38,89 @@ export function CosmosSupplyNFTs({
     parsedTaxFee = ethers.utils.parseEther(parsedTaxFee.toString(), "ether");
     const parsedTokenId = parseInt(tokenId.current.value);
 
-    try {
-      const response = await contracts.marketPlaceContract.mint(
-        tokenURI.current.value,
-        artistWallet.current.value,
-        parsedTaxFee,
-        contracts.cosmoContract.address
-      );
+    // try {
+    //onLoading();
+    const { data } = await marketPlaceContract.populateTransaction.mint(
+      tokenURI.current.value,
+      artistWallet.current.value,
+      parsedTaxFee,
+      cosmoContract.address,
+      { gasLimit: 250000 }
+    );
 
-      onLoading();
-      contracts.web3Provider
-        .waitForTransaction(response.hash)
-        .then(async (_response) => {
-          const response2 = await contracts.marketPlaceContract.approve(
-            contracts.marketPlaceContract.address,
+    let txParams = {
+      data: data,
+      gasLimit: 250000,
+      to: marketPlaceContract.address,
+      from: user.walletAddress,
+    };
+
+    biconomy.provider
+      .send("eth_sendTransaction", [txParams])
+      .then(async (response) => {
+        if (response.name !== "Error") {
+          console.log("♻️ Response: ", response);
+          const { data: data2 } = await marketPlaceContract.approve(
+            marketPlaceContract.address,
             parsedTokenId
           );
-          contracts.web3Provider
-            .waitForTransaction(response2.hash)
-            .then(async (_response2) => {
-              const response3 = await contracts.marketPlaceContract.sellItem(
-                contracts.marketPlaceContract.address,
-                parsedTokenId,
-                roundPrice
-              );
-              contracts.web3Provider
-                .waitForTransaction(response3.hash)
-                .then((_response3) => {
-                  setTimeout(() => {
-                    alert("Ya está en venta el NFT");
-                    onSincronizedItems();
-                  }, 3000);
-                })
-                .catch((error) => {
-                  alert("Hubo un error, revisa la consola");
-                  onSincronizedItems();
-                  console.error(error);
-                });
+
+          txParams = {
+            data: data2,
+            to: marketPlaceContract.address,
+            from: user.walletAddress,
+            signatureType: "EIP712_SIGN",
+          };
+
+          biconomy.provider
+            .send("eth_sendTransaction", [txParams])
+            .then(async (response) => {
+              if (response.name !== "Error") {
+                console.log("♻️ Response: ", response);
+                const { data: data3 } = await marketPlaceContract.sellItem(
+                  marketPlaceContract.address,
+                  parsedTokenId,
+                  roundPrice
+                );
+
+                txParams = {
+                  data: data3,
+                  to: marketPlaceContract.address,
+                  from: user.walletAddress,
+                  signatureType: "EIP712_SIGN",
+                };
+
+                biconomy.provider
+                  .send("eth_sendTransaction", [txParams])
+                  .then(async (response3) => {
+                    if (response3.name !== "Error") {
+                      console.log("♻️ Response: ", response);
+                      toast(`👾 It's on sale NFT`, {
+                        type: "default",
+                        pauseOnHover: false,
+                      });
+                      setTimeout(() => {
+                        onSincronizedItems();
+                      }, 1600);
+                      return;
+                    }
+                  });
+              }
+              return;
             })
             .catch((error) => {
-              alert("Hubo un error, revisa la consola");
-              onSincronizedItems();
-              console.error(error);
+              onError(error);
             });
-        })
-        .catch((error) => {
-          alert("Hubo un error, revisa la consola");
-          onSincronizedItems();
-          console.error(error);
-        });
-    } catch (error) {
-      alert("Hubo un error, revisa la consola");
-      onSincronizedItems();
-      console.error(error);
-    }
+          return;
+        }
+        onError(new Error(response.message));
+      })
+      .catch((error) => {
+        onError(error);
+      });
+    // } catch (error) {
+    //   onError(error);
+    // }
   };
 
   return (
@@ -145,6 +189,7 @@ export function CosmosSupplyNFTs({
           </p>
         </div>
       </form>
+      <ToastContainer autoClose={1400} closeOnClick />
     </div>
   );
 }

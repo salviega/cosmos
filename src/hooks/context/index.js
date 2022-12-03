@@ -31,22 +31,27 @@ export function CosmosProvider({ children }) {
     _getPrivateKey,
   } = useDashboardInformationContext();
 
-  const cosmoContract = _cosmoContract(web3Auth).then((response) => {
-    return response;
-  });
-  const marketPlaceContract = _marketPlaceContract(web3Auth).then(
+  const cosmoContract = _cosmoContract(web3Auth, web3Signer).then(
     (response) => {
       return response;
     }
   );
-  const benefitsContract = _benefitsContract(web3Auth).then((response) => {
-    return response;
-  });
-  const paymentGatewayContract = _paymentGatewayContract(web3Auth).then(
+  const marketPlaceContract = _marketPlaceContract(web3Auth, web3Signer).then(
     (response) => {
       return response;
     }
   );
+  const benefitsContract = _benefitsContract(web3Auth, web3Signer).then(
+    (response) => {
+      return response;
+    }
+  );
+  const paymentGatewayContract = _paymentGatewayContract(
+    web3Auth,
+    web3Signer
+  ).then((response) => {
+    return response;
+  });
 
   const getUserInfo = _getUserInfo(web3Auth);
   const getChainId = _getChainId(web3Provider);
@@ -100,6 +105,7 @@ export function useAuth() {
 
 export function useContracts() {
   const {
+    web3Auth,
     web3Provider,
     web3Signer,
     feedContract,
@@ -109,6 +115,7 @@ export function useContracts() {
     paymentGatewayContract,
   } = React.useContext(CosmosContext);
   const contracts = {
+    web3Auth,
     web3Provider,
     web3Signer,
     feedContract,

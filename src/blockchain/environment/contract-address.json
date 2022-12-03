@@ -1,1 +1,22 @@
-[{"feedcontract":"0xA393AeffCa4043688Ab61652991E402F171F1365","blocknumber":29435341},{"cosmocontract":"0xa19e00Bb36Eb18816eacf274B89F114EAE9f531A","blocknumber":29435341},{"marketplacecontract":"0x83BFf6426115044Ea61D2343700E39b19b6b01A5","blocknumber":29435341},{"benefitscontract":"0xBadbeaEa27077F8a5F2a9B3F0386D0D9C5F7a6D2","blocknumber":29435341},{"paymentgatewaycontract":"0x92A46A08529408646956A721c0719b238fcb1733","blocknumber":29435341}]
+[
+  {
+    "feedcontract": "0xA393AeffCa4043688Ab61652991E402F171F1365",
+    "blocknumber": 29435341
+  },
+  {
+    "cosmocontract": "0xa19e00Bb36Eb18816eacf274B89F114EAE9f531A",
+    "blocknumber": 29435341
+  },
+  {
+    "marketplacecontract": "0x83BFf6426115044Ea61D2343700E39b19b6b01A5",
+    "blocknumber": 29435341
+  },
+  {
+    "benefitscontract": "0xBadbeaEa27077F8a5F2a9B3F0386D0D9C5F7a6D2",
+    "blocknumber": 29435341
+  },
+  {
+    "paymentgatewaycontract": "0x92A46A08529408646956A721c0719b238fcb1733",
+    "blocknumber": 29435341
+  }
+]

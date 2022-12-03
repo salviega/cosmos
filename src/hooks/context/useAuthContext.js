@@ -1,7 +1,5 @@
 import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
-//import { Web3Auth } from "@web3auth/modal";
-import { Web3Auth } from "@web3auth/web3auth";
-import { Biconomy } from "@biconomy/mexa";
+import { Web3Auth } from "@web3auth/modal";
 import { ethers } from "ethers";
 import { useState } from "react";
 

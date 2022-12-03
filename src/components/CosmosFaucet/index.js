@@ -21,12 +21,14 @@ export function CosmosFaucet() {
       pauseOnHover: false,
     });
     setLoading(false);
-    console.error(error);
+    console.error("❌", error);
   };
 
   const onSafeMint = async (event) => {
     event.preventDefault();
     const { contract: cosmoContract, biconomy } = await contracts.cosmoContract;
+    const { contract: marketPlaceContract } =
+      await contracts.marketPlaceContract;
     const info = {
       address: address.current.value,
       amount,
@@ -34,11 +36,11 @@ export function CosmosFaucet() {
 
     try {
       setLoading(true);
-      const { data } = await cosmoContract.populateTransaction.safeMint(
-        info.address,
-        ethers.utils.parseEther("10", "ether")
-      );
 
+      const { data } =
+        await cosmoContract.populateTransaction.authorizeOperator(
+          marketPlaceContract.address
+        );
       let txParams = {
         data: data,
         to: cosmoContract.address,
@@ -46,9 +48,34 @@ export function CosmosFaucet() {
         signatureType: "EIP712_SIGN",
       };
 
-      biconomy.provider
-        .send("eth_sendTransaction", [txParams])
-        .then((_response) => {
+      const response = await biconomy.provider.send("eth_sendTransaction", [
+        txParams,
+      ]);
+      if (response.name !== "Error") {
+        console.log("♻️ Response: ", response);
+      } else {
+        onError(new Error(response.message));
+        return;
+      }
+      setTimeout(async () => {
+        const { data: data2 } =
+          await cosmoContract.populateTransaction.safeMint(
+            info.address,
+            ethers.utils.parseEther("10", "ether")
+          );
+
+        txParams = {
+          data: data2,
+          to: cosmoContract.address,
+          from: user.walletAddress,
+          signatureType: "EIP712_SIGN",
+        };
+
+        const response2 = await biconomy.provider.send("eth_sendTransaction", [
+          txParams,
+        ]);
+        if (response.name !== "Error") {
+          console.log("♻️ Response: ", response2);
           toast("💰 Mintend 10 cycli", {
             type: "default",
             pauseOnHover: false,
@@ -56,10 +83,11 @@ export function CosmosFaucet() {
           setTimeout(() => {
             setLoading(false);
           }, 1200);
-        })
-        .catch((error) => {
-          onError(error);
-        });
+        } else {
+          onError(new Error(response2.message));
+          return;
+        }
+      }, 5000);
     } catch (error) {
       onError(error);
     }
@@ -98,7 +126,7 @@ export function CosmosFaucet() {
           </div>
         </form>
       )}
-      <ToastContainer autoClose={3000} closeOnClick />
+      <ToastContainer autoClose={1400} closeOnClick />
     </div>
   );
 }
